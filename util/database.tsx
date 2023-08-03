@@ -1,4 +1,3 @@
-// 원래의 import 문에 MongoClient, MongoClientOptions, Promise 추가
 import { MongoClient, MongoClientOptions } from 'mongodb';
 
 const url = process.env.NEXT_PUBLIC_DB_URL || '';
