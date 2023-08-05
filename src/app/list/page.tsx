@@ -11,12 +11,9 @@ export default async function List() {
   return (
     <div>
       <h2>
-        제품
-        {result[0].content}
         {result.map((el, i) => (
           <div className='list-item' key={i}>
             {el.content}
-
           </div>
         ))}
       </h2>
