@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../../util/database';
 
 interface DetailProps {
@@ -9,19 +10,19 @@ interface DetailProps {
 // export default async function Detail(props: { params: { id: string}}) {
 export default async function Detail(props: DetailProps) {
   const db = (await connectDB).db('frankenshop');
-  let result = await db.collection('list').findOne({ title: '제목' });
+  let result = await db.collection('list').findOne({ _id: new ObjectId(props.params.id) });
   // db에서 받아온 데이터 확인
   // console.log(result)
 
   // props의 params값 확인
-  // console.log(props.params.id);
+  console.log(props.params.id);
 
   return (
     <div>
       <h4>상세 페이지</h4>
       <h2>{result?.title}</h2>
       <div>{result?.content}</div>
-      <div>{props.params.id}</div>
+      {/* <div>{props.params.id}</div> */}
     </div>
   );
 }
