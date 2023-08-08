@@ -19,7 +19,7 @@ export default async function Detail(props: DetailProps) {
   return (
     <div>
       <h4>상세페이지</h4>
-      <div>{result?.title}</div>
+      <h2>{result?.title}</h2>
       <div>{result?.content}</div>
       <div>{props.params.id}</div>
     </div>
