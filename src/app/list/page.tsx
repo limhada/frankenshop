@@ -8,14 +8,14 @@ export default async function List() {
   // console.log(result);
   // console.log(result[0]._id, "확인")
 
-
   return (
     <div>
       <h2>
         {result.map((el, i) => (
           <div className='list-item' key={i}>
-            <h4>{el.title}</h4>
-            <Link href={'/detail/id' + el._id}>링크</Link>
+            <Link href={'/detail/' + el._id}>
+              <h4>{el.title}</h4>
+            </Link>
           </div>
         ))}
       </h2>
