@@ -24,7 +24,7 @@ export default function RootLayout({
             홈
           </Link>
           <Link href='/list' className='mr-3 no-underline'>
-            리스트
+            상품 리스트
           </Link>
           <Link href='/cart' className='mr-3 no-underline'>
             장바구니
