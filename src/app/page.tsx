@@ -1,9 +1,10 @@
-import Image from 'next/image'
 
-export default function Home() {
+
+export default async function Home() {
+  
   return (
-   <div>
-    메인 페이지
-   </div>
-  )
+    <div>
+      <div className='bg-white'>메인 화면</div>
+    </div>
+  );
 }
