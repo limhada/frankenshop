@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { connectDB } from '../../../util/database';
+import DetailLink from './DetailLink';
 
 export default async function List() {
   const client = await connectDB;
@@ -19,6 +20,7 @@ export default async function List() {
           </div>
         ))}
       </h2>
+        <DetailLink></DetailLink>
       <div>
         <h4>상품명 $40</h4>
       </div>
