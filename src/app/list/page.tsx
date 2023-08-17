@@ -17,7 +17,7 @@ export default async function List() {
             <Link href={'/detail/' + result[i]._id.toString()}>
               <h4 className='text-2xl font-bold m-0'>{el.title}</h4>
               <p className='text-gray-500 my-1 mx-0
-'>12월 12일</p>
+'>{el.content}</p>
             </Link>
             <Link href={'/edit/' + result[i]._id.toString()}>수정</Link>
           </div>
