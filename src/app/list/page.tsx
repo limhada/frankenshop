@@ -14,7 +14,7 @@ export default async function List() {
       <h2>
         {result.map((el, i) => (
           <div className='list-item' key={i}>
-            <Link href={'/detail/' + el._id}>
+            <Link href={'/detail/' + result[i]._id.toString()}>
               <h4>{el.title}</h4>
             </Link>
           </div>
