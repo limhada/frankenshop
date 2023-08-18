@@ -11,16 +11,19 @@ export default async function List() {
 
   return (
     <div>
-      <h2>
+      <div className='p-2 bg-gray-100'>
         {result.map((el, i) => (
-          <div className='list-item' key={i}>
+          <div className='shadow-md bg-white rounded-md p-5 mb-3' key={i}>
             <Link href={'/detail/' + result[i]._id.toString()}>
-              <h4>{el.title}</h4>
+              <h4 className='text-2xl font-bold m-0'>{el.title}</h4>
+              <p className='text-gray-500 my-1 mx-0
+'>{el.content}</p>
             </Link>
+            <Link href={'/edit/' + result[i]._id.toString()}>수정</Link>
           </div>
         ))}
-      </h2>
-        <DetailLink></DetailLink>
+      </div>
+      <DetailLink></DetailLink>
       <div>
         <h4>상품명 $40</h4>
       </div>
