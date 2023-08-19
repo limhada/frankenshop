@@ -10,7 +10,9 @@ interface DetailProps {
 // export default async function Detail(props: { params: { id: string}}) {
 export default async function Detail(props: DetailProps) {
   const db = (await connectDB).db('frankenshop');
-  let result = await db.collection('list').findOne({ _id: new ObjectId(props.params.id) });
+  let result = await db
+    .collection('post')
+    .findOne({ _id: new ObjectId(props.params.id) });
   // db에서 받아온 데이터 확인
   // console.log(result)
 
