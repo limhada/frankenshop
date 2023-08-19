@@ -3,7 +3,7 @@ import { connectDB } from '../../util/database';
 export default async function Home() {
   const client = await connectDB;
   const db = client.db('frankenshop');
-  let result = await db.collection('list').find().toArray();
+  let result = await db.collection('post').find().toArray();
   console.log(result);
 
   return (
