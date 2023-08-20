@@ -22,7 +22,6 @@ export default async function List() {
           </div>
         ))}
       </div>
-      <DetailLink></DetailLink>
       <div>
         <h4>상품명 $40</h4>
       </div>
