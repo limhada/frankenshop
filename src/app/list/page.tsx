@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { connectDB } from '../../../util/database';
-import DetailLink from './DetailLink';
 
 export default async function List() {
   const client = await connectDB;
