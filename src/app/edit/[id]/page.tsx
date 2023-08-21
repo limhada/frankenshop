@@ -30,7 +30,7 @@ export default async function Edit(props: EditProps) {
           className='block w-full p-2 mb-2 border rounded-lg'
           />
         <input name='_id' defaultValue={result?._id.toString()}
-        className='block w-full p-2 mb-2 border rounded-lg hidden'
+        className='w-full p-2 mb-2 border rounded-lg hidden'
         />
         <button
           type='submit'

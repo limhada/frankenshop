@@ -18,7 +18,7 @@ export default function Comment({ _id }: CommentProps) {
       />
       <button
         onClick={() => {
-          console.log(comment);
+          // console.log(comment);
           fetch('/api/comment/new', {
             method: 'POST',
             body: JSON.stringify({
