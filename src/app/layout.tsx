@@ -23,6 +23,9 @@ export default function RootLayout({
           <Link href='/' className='mr-3 no-underline'>
             홈
           </Link>
+          <Link href='/write' className='mr-3 no-underline'>
+            글 쓰기
+          </Link>
           <Link href='/list' className='mr-3 no-underline'>
             상품 리스트
           </Link>
