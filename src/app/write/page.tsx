@@ -1,4 +1,3 @@
-import styles from './write.module.css';
 export default function Write() {
   return (
     <div className='p-20'>

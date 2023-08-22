@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../../util/database';
+import Comment from './Comment';
 
 interface DetailProps {
   params: {
@@ -17,7 +18,7 @@ export default async function Detail(props: DetailProps) {
   // console.log(result)
 
   // props의 params값 확인
-  console.log(props.params.id);
+  // console.log(props.params.id);
 
   return (
     <div>
@@ -25,6 +26,7 @@ export default async function Detail(props: DetailProps) {
       <h2>{result?.title}</h2>
       <div>{result?.content}</div>
       {/* <div>{props.params.id}</div> */}
+      <Comment _id={result?._id?.toString() || ''} />
     </div>
   );
 }
