@@ -16,7 +16,7 @@ interface ListItemProps {
 }
 
 export default function ListItem({ result }: ListItemProps) {
-  // console.log(result, "확인중")
+  // console.log(result, "확인")
 
   return (
     <div>
@@ -32,24 +32,18 @@ export default function ListItem({ result }: ListItemProps) {
           <Link href={'/edit/' + result[i]._id.toString()}>수정</Link>
           <span
             onClick={(e: MouseEvent) => {
-              // const target = e.target as HTMLElement;
               const target = (e.target as HTMLElement).parentElement;
               axios({
                 url: '/api/post/delete',
                 method: 'DELETE',
                 data: result[i]._id.toString(),
               })
-                .then((response) => {
-                  // console.log('확인~~~~~~~~~~1');
-                  if (response.status === 200 && target) {
-                    // if (target) {
+                .then((r) => {
+                  if (r.status === 200 && target) {
                       target.style.opacity = '0';
-                      // console.log('확인~~~~~~~~~~2');
                       setTimeout(()=>{
                         target.style.display = 'none';
                       }, 1000)
-                    // }
-                    // console.log('확인~~~~~~~~~~3');
                   }
                 })
                 .catch((error) => {
@@ -64,5 +58,3 @@ export default function ListItem({ result }: ListItemProps) {
     </div>
   );
 }
-
-// opacity가 0으로 바뀌지 않음 클릭시 삭제는 정상적으로 서버로 동작함
