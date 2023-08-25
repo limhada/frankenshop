@@ -2,6 +2,9 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
+import LoginBtn from './LoginBtn';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../pages/api/auth/[...nextauth]';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,11 +13,16 @@ export const metadata: Metadata = {
   description: 'frankenshop',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  
+  // 현재 auth로 로그인한 유저의 정보가 나타남(이름, 이메일, 프로필사진)
+  let sesstion = await getServerSession(authOptions);
+  console.log(sesstion);
+
   return (
     <html lang='en'>
       <body className={`${inter.className}`}>
@@ -32,6 +40,7 @@ export default function RootLayout({
           <Link href='/cart' className='mr-3 no-underline'>
             장바구니
           </Link>
+          <LoginBtn/>
         </div>
         {children}
       </body>
