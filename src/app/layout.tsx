@@ -5,7 +5,7 @@ import Link from 'next/link';
 import LoginBtn from './LoginBtn';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
-import LogoutBtn from './LogOutBtn';
+import LogoutBtn from './LogoutBtn';
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,7 +23,7 @@ export default async function RootLayout({
   
   // 현재 auth로 로그인한 유저의 정보가 나타남(이름, 이메일, 프로필사진)
   let session = await getServerSession(authOptions);
-  console.log(session);
+  console.log("로그인 유저 정보 확인", session);
 
 
   return (
