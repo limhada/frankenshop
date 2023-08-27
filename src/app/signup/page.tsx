@@ -1,14 +1,14 @@
-export default function Write() {
+
+export default function SignUp() {
   return (
     <div>
-      <div className='w-[50%] bg-mycolor1'>
-        <h4>회원가입</h4>
-        <form action='/api/signUp' method='POST'>
-          <input name='id' placeholder='아이디' />
-          <input name='pw' placeholder='패스워드' />
-          <button type='submit'>가입하기</button>
+        <form method="POST" action="/api/auth/signup" className="flex flex-col">
+          <input name="name" type="text" placeholder="이름" /> 
+          <input name="email" type="text" placeholder="이메일" />
+          <input name="password" type="password" placeholder="비번" />
+          <input name="role" style={{display : 'none'}} defaultValue='user'/>
+          <button type="submit">id/pw 가입요청</button>
         </form>
-      </div>
     </div>
-  );
+  )
 }
