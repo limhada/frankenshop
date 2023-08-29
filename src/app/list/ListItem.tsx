@@ -45,6 +45,14 @@ export default function ListItem({ result }: ListItemProps) {
                         target.style.display = 'none';
                       }, 1000)
                   }
+                  // if (r.status === 500) {
+                  //   alert("권한이 없습니다.")
+                  // }
+                  else {
+                    console.log('Error:', r.status);
+                    alert("작성자만 삭제할 수 있습니다.")
+                  }
+                  // FIXME: 알럴트창 나오게 에러 수정하기....
                 })
                 .catch((error) => {
                   console.log(error);

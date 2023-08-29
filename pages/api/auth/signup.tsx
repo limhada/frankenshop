@@ -8,7 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    // console.log(req.body);
+    // console.log(req.body,"바디값 확인");
 
     // 비밀번호 암호화
     let hash = await bcrypt.hash(req.body.password, 10)
@@ -23,5 +23,3 @@ export default async function handler(
     res.status(200).json('회원가입 성공')
   }
 }
-
-// 5분 30초부터 듣기 회원기능 만들기 : 아이디/비번 + jwt 사용하기 

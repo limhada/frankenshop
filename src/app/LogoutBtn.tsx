@@ -4,6 +4,7 @@ import {signOut} from 'next-auth/react'
 
 export default function LogoutBtn() {
   return(
-    <button onClick={()=>{ signOut() }}>로그아웃</button>
+    // callbackUrl을 통해 로그아웃 시 리다이렉트할 url을 인자로 받을 수 있다
+    <button onClick={()=>{ signOut({ callbackUrl: '/' }) }}>로그아웃</button>
   )
 }

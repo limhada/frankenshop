@@ -8,6 +8,7 @@ import { authOptions } from '../../pages/api/auth/[...nextauth]';
 import LogoutBtn from './LogoutBtn';
 
 
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default async function RootLayout({
   
   // 현재 auth로 로그인한 유저의 정보가 나타남(이름, 이메일, 프로필사진)
   let session = await getServerSession(authOptions);
-  // console.log("로그인 유저 정보 확인", session);
+  console.log("getServerSession로그인 유저 정보 확인", session);
 
 
   return (
@@ -45,7 +46,13 @@ export default async function RootLayout({
           </Link>
           { session ?
               <div>{session.user?.name}<LogoutBtn/></div> :
-              <LoginBtn></LoginBtn>
+              <div className='mr-3 no-underline'><LoginBtn ></LoginBtn></div>
+          }
+          { session ?
+              null :
+              <Link href='/signup' className='mr-3 no-underline'>
+            회원가입
+          </Link>
           }
         </div>
         {children}

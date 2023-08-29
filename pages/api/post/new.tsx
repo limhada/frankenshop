@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectDB } from '../../../util/database';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,6 +9,15 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     // console.log(req.body);
+    
+    let session = await getServerSession(req, res, authOptions)
+    // console.log(session.user.email, "확인~~~~~~~~~~~~~~");
+
+    if (session) {
+      req.body.author = session.user.email
+    }
+    // console.log(req.body);
+
     if (req.body.title.length === 0) {
       return res.status(500).json('제목을 입력하세요.');
     } else if (req.body.content.length === 0) {
