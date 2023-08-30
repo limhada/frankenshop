@@ -16,7 +16,7 @@ export default async function Edit(props: EditProps) {
   // console.log(result);
 
   // FIXME: 클라이언트 컴포넌트로 변환해서 인풋에 빈칸이 있을 시 alert창 띄우기 
-  
+  // FIXME: 현재 로그인이 되어있지 않다면 로그인 페이지로 이동시키기
   return (
     <div className='p-20'>
       <h4>글 수정 페이지</h4>

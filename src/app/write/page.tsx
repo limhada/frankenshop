@@ -1,4 +1,5 @@
 export default function Write() {
+    // FIXME: 현재 로그인이 되어있지 않다면 로그인 페이지로 이동시키기
   return (
     <div className='p-20'>
       <h4>글작성</h4>
