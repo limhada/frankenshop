@@ -47,15 +47,6 @@ export default function ListItem({ result }: ListItemProps) {
                         target.style.display = 'none';
                       }, 1000)
                   }
-                  if (r.status === 403) {
-                    console.log("403 확인 if");
-                    alert("권한이 없습니다.")
-                  }
-                  else {
-                    console.log("403 확인 else");
-                    alert("권한이 없습니다.")
-                  }
-                  // FIXME: 알럴트창 나오게 에러 수정하기....
                 })
                 .catch((error) => {
                   console.log(error);

@@ -15,6 +15,8 @@ export default async function Edit(props: EditProps) {
   // console.log(props.params.id);
   // console.log(result);
 
+  // FIXME: 클라이언트 컴포넌트로 변환해서 인풋에 빈칸이 있을 시 alert창 띄우기 
+  
   return (
     <div className='p-20'>
       <h4>글 수정 페이지</h4>

@@ -9,13 +9,12 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'DELETE') {
-    // console.log(req.body)
+    // console.log(req.body, "확인~~~~~~~")
 
-    let session = await getServerSession(req, res, authOptions);
-
+    
     try {
+      let session = await getServerSession(req, res, authOptions);
       const db = (await connectDB).db('frankenshop');
-
       let findAuthor = await db
         .collection('post')
         .findOne({ _id: new ObjectId(req.body) });
