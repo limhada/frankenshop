@@ -39,23 +39,32 @@ export default function ListItem({ result }: ListItemProps) {
                 data: result[i]._id.toString(),
               })
                 .then((r) => {
+                  // console.log(r.status);
                   if (r.status === 200 && target) {
+                    // console.log("확인");
                       target.style.opacity = '0';
                       setTimeout(()=>{
                         target.style.display = 'none';
                       }, 1000)
                   }
-                  // if (r.status === 500) {
-                  //   alert("권한이 없습니다.")
-                  // }
+                  if (r.status === 403) {
+                    console.log("403 확인 if");
+                    alert("권한이 없습니다.")
+                  }
                   else {
-                    console.log('Error:', r.status);
-                    alert("작성자만 삭제할 수 있습니다.")
+                    console.log("403 확인 else");
+                    alert("권한이 없습니다.")
                   }
                   // FIXME: 알럴트창 나오게 에러 수정하기....
                 })
                 .catch((error) => {
                   console.log(error);
+                  // console.log(error.request.status);
+                  console.log(error.request.response);
+                  if (error.request.status) {
+                    // alert("권한이 없습니다.")
+                    alert(JSON.parse(error.request.response))
+                  }
                 });
             }}
           >
