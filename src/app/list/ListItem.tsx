@@ -84,8 +84,9 @@ export default function ListItem({ result, session }: ListItemProps) {
                     .catch((error) => {
                       console.log(error);
                       // console.log(error.request.status);
-                      console.log(error.request.response);
+                      // console.log(error.request.response);
                       if (error.request.status) {
+                        // FIXME: request가 아닌 response를 사용해야 되나???
                         // alert("권한이 없습니다.")
                         alert(JSON.parse(error.request.response));
                       }
