@@ -9,30 +9,38 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'DELETE') {
-    // console.log(req.body)
-
-    let session = await getServerSession(req, res, authOptions)
-    
+    // console.log(req.body, "확인~~~~~~~")
 
     try {
-      const db = (await connectDB).db('frankenshop');
+      let session = await getServerSession(req, res, authOptions);
 
-      let findAuthor = await db.collection('post').findOne({ _id : new ObjectId(req.body) })
+      // 로그인이 안되어 있다면 삭제 버튼 클릭시 동작 x
+      if (session === null) {
+        console.log("확인 403~~~~");
+        return res.status(403).json('로그인이 안되어있습니다.');
+      }
+
+      const db = (await connectDB).db('frankenshop');
+      let findAuthor = await db
+        .collection('post')
+        .findOne({ _id: new ObjectId(req.body) });
       // console.log(findAuthor?.author,"찾은값");
 
       // 작성자와 삭제하는 사람이 같은지 확인
       if (findAuthor?.author === session.user.email) {
-      let result = await db
-        .collection('post')
-        .deleteOne({ _id: new ObjectId(req.body) });
-      // console.log(result); // document 삭제결과를 알려줌 이런식으로 -> { acknowledged: true, deletedCount: 1 }
-      return res.status(200).json('삭제완료');
+        let result = await db
+          .collection('post')
+          .deleteOne({ _id: new ObjectId(req.body) });
+        // console.log(result); // document의 삭제결과를 알려줌 이런식으로 -> { acknowledged: true, deletedCount: 1 }
+        console.log("확인 200~~~~");
+        return res.status(200).json('삭제완료');
       } else {
-        return res.status(500).json('현재유저와 작성자 불일치')
+        console.log("확인 403~~~~");
+        return res.status(403).json('권한이 없습니다.');
       }
     } catch (error) {
       console.log('에러!', error);
-      return res.status(500).json({ message: '서버 에러가 발생했습니다.' });
+      return res.status(500).json('서버 에러가 발생했습니다.' );
     }
   }
 }
