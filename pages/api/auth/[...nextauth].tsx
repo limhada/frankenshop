@@ -10,8 +10,8 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 export const authOptions = {
   providers: [
     GithubProvider({
-      clientId: `${process.env.NEXT_PUBLIC_CLIENT_ID}`,
-      clientSecret: `${process.env.NEXT_PUBLIC_CLIENT_SECRET}`,
+      clientId: `${process.env.NEXT_PUBLIC_CLIENT_GIT_ID}`,
+      clientSecret: `${process.env.NEXT_PUBLIC_CLIENT_GIT_SECRET}`,
     }),
 
     // 다른 인증 제공자 설정...
@@ -120,8 +120,9 @@ export const authOptions = {
   secret: `${process.env.NEXT_PUBLIC_SECRET}`,
 
   // FIXME: 활설화 시 로그인 에러남
-  // adapter: MongoDBAdapter(connectDB),
+  adapter: MongoDBAdapter(connectDB),
 };
 export default NextAuth(authOptions);
+
 
 
