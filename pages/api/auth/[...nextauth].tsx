@@ -1,11 +1,10 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
-import CredentialsProvider from "next-auth/providers/credentials";
+import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 import { connectDB } from '../../../util/database';
 
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-
 
 export const authOptions = {
   providers: [
@@ -18,49 +17,51 @@ export const authOptions = {
 
     // id/pw로 로그인 시 입력 창
     CredentialsProvider({
-      //1. 로그인페이지 폼 자동생성해주는 코드 
-      
-      name: "credentials",
-        credentials: {
-          email: { label: "email", type: "text" },
-          password: { label: "password", type: "password" },
-          // nickname: { label: "nickname" type: "nickname" },
+      //1. 로그인페이지 폼 자동생성해주는 코드
 
+      name: 'credentials',
+      credentials: {
+        email: { label: 'email', type: 'text' },
+        password: { label: 'password', type: 'password' },
+        // nickname: { label: "nickname" type: "nickname" },
       },
 
       //2. 로그인요청시 실행되는코드
-      //직접 DB에서 아이디,비번 비교하고 
+      //직접 DB에서 아이디,비번 비교하고
       //아이디,비번 맞으면 return 결과, 틀리면 return null 해야함
       async authorize(credentials) {
         if (!credentials) {
           return null;
         }
         let db = (await connectDB).db('frankenshop');
-        let user = await db.collection('user_cred').findOne({email : credentials.email})
+        let user = await db
+          .collection('user_cred')
+          .findOne({ email: credentials.email });
         if (!user) {
           console.log('해당 이메일은 없음');
-          return null
+          return null;
         }
         // console.log(user, 'user정보 확인');
 
         // bcrypt.compare(사용자가 입력한 비밀번호, 데이터베이스에 저장된 비밀번호의 해시);
-        const pwcheck = await bcrypt.compare(credentials.password, user.password);
+        const pwcheck = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
         if (!pwcheck) {
           console.log('비번틀림');
-          return null
+          return null;
         }
         return {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
         };
-      }
-      
-    })
-
+      },
+    }),
   ],
 
-    // 세션방식 옵션
+  // 세션방식 옵션
   session: {
     // FIXME: JS에서는 정상동작 TS에서 에러
     // strategy: `jwt`,
@@ -114,15 +115,12 @@ export const authOptions = {
 
   // pages: {
   //   //  src/app 폴더 밑에 signin 폴더를 만들고 그 밑에 page.tsx 파일 생성
-  //   signIn: "/signin", // 내가 원하는 커스텀 sign-in 페이지의 url 
+  //   signIn: "/signin", // 내가 원하는 커스텀 sign-in 페이지의 url
   // },
   // secret : 'jwt생성시 사용됨 avasjkdhasjkdh2123asd 이런식으로 복잡하게 입력하기'
   secret: `${process.env.NEXT_PUBLIC_SECRET}`,
 
   // FIXME: 활설화 시 로그인 에러남
-  adapter: MongoDBAdapter(connectDB),
+  // adapter: MongoDBAdapter(connectDB),
 };
 export default NextAuth(authOptions);
-
-
-
