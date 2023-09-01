@@ -22,12 +22,10 @@ interface ListItemProps {
       role: string;
     };
   };
-  findRole: {
     role: string;
-  };
 }
 
-export default function ListItem({ result, session, findRole }: ListItemProps) {
+export default function ListItem({ result, session, role }: ListItemProps) {
   // console.log(result, '확인~~');
   // console.log(session, '확인');
   // console.log(session.user.role === 'user');
@@ -50,15 +48,15 @@ export default function ListItem({ result, session, findRole }: ListItemProps) {
             // FIXME: 작성자와 로그인된 유저의 정보가 일치하면 수정 버튼 렌더링
 
             
-            el.author === session?.user.email || findRole === 'admin' ? (
+            el.author === session?.user.email || role === 'admin' ? (
               <Link
                 href={'/edit/' + result[i]._id.toString()}
-                onClick={(e) => {
-                  if (el.author !== session.user.email) {
-                    e.preventDefault();
-                    alert('수정 권한이 없습니다.');
-                  }
-                }}
+                // onClick={(e) => {
+                //   if (el.author !== session.user.email) {
+                //     e.preventDefault();
+                //     alert('수정 권한이 없습니다.');
+                //   }
+                // }}
               >
                 수정
               </Link>
@@ -67,7 +65,7 @@ export default function ListItem({ result, session, findRole }: ListItemProps) {
 
           {
             // FIXME: 작성자와 로그인된 유저의 정보가 일치하면 수정 버튼 렌더링
-            el.author === session?.user.email ? (
+            el.author === session?.user.email || role === 'admin' ? (
               <span
                 onClick={(e: MouseEvent) => {
                   const target = (e.target as HTMLElement).parentElement;

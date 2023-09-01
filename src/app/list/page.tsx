@@ -17,6 +17,8 @@ export default async function List() {
   const client = await connectDB;
   const db = client.db('frankenshop');
   let result = await db.collection<ListProps>('post').find().toArray();
+  
+  // 로그인한 유저의 정보를 db에서 찾아오기
   let findRole = await db
     .collection('user_cred')
     .findOne({ email: session?.user.email });
@@ -24,13 +26,12 @@ export default async function List() {
   // console.log(result[0]._id, "확인")
   // console.log(findRole,"확인~~~");
 
-  const role = findRole?.role;
   // console.log(role, '~~~~~~~~~```');
 
   return (
     <div>
       <div className='p-2 bg-gray-100'>
-        <ListItem result={result} session={session} findRole={role} />
+        <ListItem result={result} session={session} role={findRole?.role} />
       </div>
       <div>
         <h4>상품명 $40</h4>
