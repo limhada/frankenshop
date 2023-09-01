@@ -3,6 +3,8 @@ import { connectDB } from '../../../util/database';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 
+// TODO: 로그인 되어 있을때만 게시물 작성할 수 있게
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

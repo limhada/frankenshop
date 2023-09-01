@@ -29,7 +29,7 @@ export default function ListItem({ result, session, role }: ListItemProps) {
   // console.log(result, '확인~~');
   // console.log(session, '확인');
   // console.log(session.user.role === 'user');
-  console.log(session?.user.role === 'admin');
+  // console.log(session?.user.role === 'admin');
   let router = useRouter();
 
   return (
