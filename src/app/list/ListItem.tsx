@@ -22,12 +22,16 @@ interface ListItemProps {
       role: string;
     };
   };
+  findRole: {
+    role: string;
+  };
 }
 
-export default function ListItem({ result, session }: ListItemProps) {
-  // console.log(result, '확인');
+export default function ListItem({ result, session, findRole }: ListItemProps) {
+  // console.log(result, '확인~~');
   // console.log(session, '확인');
-
+  // console.log(session.user.role === 'user');
+  console.log(session?.user.role === 'admin');
   let router = useRouter();
 
   return (
@@ -45,7 +49,8 @@ export default function ListItem({ result, session }: ListItemProps) {
           {
             // FIXME: 작성자와 로그인된 유저의 정보가 일치하면 수정 버튼 렌더링
 
-            el.author === session?.user.email ? (
+            
+            el.author === session?.user.email || findRole === 'admin' ? (
               <Link
                 href={'/edit/' + result[i]._id.toString()}
                 onClick={(e) => {
