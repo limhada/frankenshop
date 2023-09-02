@@ -17,7 +17,7 @@ export default async function handler(
 
       // 로그인이 안되어 있다면 수정 버튼 클릭시 동작 x
       if (session === null) {
-        console.log("확인 403~~~~");
+        // console.log("확인 403~~~~");
         return res.status(403).json('로그인이 안되어있습니다. 수정 불가능');
       }
 

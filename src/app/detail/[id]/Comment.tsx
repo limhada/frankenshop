@@ -25,7 +25,7 @@ export default function Comment({ _id }: CommentProps) {
             _id: _id,
           })
           .then(r => {
-            console.log(r.data); // 서버로부터 받은 데이터
+            // console.log(r.data); // 서버로부터 받은 데이터
           })
           .catch(error => {
             // 요청이 실패한 경우에 대한 처리

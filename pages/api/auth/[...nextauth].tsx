@@ -40,7 +40,7 @@ export const authOptions = {
           .collection('user_cred')
           .findOne({ email: credentials.email });
         if (!user) {
-          console.log('해당 이메일은 없음');
+          // console.log('해당 이메일은 없음');
           return null;
         }
         // console.log(user, 'user정보 확인');
@@ -51,7 +51,7 @@ export const authOptions = {
           user.password
         );
         if (!pwcheck) {
-          console.log('비번틀림');
+          // console.log('비밀번호 틀림');
           return null;
         }
         return {

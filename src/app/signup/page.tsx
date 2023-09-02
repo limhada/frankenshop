@@ -25,7 +25,7 @@ export default function SignUp() {
 
     try {
       const response = await axios.post('/api/auth/signup', formState);
-      console.log(response.status, '확인~~~~~~~~~~~');
+      // console.log(response.status, '확인~~~~~~~~~~~');
       if (response.status === 200) {
         alert('회원가입 성공');
         // 이후 필요한 로직 추가
@@ -37,7 +37,6 @@ export default function SignUp() {
     } catch (error: any) {
       // FIXME: 왜 이부분만 any를 해줘야 하는지 모르겠다
       console.log('에러!', error);
-      // console.log('에러!', error.response);
       alert(error.response.data);
     }
   };

@@ -31,7 +31,7 @@ export default async function handler(
       const db = (await connectDB).db('frankenshop');
 
       let result = await db.collection('user_cred').findOne( {email: req.body.email} )
-      console.log(result?.email, '확인');
+      // console.log(result?.email, '확인');
 
       // 가입 요청한 email이 db에 존재하면 가입 x 
       if (req.body.email === result?.email) {
