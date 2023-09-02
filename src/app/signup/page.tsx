@@ -29,6 +29,7 @@ export default function SignUp() {
       if (response.status === 200) {
         alert('회원가입 성공');
         // 이후 필요한 로직 추가
+        // TODO: 회원가입성공 시 메인페이지 or 로그인 페이지로 리다이렉트 하기
       }
       // if (response.status === 400) {
       //   alert(response.data);

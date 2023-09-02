@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import { useState } from 'react';
 
 interface CommentProps {
@@ -19,13 +20,18 @@ export default function Comment({ _id }: CommentProps) {
       <button
         onClick={() => {
           // console.log(comment);
-          fetch('/api/comment/new', {
-            method: 'POST',
-            body: JSON.stringify({
-              comment: comment,
-              _id: _id,
-            }),
+          axios.post('/api/comment/new', {
+            comment: comment,
+            _id: _id,
+          })
+          .then(r => {
+            console.log(r.data); // 서버로부터 받은 데이터
+          })
+          .catch(error => {
+            // 요청이 실패한 경우에 대한 처리
+            console.error(error);
           });
+
         }}
       >
         댓글 작성

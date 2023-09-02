@@ -6,6 +6,8 @@ import { connectDB } from '../../../util/database';
 
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 
+// TODO: jwt의 role 값 db에서 가져와서 넣어주기
+
 export const authOptions = {
   providers: [
     GithubProvider({
