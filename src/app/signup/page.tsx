@@ -1,10 +1,13 @@
 'use client';
 
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 export default function SignUp() {
   const role: string = 'user';
+
+  const router = useRouter();
 
   const [formState, setFormState] = useState({
     name: '',
@@ -38,8 +41,7 @@ export default function SignUp() {
       // console.log(response.status, '확인~~~~~~~~~~~');
       if (response.status === 200) {
         alert('회원가입 성공');
-
-        // TODO: 회원가입성공 시 메인페이지 or 로그인 페이지로 리다이렉트 하기
+        router.push('/')
       }
     } catch (error: any) {
       // FIXME: 왜 이부분만 any를 해줘야 하는지 모르겠다
