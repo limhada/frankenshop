@@ -17,7 +17,7 @@ export default async function handler(
 
       // 로그인이 안되어 있다면 수정 버튼 클릭시 동작 x
       if (session === null) {
-        console.log("확인 403~~~~");
+        // console.log("확인 403~~~~");
         return res.status(403).json('로그인이 안되어있습니다. 수정 불가능');
       }
 
@@ -27,11 +27,15 @@ export default async function handler(
         .collection('post')
         .findOne({ _id: new ObjectId(req.body._id) });
 
-      // console.log(session.user.email);
-      // console.log(find_id?.author)
+        // db에서 현재 로그인한 유저의 정보(role 찾기)
+        let userCred = await db
+        .collection('user_cred')
+        .findOne({ email: session?.user.email });
 
-      // 작성자와 수정요청자가 일치하는 경우
-      if (session.user.email === find_id?.author) {
+
+
+      // 작성자와 수정요청자가 일치하는 경우 or role = admin일 경우
+      if (session.user.email === find_id?.author || userCred?.role === 'admin') {
         let changeData = {
           title: req.body.title,
           content: req.body.content,

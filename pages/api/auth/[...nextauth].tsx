@@ -6,6 +6,8 @@ import { connectDB } from '../../../util/database';
 
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 
+// TODO: jwt의 role 값 db에서 가져와서 넣어주기
+
 export const authOptions = {
   providers: [
     GithubProvider({
@@ -38,7 +40,7 @@ export const authOptions = {
           .collection('user_cred')
           .findOne({ email: credentials.email });
         if (!user) {
-          console.log('해당 이메일은 없음');
+          // console.log('해당 이메일은 없음');
           return null;
         }
         // console.log(user, 'user정보 확인');
@@ -49,7 +51,7 @@ export const authOptions = {
           user.password
         );
         if (!pwcheck) {
-          console.log('비번틀림');
+          // console.log('비밀번호 틀림');
           return null;
         }
         return {
@@ -64,7 +66,7 @@ export const authOptions = {
   // 세션방식 옵션
   session: {
     // FIXME: JS에서는 정상동작 TS에서 에러
-    // strategy: `jwt`,
+    strategy: `jwt` as const,
 
     // 로그인상태 유지기간
     maxAge: 24 * 60 * 60, // 1일
@@ -73,7 +75,7 @@ export const authOptions = {
   jwt: {
     secret: `${process.env.NEXT_PUBLIC_SECRET}`,
     encryption: true, // JWT(JSON Web Token)의 내용을 암호화하도록 설정하는 것
-    maxAge: 1 * 60 * 60, // jwt expiration time (1 시간)
+    maxAge: 24 * 60 * 60, // jwt expiration time (1 일)
   },
 
   callbacks: {
@@ -121,6 +123,6 @@ export const authOptions = {
   secret: `${process.env.NEXT_PUBLIC_SECRET}`,
 
   // FIXME: 활설화 시 로그인 에러남
-  // adapter: MongoDBAdapter(connectDB),
+  adapter: MongoDBAdapter(connectDB),
 };
 export default NextAuth(authOptions);
