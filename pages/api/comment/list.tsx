@@ -13,7 +13,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
     let result = await db.collection('comment').find({ parent: new ObjectId(req.query._id as string) }).toArray()
 
     // console.log(result, "확인~~~2");
-    res.status(200).json(result)
+    return res.status(200).json(result)
 
   }
 

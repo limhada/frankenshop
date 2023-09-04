@@ -9,12 +9,14 @@ interface CommentProps {
 
 interface CommentData {
   content: string;
+  author_name: string;
 }
 export default function Comment({ _id }: CommentProps) {
   let [comment, setComment] = useState('');
 
   let [data, setData] = useState<CommentData[]>([]); // let [data, setData] = useState([{content: ""}]); 같은 기능을 하지만 제네릭을 사용하는게 더 명확하고 안전하기 때문에 좋음
 
+  // 페이지에 접속 시 댓글 정보를 요청하는 코드
   useEffect(() => {
     axios.get(`/api/comment/list?_id=${_id}`).then((r) => {
       setData(r.data);
@@ -25,14 +27,17 @@ export default function Comment({ _id }: CommentProps) {
   // console.log(data, "확인~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
   // TODO: 댓글 작성자 이름 보여주기
+  // TODO: 로그인 상태 아니면 댓글작성 안보이게 그리고 댓글작성 만약 누르면 로그인 하라고 안내하기
 
   return (
     <div>
       <div>댓글목록</div>
 
-      {data.length > 0 ? (
+
+      { // 서버에서 응답받은 댓글 정보가 들어있는 data
+      data.length > 0 ? (
         data.map((el, i) => {
-          return <p key={i}>{el.content}</p>;
+          return <p key={i}>작성자:{el.author_name} 내용:{el.content} </p>;
         })
       ) : (
         <p>아직 댓글이 없습니다</p>

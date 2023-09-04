@@ -10,12 +10,14 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
+
       let session = await getServerSession(req, res, authOptions);
 
       let saveData = {
         content: req.body.comment, //댓글내용
         parent: new ObjectId(req.body._id), // 부모게시물 _id
         author: session?.user.email, // 유저이메일
+        author_name: session.user.name,
       };
 
       const db = (await connectDB).db('frankenshop');
