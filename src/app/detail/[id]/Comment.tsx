@@ -58,7 +58,9 @@ export default function Comment({ _id }: CommentProps) {
               _id: _id,
             })
             .then((r) => {
-              // console.log(r.data); // 서버로부터 받은 데이터
+              // console.log(r.data,"확인"); // 서버로부터 받은 데이터
+              setData(r.data) // 서버의 res에 들어있는 댓글 작성 클릭 시 전송된 댓글이 포함된 댓글 리스트를 업데이트 하기
+
             })
             .catch((error) => {
               // 요청이 실패한 경우에 대한 처리

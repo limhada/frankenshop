@@ -15,14 +15,22 @@ export default async function handler(
 
       let saveData = {
         content: req.body.comment, //댓글내용
-        parent: new ObjectId(req.body._id), // 부모게시물 _id
+        parent: new ObjectId(req.body._id), // 부모게시물 _id(댓글이 달린 게시물의 _id)
         author: session?.user.email, // 유저이메일
         author_name: session.user.name,
       };
 
       const db = (await connectDB).db('frankenshop');
-      let result = db.collection('comment').insertOne(saveData);
-      return res.status(200).json('저장완료');
+      await db.collection('comment').insertOne(saveData);
+
+      // let result = await db.collection('comment').find({ parent: new ObjectId(req.query._id as string) }).toArray()
+      let result = await db.collection('comment').find({ parent: new ObjectId(req.body._id) }).toArray()
+
+      
+      // console.log(req.body._id,"~~~~~~~~~~~~~~~");
+      // console.log(result,"~~~~~~~~~~~~~~~~~~`");
+
+      return res.status(200).json(result);
     } catch (error) {
       console.log(error, '서버에러');
     }
