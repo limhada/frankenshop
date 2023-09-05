@@ -1,10 +1,13 @@
 import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../../util/database';
 import Comment from './Comment';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 
 interface DetailProps {
   params: {
     id: string;
+    
   };
 }
 // interface를 사용하지 않고 가능함 하지만 확장성이 불편하여 비추천
@@ -19,6 +22,8 @@ export default async function Detail(props: DetailProps) {
 
   // props의 params값 확인
   // console.log(props.params.id);
+  let session = await getServerSession(authOptions);
+
 
   return (
     <div>
@@ -26,7 +31,7 @@ export default async function Detail(props: DetailProps) {
       <h2>{result?.title}</h2>
       <div>{result?.content}</div>
       {/* <div>{props.params.id}</div> */}
-      <Comment _id={result?._id?.toString() || ''} />
+      <Comment _id={result?._id?.toString() || ''} session={session} />
     </div>
   );
 }

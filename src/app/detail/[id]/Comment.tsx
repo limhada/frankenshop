@@ -1,10 +1,21 @@
 'use client';
 
+// TODO: 댓글 삭제기능
+
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 interface CommentProps {
   _id: string;
+  session: {
+    user: {
+      name: string;
+      email: string;
+      role: string;
+      ab:string;
+    };
+  };
 }
 
 interface CommentData {
@@ -14,10 +25,15 @@ interface CommentData {
 
 // TODO: 댓글 작성 버튼 클릭 시 댓글창에 기존에 입력 한 값 초기화 시키기
 
-export default function Comment({ _id }: CommentProps) {
+export default function Comment({ _id, session }: CommentProps) {
+  let router = useRouter();
+
+
   let [comment, setComment] = useState('');
 
   let [data, setData] = useState<CommentData[]>([]); // let [data, setData] = useState([{content: ""}]); 같은 기능을 하지만 제네릭을 사용하는게 더 명확하고 안전하기 때문에 좋음
+
+  
 
   // 페이지에 접속 시 댓글 정보를 요청하는 코드
   useEffect(() => {
@@ -27,7 +43,7 @@ export default function Comment({ _id }: CommentProps) {
     });
   }, []);
 
-  // TODO: 댓글 작성자 이름 보여주기
+ 
   // TODO: 로그인 상태 아니면 댓글작성 안보이게 그리고 댓글작성 만약 누르면 로그인 하라고 안내하기
 
   return (
@@ -60,6 +76,10 @@ export default function Comment({ _id }: CommentProps) {
       <button
         onClick={() => {
           // console.log(comment);
+          if (session === null) {
+            alert("로그인하세요")
+            setComment('');
+          }
           if (comment === '') {
             alert('내용을 입력하세요');
           } else {
