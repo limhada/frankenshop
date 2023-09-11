@@ -3,6 +3,7 @@ import { connectDB } from '../../../../util/database';
 import Comment from './Comment';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
+import { notFound } from 'next/navigation';
 
 interface DetailProps {
   params: {
@@ -24,6 +25,10 @@ export default async function Detail(props: DetailProps) {
   // console.log(props.params.id);
   let session = await getServerSession(authOptions);
 
+  // 잘못된 상세페이지로 접속 시 notFound 추가
+  if (result === null) {
+    return notFound()
+  }
 
   return (
     <div>
