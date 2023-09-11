@@ -50,9 +50,9 @@ export default function Comment({ _id, session }: CommentProps) {
         data.length > 0 ? (
           data.map((el, i) => {
             return (
-              <p key={i}>
-                작성자:{el.author_name} 내용:{el.content}{' '}
-              </p>
+              <pre key={i}>
+                작성자:{el.author_name} 내용:{el.content}
+              </pre>
             );
           })
         ) : (
@@ -76,7 +76,7 @@ export default function Comment({ _id, session }: CommentProps) {
             // TODO: 로그인 하라는 알림과 함께 로그인창으로 이동할지 결정하기
             setComment('');
           }
-          if (comment === '') {
+          if (comment.trim() === '') {
             alert('내용을 입력하세요');
           } else {
             axios
@@ -86,6 +86,7 @@ export default function Comment({ _id, session }: CommentProps) {
               })
               .then((r) => {
                 // console.log(r.data,"확인"); // 서버로부터 받은 데이터
+                console.log(r.data, "~~~~~~~~~~~~`");
                 setData(r.data); // 서버의 res에 들어있는 댓글 작성 클릭 시 전송된 댓글이 포함된 댓글 리스트를 업데이트 하기
 
                 // 댓글 작성 창 초기화
