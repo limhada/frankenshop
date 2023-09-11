@@ -13,7 +13,6 @@ interface CommentProps {
       name: string;
       email: string;
       role: string;
-      ab:string;
     };
   };
 }
@@ -28,12 +27,9 @@ interface CommentData {
 export default function Comment({ _id, session }: CommentProps) {
   let router = useRouter();
 
-
   let [comment, setComment] = useState('');
 
   let [data, setData] = useState<CommentData[]>([]); // let [data, setData] = useState([{content: ""}]); 같은 기능을 하지만 제네릭을 사용하는게 더 명확하고 안전하기 때문에 좋음
-
-  
 
   // 페이지에 접속 시 댓글 정보를 요청하는 코드
   useEffect(() => {
@@ -43,7 +39,6 @@ export default function Comment({ _id, session }: CommentProps) {
     });
   }, []);
 
- 
   // TODO: 로그인 상태 아니면 댓글작성 안보이게 그리고 댓글작성 만약 누르면 로그인 하라고 안내하기
 
   return (
@@ -77,7 +72,8 @@ export default function Comment({ _id, session }: CommentProps) {
         onClick={() => {
           // console.log(comment);
           if (session === null) {
-            alert("로그인하세요")
+            alert('로그인하세요');
+            // TODO: 로그인 하라는 알림과 함께 로그인창으로 이동할지 결정하기
             setComment('');
           }
           if (comment === '') {
