@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react"
 
-
+// TODO: 블로그에 정리하기 선택한 파일 화면에 렌더링 하는 방법
 export default function Write() {
 
   const [createURL, setCreateURL] = useState('')
