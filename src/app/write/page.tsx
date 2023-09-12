@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 import LoginBtn from '../LoginBtn';
+import ImgInput from './imgInput';
 
 export default async function Write() {
   // FIXME: 현재 로그인이 되어있지 않다면 로그인 페이지로 이동시키기
@@ -29,8 +30,7 @@ export default async function Write() {
             placeholder='글 내용'
             className='className="block w-full p-2 mb-2 border rounded-lg"'
           />
-          {/* 이미지만 선택할 수 있는 파일 */}
-          <input type='file' accept='image/*'/>
+          <ImgInput/>
           <button
             type='submit'
             className='px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'
