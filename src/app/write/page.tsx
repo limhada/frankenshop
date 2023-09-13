@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 import LoginBtn from '../LoginBtn';
-import ImgInput from './imgInput';
+import ImgInput from './ImgInput';
 
 export default async function Write() {
   // FIXME: 현재 로그인이 되어있지 않다면 로그인 페이지로 이동시키기
