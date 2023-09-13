@@ -31,16 +31,26 @@ export default function Write() {
             const url = URL.createObjectURL(blob);
             setCreateURL(url);
 
+          }
+        }}
+      />
+      <img src={createURL} />
+      <button 
+      type='submit'
+            className='px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600' onClick={ async() => {
+        
+
+
             // 한글로된 파일명이 깨지지 않게 하기 위해서
-            let filename = encodeURIComponent(file.name);
+            if(file) {
+              let filename = encodeURIComponent(file.name);
+            
 
             // 서버로 파일을 post 요청 하기
             let res: Response = await fetch('/api/post/image?file=' + filename);
             res = await res.json();
 
             console.log(res, '확인~~~~~~~~~~');
-            console.log(res.fields, '????');
-            console.log(res.url);
 
             // 서버에서 응답받은 데이터로 S3에 이미지 업로드 하기
             // TODO: 블로그에 라이브러리 사용법 정리하기
@@ -62,10 +72,8 @@ export default function Write() {
               console.log('실패');
             }
           }
-        }}
-      />
-      <img src={createURL} />
-      <button type='submit'>글작성버튼</button>
+
+      }}>글작성버튼</button>
     </div>
   );
 }

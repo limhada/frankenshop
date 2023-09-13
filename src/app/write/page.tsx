@@ -31,12 +31,7 @@ export default async function Write() {
             className='className="block w-full p-2 mb-2 border rounded-lg"'
           />
           <ImgInput/>
-          <button
-            type='submit'
-            className='px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'
-          >
-            버튼
-          </button>
+          
         </form>
       </div>
     );
