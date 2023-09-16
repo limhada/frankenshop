@@ -8,7 +8,7 @@ export default function Write() {
 
   const [createURL, setCreateURL] = useState('');
   const [file, setFile] = useState<File>(); // 이미지 파일 상태 추가
-  // let [src, setSrc] = useState('');
+  let [src, setSrc] = useState('');
 
   return (
     <div className='p-20'>
@@ -23,6 +23,9 @@ export default function Write() {
           name='content'
           placeholder='글 내용'
           className='className="block w-full p-2 mb-2 border rounded-lg"'
+        />
+        <input name='img_src' defaultValue={src}
+        className='w-full p-2 mb-2 border rounded-lg '
         />
 
 
@@ -56,7 +59,7 @@ export default function Write() {
                   const res = await axios.post(
                     `/api/post/image?file=${filename}`
                   );
-                  console.log(res.data, '확인~~~~~~~~~~');
+                  // console.log(res.data, '확인~~~~~~~~~~');
 
                   // 서버에서 응답받은 데이터로 S3에 이미지 업로드하기
                   // TODO: 블로그에 라이브러리 사용법 정리하기
@@ -69,13 +72,13 @@ export default function Write() {
                     }
                   );
 
-                  const 업로드결과 = await axios.post(res.data.url, formData);
-                  console.log(업로드결과, '결과?????????????');
+                  const s3Result = await axios.post(res.data.url, formData);
+                  console.log(s3Result, '결과?????????????');
 
-                  if (업로드결과.status === 200) {
-                    // setSrc(`${업로드결과.data.url}/${filename}`);
+                  if (s3Result.status === 200) {
+                    // setSrc(`${s3Result.data.url}/${filename}`);
                     // TODO: s3에 업로드한 이미지 몽고db에 저장하기 그리고 게시물 리스트에서 게시물 클릭시 해당 게시물의 내용과 함께 이미지도 보여주기
-                    
+                                        
                   } else {
                     console.log('실패');
                   }
