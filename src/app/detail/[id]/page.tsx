@@ -19,7 +19,7 @@ export default async function Detail(props: DetailProps) {
     .collection('post')
     .findOne({ _id: new ObjectId(props.params.id) });
   // db에서 받아온 데이터 확인
-  // console.log(result)
+  console.log(result)
 
   // props의 params값 확인
   // console.log(props.params.id);
@@ -33,8 +33,9 @@ export default async function Detail(props: DetailProps) {
   return (
     <div>
       <h4>상세 페이지</h4>
-      <h2>{result?.title}</h2>
-      <div>{result?.content}</div>
+      <h2>제목: {result?.title}</h2>
+      <div>내용: {result?.content}</div>
+      <img src={result?.img_src}/>
       {/* <div>{props.params.id}</div> */}
       <Comment _id={result?._id?.toString() || ''} session={session} />
     </div>
