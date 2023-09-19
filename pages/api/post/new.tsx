@@ -10,7 +10,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    console.log(req.body, ' 글쓰기 req 확인 ~~~~~~~~~');
+    // console.log(req.body, ' 글쓰기 req 확인 ~~~~~~~~~');
 
     let session = await getServerSession(req, res, authOptions);
     // console.log(session.user.email, "확인~~~~~~~~~~~~~~");
@@ -29,7 +29,8 @@ export default async function handler(
     try {
       const db = (await connectDB).db('frankenshop');
       let result = await db.collection('post').insertOne(req.body);
-      return res.status(200).json('성공')
+      // return res.status(200).json('성공')
+      return res.status(302).redirect('/list')
     } catch (error) {
       console.log('에러!', error);
       return res.status(500).json({ message: '서버 에러가 발생했습니다.' });

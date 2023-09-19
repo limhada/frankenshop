@@ -86,7 +86,7 @@ export default function Comment({ _id, session }: CommentProps) {
               })
               .then((r) => {
                 // console.log(r.data,"확인"); // 서버로부터 받은 데이터
-                console.log(r.data, "~~~~~~~~~~~~`");
+                // console.log(r.data, "~~~~~~~~~~~~`");
                 setData(r.data); // 서버의 res에 들어있는 댓글 작성 클릭 시 전송된 댓글이 포함된 댓글 리스트를 업데이트 하기
 
                 // 댓글 작성 창 초기화

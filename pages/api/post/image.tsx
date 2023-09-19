@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     Fields: { key : req.query.file }, // <- 유저가 선택한 파일명도 기재해주는게 좋음
     Expires: 30, // seconds 유효기간 초 단위로 설정 가능
     Conditions: [
-      ['content-length-range', 0, 1048576], //파일용량 1MB 까지 제한
+      ['content-length-range', 0, 5242880], //파일용량 5MB 까지 제한
     ],
   })
 

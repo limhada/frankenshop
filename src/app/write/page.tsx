@@ -20,7 +20,7 @@ export default function Write() {
     <div className='p-20'>
       <h4>글작성</h4>
       <form
-        // action='/api/post/new' method='POST'
+        action='/api/post/new' method='POST'
         onSubmit={async (e: FormEvent) => {
           e.preventDefault();
 
@@ -44,7 +44,7 @@ export default function Write() {
               );
               
               const s3Result = await axios.post(res.data.url, s3FormData);
-              console.log(s3Result, '결과?????????????');
+              // console.log(s3Result, '결과?????????????');
 
               const postData = {
                 title: title,
@@ -60,7 +60,7 @@ export default function Write() {
 
                 const postResponse = await axios.post('/api/post/new', postData);
                 if( postResponse.status === 200) {
-                  router.push('/list')
+                  // router.push('/list')
                 }
               } else {
                 console.log('실패');
