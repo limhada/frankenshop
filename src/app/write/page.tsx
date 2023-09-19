@@ -20,7 +20,8 @@ export default function Write() {
     <div className='p-20'>
       <h4>글작성</h4>
       <form
-        action='/api/post/new' method='POST'
+        action='/api/post/new'
+        method='POST'
         onSubmit={async (e: FormEvent) => {
           e.preventDefault();
 
@@ -42,7 +43,7 @@ export default function Write() {
                   s3FormData.append(key, value as any);
                 }
               );
-              
+              // TODO: s3에 이미지를 업로드 할때,중복 이름의 이미지 업로드 되지 않는 문제 해결하기
               const s3Result = await axios.post(res.data.url, s3FormData);
               // console.log(s3Result, '결과?????????????');
 
@@ -52,15 +53,20 @@ export default function Write() {
                 img_src: `${res.data.url}/${filename}`,
               };
 
-              
-
               if (s3Result.status === 204) {
                 // setSrc(`${res.data.url}/${filename}`);
                 // TODO: s3에 업로드한 이미지 몽고db에 저장하기 그리고 게시물 리스트에서 게시물 클릭시 해당 게시물의 내용과 함께 이미지도 보여주기
 
-                const postResponse = await axios.post('/api/post/new', postData);
-                if( postResponse.status === 200) {
-                  // router.push('/list')
+                // e.target.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+
+                const postResponse = await axios.post(
+                  '/api/post/new',
+                  postData
+                );
+                if (postResponse.status === 200) {
+                  // 페이지를 새로고침하면서 이동
+                  router.refresh();
+                  router.push('/list');
                 }
               } else {
                 console.log('실패');
@@ -85,7 +91,6 @@ export default function Write() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-
 
         <div className='p-20'>
           <h4>글작성</h4>
