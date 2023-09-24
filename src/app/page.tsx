@@ -1,4 +1,5 @@
 import { connectDB } from '../../util/database';
+import Mainpage from './mainpage/page';
 
 export default async function Home() {
   const client = await connectDB;
@@ -8,7 +9,7 @@ export default async function Home() {
 
   return (
     <div>
-      <div className='bg-white'>메인 화면</div>
+      <Mainpage />
     </div>
   );
 }
