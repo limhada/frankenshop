@@ -7,8 +7,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
 import LogoutBtn from './LogoutBtn';
 
-
-
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -21,11 +19,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  
   // 현재 auth로 로그인한 유저의 정보가 나타남(이름, 이메일, 프로필사진)
   let session = await getServerSession(authOptions);
-  console.log("getServerSession로그인 유저 정보 확인", session);
-
+  console.log('getServerSession로그인 유저 정보 확인', session);
 
   return (
     <html lang='en'>
@@ -41,21 +37,28 @@ export default async function RootLayout({
           <Link href='/list' className='mr-3 no-underline'>
             상품 리스트
           </Link>
+          <Link href='/mypage' className='mr-3 no-underline'>마이페이지</Link>
           <Link href='/cart' className='mr-3 no-underline'>
             장바구니
           </Link>
-          { session ?
-              <div>{session.user?.name}<LogoutBtn/></div> :
-              <div className='mr-3 no-underline'><LoginBtn ></LoginBtn></div>
-          }
-          { session ?
-              null :
-              <Link href='/signup' className='mr-3 no-underline'>
-            회원가입
-          </Link>
-          }
+          {session ? (
+            <div>
+              {session.user?.name}
+              <LogoutBtn />
+            </div>
+          ) : (
+            <div className='mr-3 no-underline'>
+              <LoginBtn></LoginBtn>
+            </div>
+          )}
+          {session ? null : (
+            <Link href='/signup' className='mr-3 no-underline'>
+              회원가입
+            </Link>
+          )}
         </div>
         {children}
+        {/* 메인 page */}
       </body>
     </html>
   );
