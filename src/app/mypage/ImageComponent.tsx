@@ -46,9 +46,19 @@ export default function ImageComponent(): React.ReactElement {
   const handleMouseUp = (): void => {
     setDragging(false);
     if (offsetX > 50) {
-      if (num > 0) setNum(num - 1);
+      if (num > 0) {
+        setNum(num - 1);
+      } else {
+        // 이미지가 처음일 때 왼쪽으로 이동하면 맨 마지막 이미지로 이동
+        setNum(imgArr['imgtest'].length - 1);
+      }
     } else if (offsetX < -50) {
-      if (num < imgArr['imgtest'].length - 1) setNum(num + 1);
+      if (num < imgArr['imgtest'].length - 1) {
+        setNum(num + 1);
+      } else {
+        // 이미지가 마지막일 때 오른쪽으로 이동하면 첫 번째 이미지로 이동
+        setNum(0);
+      }
     }
     setOffsetX(0);
   };
