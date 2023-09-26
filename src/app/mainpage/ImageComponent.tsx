@@ -126,12 +126,14 @@ export default function ImageComponent(): React.ReactElement {
 
       <div className='flex items-center justify-center'>
         <button
-          className={`w-10 h-10 ${
-            num === 0 ? 'opacity-50 cursor-default' : ''
-          }`}
+          className={`w-10 h-10 
+          
+          `}
           onClick={() => {
             if (num > 0) {
               setNum(num - 1);
+            } else {
+              setNum(imgArr['imgtest'].length - 1);
             }
           }}
         >
@@ -140,14 +142,12 @@ export default function ImageComponent(): React.ReactElement {
         {/* 이미지 번호 출력 */}
         {num + 1} / {imgArr['imgtest'].length}
         <button
-          className={`w-10 h-10 ${
-            num === imgArr['imgtest'].length - 1
-              ? 'opacity-50 cursor-default'
-              : ''
-          }`}
+          className={`w-10 h-10 `}
           onClick={() => {
             if (num < imgArr['imgtest'].length - 1) {
               setNum(num + 1);
+            } else {
+              setNum(0);
             }
           }}
         >
