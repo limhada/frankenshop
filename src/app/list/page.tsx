@@ -33,9 +33,7 @@ export default async function List() {
       <div className='p-2 bg-gray-100'>
         <ListItem result={result} session={session} role={userCred?.role} />
       </div>
-      <div>
-        <h4>상품명 $40</h4>
-      </div>
+      
     </div>
   );
 }

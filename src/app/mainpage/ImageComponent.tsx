@@ -35,7 +35,9 @@ export default function ImageComponent(): React.ReactElement {
   const [startX, setStartX] = useState<number>(0);
   const [offsetX, setOffsetX] = useState<number>(0);
 
+  // TODO: 자동 슬라이드 정리하기
   /*
+
   // 자동슬라이드 코드
   // 자동 슬라이드 제어
   const [autoSlide, setAutoSlide] = useState<boolean>(true);
