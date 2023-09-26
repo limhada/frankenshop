@@ -35,6 +35,45 @@ export default function ImageComponent(): React.ReactElement {
   const [startX, setStartX] = useState<number>(0);
   const [offsetX, setOffsetX] = useState<number>(0);
 
+  /*
+  // 자동슬라이드 코드
+  // 자동 슬라이드 제어
+  const [autoSlide, setAutoSlide] = useState<boolean>(true);
+
+  useEffect(() => {
+    // 자동 슬라이드를 위한 타이머
+    let timer: NodeJS.Timeout;
+
+    if (autoSlide) {
+      // autoSlide 상태가 true일 때만 타이머 설정
+      timer = setInterval(() => {
+        if (!dragging) {
+          // 드래그 중에는 자동 슬라이드 중지
+          handleNextSlide();
+        }
+      }, 3000); // 2초마다 다음 슬라이드로 이동
+    }
+
+    return () => {
+      // 컴포넌트 언마운트 시 타이머 클리어
+      clearInterval(timer);
+    };
+  }, [num, dragging, autoSlide]);
+
+  const handleNextSlide = (): void => {
+    if (num < imgArr['imgtest'].length - 1) {
+      setNum(num + 1);
+    } else {
+      setNum(0);
+    }
+  };
+
+  const handleToggleAutoSlide = (): void => {
+    setAutoSlide(!autoSlide); // 자동 슬라이드 상태 토글
+  };
+
+  */
+
   const handleMouseDown = (e: React.MouseEvent): void => {
     setDragging(true);
     setStartX(e.clientX);
@@ -156,6 +195,13 @@ export default function ImageComponent(): React.ReactElement {
         >
           &gt;
         </button>
+        {/* 자동 슬라이드 버튼 */}
+        {/* <button
+          className={`w-10 h-10 ml-2`}
+          onClick={handleToggleAutoSlide}
+        >
+          {autoSlide ? '일시정지' : '재시작'}
+        </button> */}
       </div>
     </div>
   );
