@@ -1,4 +1,6 @@
-'use client';
+'use client'
+
+// FIXME: 마우스 드래그로 안됨 터치로만 됨
 // import classNames from 'classnames';
 import React, { FC, useEffect, useRef, useState } from 'react';
 // import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
@@ -113,7 +115,7 @@ const Test: FC<Props> = ({ data }) => {
           &lt;
         </button>
         <button className='text-white text-xl' onClick={nextSlide}>
-          &gt;
+          &gt;오른쪽
         </button>
       </div>
       <div className='text-gray-500 mt-4 text-center flex justify-center'>

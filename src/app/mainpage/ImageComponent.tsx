@@ -1,6 +1,9 @@
 'use client';
+
+// FIXME: https://blog.okdohyuk.dev/66 이미지 슬라이드 부자연스러움 수정하기
+
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 interface Project {
   id: number;
   image: string;
