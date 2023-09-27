@@ -1,7 +1,7 @@
+import Content from './Content';
 import ImageComponent from './ImageComponent';
 
-import Test from './test';
-
+// import Test from './Test';
 
 export default function Mainpage() {
   const imgtest = [
@@ -15,12 +15,10 @@ export default function Mainpage() {
   return (
     <div>
       <h1>메인페이지</h1>
-      
-
-      <ImageComponent />
 
       {/* <Test data={imgtest} /> */}
-      
+      <ImageComponent />
+      <Content />
     </div>
   );
 }
