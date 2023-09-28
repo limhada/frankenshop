@@ -1,5 +1,7 @@
 export default function Content() {
   // 이미지와 정보가 들어있는 배열 객체
+  // TODO: 서버에서 받아오는 데이터로 변경하기
+  // TODO: 해당 상품 클릭 시 상세페이지로 이동하게
   const contentData = [
     {
       imageUrl: '/imgtest/1.jpeg',
