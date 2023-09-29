@@ -118,21 +118,7 @@ const Test: FC<Props> = ({ data }) => {
           &gt;오른쪽
         </button>
       </div>
-      <div className='text-gray-500 mt-4 text-center flex justify-center'>
-        {data.map((el, i) => {
-          return (
-            <div
-              key={i}
-              // className={classNames(
-              //   'bg-gray-200 h-[6px] w-[6px] mr-1 rounded',
-              //   {
-              //     'bg-rose-200': i + 1 === currentImgIndex,
-              //   }
-              // )}
-            />
-          );
-        })}
-      </div>
+      
     </div>
   );
 };
