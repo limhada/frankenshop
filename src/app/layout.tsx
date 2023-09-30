@@ -61,8 +61,8 @@ export default async function RootLayout({
               회원가입
             </Link>
           )}
-          <Category />
           <SearchBar />
+          <Category />
         </div>
         {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
         <div className='mt-[200px]'>{children}</div>
