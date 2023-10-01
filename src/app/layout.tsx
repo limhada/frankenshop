@@ -30,7 +30,8 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={`${inter.className}`}>
         {/* navbar */}
-        <div className='bg-mycolor1 p-5 fixed top-0 left-0 right-0 z-50'>
+        <div className='bg-mycolor1 p-5 fixed top-0 left-0 right-0 z-50 h-[200px]'>
+          {/* FIXME: h값 조정하기 */}
           <Link href='/' className='mr-3 no-underline'>
             frankenshop
           </Link>
@@ -66,7 +67,7 @@ export default async function RootLayout({
         </div>
         {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
         <div className='mt-[200px]'>{children}</div>
-        <ScrollToTop/>
+        <ScrollToTop />
         <div className='bg-gray-300 p-4 h-[200px] mt-9'>
           하단 문의전화번호 or 회사 명 등등 각종 정보
         </div>
