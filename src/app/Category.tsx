@@ -2,9 +2,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import { config } from '@fortawesome/fontawesome-svg-core';
-config.autoAddCss = false;
+
 
 import { faBars } from '@fortawesome/free-solid-svg-icons'; // 'faBars' 아이콘을 가져옵니다
 import { useState } from 'react';
@@ -22,7 +20,7 @@ export default function Category() {
       <div
         onMouseEnter={Dropdown}
         onMouseLeave={Dropdown}
-        className='w-[50px] h-[100px]'
+        className='w-[10px] h-[10px]'
         // FIXME: 햄버거 메뉴에서 마우스 오른쪽으로 이동시 공백이여도 드롭다운 메뉴창 안닫힘 * 햄버거메뉴 크기만큼 w와h 설정하기
       >
         <FontAwesomeIcon icon={faBars} className='cursor-pointer' />
