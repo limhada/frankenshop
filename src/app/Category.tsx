@@ -13,7 +13,12 @@ export default function Category() {
     setIsOpen(!isOpen);
   };
 
-  let categoryData = ['인기상품', '할인상품', '그림', '생활용품'];
+  let categoryData = [
+    {name:'인기상품'}, 
+    {name:'할인상품'}, 
+    {name:'그림'}, 
+    {name:'생활용품'},
+  ];
 
   return (
     <div>
@@ -42,7 +47,7 @@ export default function Category() {
                       className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                       role='menuitem'
                     >
-                      {el}
+                      {el.name}
                     </a>
                   );
                 })}
