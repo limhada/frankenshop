@@ -10,65 +10,86 @@ export default function Content() {
   // TODO: 서버에서 받아오는 데이터로 변경하기
   // TODO: 해당 상품 클릭 시 상세페이지로 이동하게
   const contentData = [
+    // FIXME: 서버에서 받아온 데이터 값 가져오기
     {
       imageUrl: '/imgtest/1.jpeg',
       title: 'Title 1',
       description: 'Description 1',
       price: '10,000',
+      imgUrl: '',
+      like: true, 
     },
     {
       imageUrl: '/imgtest/2.jpeg',
       title: 'Title 2',
       description: 'Description 2',
       price: '20,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     {
       imageUrl: '/imgtest/3.jpeg',
       title: 'Title 3',
       description: 'Description 3',
       price: '30,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     {
       imageUrl: '/imgtest/4.jpeg',
       title: 'Title 4',
       description: 'Description 4',
       price: '40,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     {
       imageUrl: '/imgtest/5.jpeg',
       title: 'Title 5',
       description: 'Description 5',
       price: '50,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     {
       imageUrl: '/imgtest/1.jpeg',
       title: 'Title 6',
       description: 'Description 6',
       price: '10,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     {
       imageUrl: '/imgtest/2.jpeg',
       title: 'Title 7',
       description: 'Description 7',
       price: '20,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     {
       imageUrl: '/imgtest/3.jpeg',
       title: 'Title 8',
       description: 'Description 8',
       price: '10,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     {
       imageUrl: '/imgtest/4.jpeg',
       title: 'Title 9',
       description: 'Description 9',
       price: '20,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     {
       imageUrl: '/imgtest/5.jpeg',
       title: 'Title 10',
       description: 'Description 10',
       price: '10,000',
+      imgUrl: '',
+      like: true, // 좋아요 정보
     },
     // {
     //   imageUrl: '/imgtest/1.jpeg',
