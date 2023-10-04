@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 // FIXME: 마우스 드래그로 안됨 터치로만 됨
-// import classNames from 'classnames';
+
+
 import React, { FC, useEffect, useRef, useState } from 'react';
-// import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 interface Props {
   data: string[];
@@ -11,14 +11,15 @@ interface Props {
 
 const Test: FC<Props> = ({ data }) => {
   const ref = useRef<HTMLDivElement>(null);
-
-  const [imageList] = useState([data[data?.length - 1], ...data, data[0]]);
-
+  const imageList = [data[data?.length - 1], ...data, data[0]];
   const [currentImgIndex, setCurrentImgIndex] = useState(1);
-
   const [touch, setTouch] = useState({
     start: 0,
     end: 0,
+  });
+  const [mouse, setMouse] = useState({
+    isDragging: false,
+    startX: 0,
   });
 
   const [style, setStyle] = useState({
@@ -42,10 +43,42 @@ const Test: FC<Props> = ({ data }) => {
     });
   };
 
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    setMouse({
+      isDragging: true,
+      startX: e.pageX,
+    });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!mouse.isDragging) return;
+    if (ref?.current) {
+      const current = ref.current.clientWidth * currentImgIndex;
+      const result = -current + (e.pageX - mouse.startX);
+      setStyle({
+        transform: `translate3d(${result}px, 0px, 0px)`,
+        transition: '0ms',
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setMouse({
+      isDragging: false,
+      startX: 0,
+    });
+    const end = mouse.startX;
+    if (mouse.startX > end) {
+      nextSlide();
+    } else if (mouse.startX < end) {
+      prevSlide();
+    }
+  };
+
   useEffect(() => {
     if (currentImgIndex === 0) {
       setCurrentImgIndex(imageList.length - 2);
-      setTimeout(function () {
+      setTimeout(() => {
         setStyle({
           transform: `translateX(-${imageList.length - 2}00%)`,
           transition: '0ms',
@@ -96,18 +129,19 @@ const Test: FC<Props> = ({ data }) => {
             end,
           });
         }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
       >
         <div ref={ref} style={style} className={`flex`}>
-          {imageList?.map((el, i) => {
-            return (
-              <img
-                key={i}
-                src={el}
-                className={'w-auto h-auto object-contain'}
-                // draggable='false' // 이미지 드래그 방지
-              />
-            );
-          })}
+          {imageList?.map((el, i) => (
+            <img
+              key={i}
+              src={el}
+              className={'w-auto h-auto object-contain'}
+              draggable='false' // 이미지 드래그 방지
+            />
+          ))}
         </div>
       </div>
       <div className='absolute w-full flex justify-between top-[50%]'>
@@ -118,7 +152,6 @@ const Test: FC<Props> = ({ data }) => {
           &gt;오른쪽
         </button>
       </div>
-      
     </div>
   );
 };

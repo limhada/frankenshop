@@ -39,7 +39,7 @@ export default function ImageComponent(): React.ReactElement {
   const [dragging, setDragging] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
   const [offsetX, setOffsetX] = useState<number>(0);
-  const [num, setNum] = useState(700);
+  const [num, setNum] = useState('duration-700');
   // TODO: 자동 슬라이드 정리하기
   /*
 
@@ -80,28 +80,22 @@ export default function ImageComponent(): React.ReactElement {
   };
 
   */
-  const [style, setStyle] = useState({
-    transform: `translateX(-${currentImgIndex}00%)`,
-    transition: `all 0.4s ease-in-out`,
-  });
+
   useEffect(() => {
     const handleSlide = () => {
       if (currentImgIndex === 0) {
+        setNum('duration-0');
         setCurrentImgIndex(imageList.length - 2);
-        // setStyle({
-        //   transform: `translateX(-${(imageList.length - 2) * 100}%)`,
-        //   transition: '0ms',
-        // });
+
       } else if (currentImgIndex >= imageList.length - 1) {
+        setNum('duration-0');
         setCurrentImgIndex(1);
-        // setStyle({
-        //   transform: `translateX(-${1 * 100}%)`,
-        //   transition: '0ms',
-        // });
+      } else {
+        setNum('duration-700');
       }
     };
 
-    const timer = setTimeout(handleSlide, 50);
+    const timer = setTimeout(handleSlide, 600);
     return () => clearTimeout(timer);
   }, [currentImgIndex, imageList]);
 
@@ -168,7 +162,7 @@ export default function ImageComponent(): React.ReactElement {
             height={770}
             quality={100}
             className={`absolute top-0 left-0 w-full h-full ${
-              dragging ? '' : `transition-transform duration-${num}`
+              dragging ? '' : `transition-transform ${num}`
             }`}
             style={{
               transform: ((): string => {
