@@ -2,6 +2,9 @@
 
 // FIXME: https://blog.okdohyuk.dev/66 이미지 슬라이드 부자연스러움 수정하기
 
+// TODO: 이미지 슬라이드 크기 조절하기
+// TODO: <1/5> 번호 2~6까지인거 수정하기 1~마지막번호로
+
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 interface Project {
@@ -41,7 +44,6 @@ export default function ImageComponent(): React.ReactElement {
   const [offsetX, setOffsetX] = useState<number>(0);
   const [num, setNum] = useState('duration-700');
   // TODO: 자동 슬라이드 정리하기
-  /*
 
   // 자동슬라이드 코드
   // 자동 슬라이드 제어
@@ -79,14 +81,11 @@ export default function ImageComponent(): React.ReactElement {
     setAutoSlide(!autoSlide); // 자동 슬라이드 상태 토글
   };
 
-  */
-
   useEffect(() => {
     const handleSlide = () => {
       if (currentImgIndex === 0) {
         setNum('duration-0');
         setCurrentImgIndex(imageList.length - 2);
-
       } else if (currentImgIndex >= imageList.length - 1) {
         setNum('duration-0');
         setCurrentImgIndex(1);
@@ -147,9 +146,10 @@ export default function ImageComponent(): React.ReactElement {
   };
 
   return (
-    <div>
+    <div className=''>
       <div
-        className='relative w-full md:w-[700px] h-0 pb-[120%] md:pb-[110%] overflow-hidden shadow-md rounded-md'
+        // w-가로값, pb-[20%] 부모의 20%로 세로값
+        className='relative w-[100%] pb-[20%] h-10 overflow-hidden shadow-md rounded-md'
         onMouseMove={handleMouseMove}
         // onTouchMove={handleTouchMove}
       >
@@ -158,8 +158,8 @@ export default function ImageComponent(): React.ReactElement {
             key={index}
             src={src}
             alt={''}
-            width={700}
-            height={770}
+            width={300}
+            height={370}
             quality={100}
             className={`absolute top-0 left-0 w-full h-full ${
               dragging ? '' : `transition-transform ${num}`
@@ -207,7 +207,7 @@ export default function ImageComponent(): React.ReactElement {
           &lt;
         </button>
         {/* 이미지 번호 출력 */}
-        {currentImgIndex + 1} / {imageList.length}
+        {currentImgIndex + 1} / {imageList.length-1}
         <button
           className={`w-10 h-10 `}
           onClick={() => {
@@ -221,12 +221,9 @@ export default function ImageComponent(): React.ReactElement {
           &gt;
         </button>
         {/* 자동 슬라이드 버튼 */}
-        {/* <button
-          className={`w-10 h-10 ml-2`}
-          onClick={handleToggleAutoSlide}
-        >
+        <button className={`w-10 h-10 ml-2`} onClick={handleToggleAutoSlide}>
           {autoSlide ? '일시정지' : '재시작'}
-        </button> */}
+        </button>
       </div>
     </div>
   );
