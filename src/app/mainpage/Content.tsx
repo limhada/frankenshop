@@ -9,6 +9,7 @@ export default function Content() {
   // 이미지와 정보가 들어있는 배열 객체
   // TODO: 서버에서 받아오는 데이터로 변경하기
   // TODO: 해당 상품 클릭 시 상세페이지로 이동하게
+  // TODO: 로그인 x 시 좋아요 클릭 시 로그인 하라고 알림창, 모든 하트 아이콘 기본 검은색으로
   const [contentData, setContentData] = useState([
     // FIXME: 서버에서 받아온 데이터 값 가져오기
     {
@@ -107,7 +108,9 @@ export default function Content() {
     const updateData = [...contentData];
     updateData[i].like = !updateData[i].like;
     setContentData(updateData);
+    // console.log(contentData);
     // console.log('확인', updateData[i].like);
+    // FIXME: 좋아요가 변경된 데이터는 다시 몽고db에 저장하기
   };
 
   return (
@@ -125,8 +128,7 @@ export default function Content() {
                   onClick={() => handelLikeClick(i)}
                   className={`h-2 ${el.like ? 'text-red-500' : ''}`}
                 />
-                {/* <FontAwesomeIcon icon={regularHeart} />  */}
-                {/* 레귤러 하트 아이콘 사용 */}
+                장바구니 아이콘 {/* 장바구니 아이콘 추가 및 로직 추가하기 */}
               </div>
               <div className='font-bold text-xl mb-2'>{el.title}</div>
               <p className='text-gray-700 text-base'>{el.description}</p>
