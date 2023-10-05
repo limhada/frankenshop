@@ -209,7 +209,6 @@ export default function ImageComponent(): React.ReactElement {
           &lt;
         </button>
         {/* 이미지 번호 출력 */}
-        {/* {currentImgIndex} / {imageList.length-2} */}
         {currentImgIndex === 0
           ? imageList.length - 2 // 첫 번째 이미지를 나타낼 때는 마지막 이미지 번호를 표시
           : currentImgIndex === imageList.length - 1
