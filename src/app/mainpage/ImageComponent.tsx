@@ -30,6 +30,7 @@ export default function ImageComponent(): React.ReactElement {
       '/imgtest/3.jpeg',
       '/imgtest/4.jpeg',
       '/imgtest/5.jpeg',
+      '/imgtest/6.jpeg',
     ],
   };
   const imageList = [
@@ -178,7 +179,8 @@ export default function ImageComponent(): React.ReactElement {
                 }
               })(),
               // objectFit: "contain", // 이미지를 원본사이즈로
-              objectFit: 'fill',
+              // objectFit: 'fill',
+              objectFit: 'cover',
             }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
@@ -207,7 +209,13 @@ export default function ImageComponent(): React.ReactElement {
           &lt;
         </button>
         {/* 이미지 번호 출력 */}
-        {currentImgIndex + 1} / {imageList.length-1}
+        {/* {currentImgIndex} / {imageList.length-2} */}
+        {currentImgIndex === 0
+          ? imageList.length - 2 // 첫 번째 이미지를 나타낼 때는 마지막 이미지 번호를 표시
+          : currentImgIndex === imageList.length - 1
+          ? 1 // 마지막 이미지를 나타낼 때는 첫 번째 이미지 번호를 표시
+          : currentImgIndex}{' '}
+        / {imageList.length - 2}
         <button
           className={`w-10 h-10 `}
           onClick={() => {
