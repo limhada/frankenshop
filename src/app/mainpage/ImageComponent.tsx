@@ -1,7 +1,5 @@
 'use client';
 
-// FIXME: https://blog.okdohyuk.dev/66 이미지 슬라이드 부자연스러움 수정하기
-
 // TODO: 이미지 슬라이드 크기 조절하기
 // TODO: <1/5> 번호 2~6까지인거 수정하기 1~마지막번호로
 
