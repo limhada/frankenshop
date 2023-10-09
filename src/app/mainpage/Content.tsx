@@ -1,7 +1,7 @@
 'use client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
 
@@ -129,7 +129,12 @@ export default function Content() {
                   className={`h-2 ${el.like ? 'text-red-500' : ''}`}
                 />
                 장바구니 아이콘 {/* 장바구니 아이콘 추가 및 로직 추가하기 */}
+                <FontAwesomeIcon
+                  icon={faCartShopping}
+                  style={{ color: '#511f1f' }}
+                />
               </div>
+              {/* TODO: 평점? 추가할지 말지 */}
               <div className='font-bold text-xl mb-2'>{el.title}</div>
               <p className='text-gray-700 text-base'>{el.description}</p>
               <p className='text-gray-700 text-base'>{el.price}원</p>
