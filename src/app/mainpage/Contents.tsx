@@ -163,7 +163,6 @@ export default function Content({ result }: ContentsProps) {
         */}
         {result.map((el, i) => (
           <div key={i} className='max-w-sm rounded overflow-hidden shadow-lg'>
-            <div>{el.like ? '트루' : '펄스'}??????????????????</div>
             <img src={el.img_src} alt={el.title} className='w-full' />
             <div className='px-6 py-4'>
               <div>
