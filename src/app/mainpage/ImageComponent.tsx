@@ -1,7 +1,7 @@
 'use client';
 
-// TODO: 이미지 슬라이드 크기 조절하기
-// TODO: <1/5> 번호 2~6까지인거 수정하기 1~마지막번호로
+// TODO 이미지 슬라이드 크기 조절하기
+// TODO <1/5> 번호 2~6까지인거 수정하기 1~마지막번호로
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -148,7 +148,7 @@ export default function ImageComponent(): React.ReactElement {
     <div className=''>
       <div
         // w-가로값, pb-[20%] 부모의 20%로 세로값
-        className='relative w-[100%] pb-[20%] h-10 overflow-hidden shadow-md rounded-md'
+        className='relative w-[100%] pb-[25%] h-10 overflow-hidden shadow-md rounded-md'
         onMouseMove={handleMouseMove}
         // onTouchMove={handleTouchMove}
       >
@@ -157,8 +157,8 @@ export default function ImageComponent(): React.ReactElement {
             key={index}
             src={src}
             alt={''}
-            width={300}
-            height={370}
+            width={600}
+            height={300}
             quality={100}
             className={`absolute top-0 left-0 w-full h-full ${
               dragging ? '' : `transition-transform ${num}`
@@ -178,7 +178,7 @@ export default function ImageComponent(): React.ReactElement {
               })(),
               // objectFit: "contain", // 이미지를 원본사이즈로
               // objectFit: 'fill',
-              objectFit: 'cover',
+              // objectFit: 'cover',
             }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}

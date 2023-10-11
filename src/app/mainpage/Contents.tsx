@@ -1,11 +1,26 @@
 'use client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
+import { ObjectId } from 'mongodb';
 
-export default function Content() {
+interface ContentItem {
+  _id: ObjectId;
+  title: string;
+  description: string;
+  img_src: string;
+  author: string;
+  price: string;
+  like: string;
+}
+
+interface ContentsProps {
+  result: ContentItem[];
+}
+
+export default function Content({ result }: ContentsProps) {
   // 이미지와 정보가 들어있는 배열 객체
   // TODO: 서버에서 받아오는 데이터로 변경하기
   // TODO: 해당 상품 클릭 시 상세페이지로 이동하게
@@ -112,6 +127,7 @@ export default function Content() {
     // console.log('확인', updateData[i].like);
     // FIXME: 좋아요가 변경된 데이터는 다시 몽고db에 저장하기
   };
+  // console.log('확인~~~~~~~', result);
 
   return (
     <div>
@@ -129,7 +145,40 @@ export default function Content() {
                   className={`h-2 ${el.like ? 'text-red-500' : ''}`}
                 />
                 장바구니 아이콘 {/* 장바구니 아이콘 추가 및 로직 추가하기 */}
+                <FontAwesomeIcon
+                  icon={faCartShopping}
+                  style={{ color: '#511f1f' }}
+                />
               </div>
+              {/* TODO: 평점? 추가할지 말지 */}
+              <div className='font-bold text-xl mb-2'>{el.title}</div>
+              <p className='text-gray-700 text-base'>{el.description}</p>
+              <p className='text-gray-700 text-base'>{el.price}원</p>
+            </div>
+          </div>
+        ))}
+
+        {/*
+        서버에서 받아온 데이터 화면에 렌더링
+        */}
+        {result.map((el, i) => (
+          <div key={i} className='max-w-sm rounded overflow-hidden shadow-lg'>
+            <img src={el.img_src} alt={el.title} className='w-full' />
+            <div className='px-6 py-4'>
+              <div>
+                <FontAwesomeIcon
+                  icon={el.like === 'true' ? faHeart : regularHeart}
+                  // onClick={() => handelLikeClick(i)}
+                  // FIXME: 좋아요 버튼 클릭 시 좋아요 상태 true or false 몽고 db에 어떻게 업데이트 할 것인지 정하기
+                  className={`h-2 ${el.like ? 'text-red-500' : ''}`}
+                />
+                {/* 장바구니 로직 추가하기 */}
+                <FontAwesomeIcon
+                  icon={faCartShopping}
+                  style={{ color: '#511f1f' }}
+                />
+              </div>
+              {/* TODO: 평점? 추가할지 말지 */}
               <div className='font-bold text-xl mb-2'>{el.title}</div>
               <p className='text-gray-700 text-base'>{el.description}</p>
               <p className='text-gray-700 text-base'>{el.price}원</p>
