@@ -5,6 +5,8 @@ import { faCartShopping, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
 import { ObjectId } from 'mongodb';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface ContentItem {
   _id: ObjectId;
@@ -35,35 +37,45 @@ export default function Content({ result }: ContentsProps) {
     setContentData(updateData);
     // TODO: 변경된 like 값 db에 업데이트 언제 할지 고민해보고 처리하기
   };
-
+// console.log('ㅎㅇ~~~~~~~',contentData);
   return (
     <div>
       <h1>상품리스트</h1>
       {/* <img src='/imgtest/1.jpeg' /> */}
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
         {result.map((el, i) => (
+          
           <div key={i} className='max-w-sm rounded overflow-hidden shadow-lg'>
-            <img src={el.img_src} alt={el.title} className='w-full' />
+            <Link href={'/detail/' + el._id.toString()}>
+            {/* <img src={el.img_src} alt={el.title} className='w-full' /> */}
+            <Image
+      src={el.img_src}
+      alt={el.title}
+      width={500} // 원하는 너비
+      height={500} // 원하는 높이
+      />
             <div className='px-6 py-4'>
-              <div>
+            
+              <div onClick={(e) => { e.preventDefault();}}>
                 <FontAwesomeIcon
                   icon={el.like ? faHeart : regularHeart}
                   // 몽고db에서 받아온 result 데이터의 like는 string 형식이라 별도로 변환이나 처리가 필요함
-                  onClick={() => handelLikeClick(i)}
+                  onClick={(e) => handelLikeClick(i)}
                   // FIXME: 좋아요 버튼 클릭 시 좋아요 상태 true or false 몽고 db에 어떻게 업데이트 할 것인지 정하기
                   className={`h-2 ${el.like ? 'text-red-500' : ''}`}
-                />
+                  />
                 {/* 장바구니 로직 추가하기 */}
                 <FontAwesomeIcon
                   icon={faCartShopping}
-                  style={{ color: '#511f1f' }}
-                />
+                  style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
+                  />
               </div>
               {/* TODO: 평점? 추가할지 말지 */}
               <div className='font-bold text-xl mb-2'>{el.title}</div>
               <p className='text-gray-700 text-base'>{el.description}</p>
               <p className='text-gray-700 text-base'>{el.price}원</p>
             </div>
+                  </Link>
           </div>
         ))}
       </div>
