@@ -21,29 +21,7 @@ export default async function Mainpage() {
   let result = await db.collection<ListProps>('contents').find().toArray();
   
   
-  // console.log('데이터확인~~~~~~~', result);
 
-  /*
-  result = [
-  {
-    _id: new ObjectId("6509b47802b7712df0cd3d53"),
-    title: '상품1',
-    content: '상품1의 내용',
-    img_src: 'https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true',
-    author: 'q',
-    price: '10,000',
-    like: 'true'
-  },
-  {
-    _id: new ObjectId("65254cdcbbca6b503b707627"),
-    title: '상품2',
-    content: '상품2의 내용',
-    img_src: 'https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true',
-    author: 'q',
-    price: '12,000',
-    like: 'true'
-  },]
-  */
   return (
     <div>
       <h1>메인페이지</h1>
