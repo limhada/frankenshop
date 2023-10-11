@@ -10,7 +10,7 @@ export interface ListProps {
   img_src: string;
   author: string;
   price: string;
-  like: string;
+  like: boolean;
 }
 
 export default async function Mainpage() {
