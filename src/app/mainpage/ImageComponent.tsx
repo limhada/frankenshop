@@ -2,7 +2,7 @@
 
 // TODO 이미지 슬라이드 크기 조절하기
 // TODO <1/5> 번호 2~6까지인거 수정하기 1~마지막번호로
-
+// FIXME: 이미지 슬라이드 디바이스 별 크기 조정하기
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 interface Project {

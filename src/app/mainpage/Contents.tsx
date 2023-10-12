@@ -34,22 +34,24 @@ export default function Content({ result }: ContentsProps) {
     <div>
       <h1>상품리스트</h1>
       {/* <img src='/imgtest/1.jpeg' /> */}
-      <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5' >
+      <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5'>
         {result.map((el, i) => (
           <div
             key={i}
-            className='max-w-[12.5rem] rounded overflow-hidden shadow-lg place-self-center'
+            // max-w-[20rem] min-w-[20rem] // TODO: 최소 최대 크기 정하기
+            className=' w-[18rem] rounded overflow-hidden shadow-lg place-self-center'
           >
             <Link href={'/detail/' + el._id.toString()}>
               {/* <img src={el.img_src} alt={el.title} className='w-full' /> */}
-              <Image src={el.img_src} alt={el.title} width={300} height={100} />
+              <Image src={el.img_src} alt={el.title} width={500} height={500} />
+
               <div className='px-6 py-4'>
                 <div
                   onClick={(e) => {
                     e.preventDefault();
                   }}
                   // className='inline-block'
-                  className='inline-flex'
+                  className='inline-flex' // 자식 요소의 크기만큼만 자리차지
                   // 위 코드와 동일 style={{ display: 'inline-block' }}
                 >
                   {/* 컴포넌트로 분리한 좋아요 버튼 */}
@@ -82,4 +84,3 @@ export default function Content({ result }: ContentsProps) {
     </div>
   );
 }
-

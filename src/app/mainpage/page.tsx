@@ -24,7 +24,7 @@ export default async function Mainpage() {
 
   return (
     <div>
-      <ImageComponent />
+      <ImageComponent /> 
       <Contents result={result} />
     </div>
   );
