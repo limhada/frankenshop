@@ -39,7 +39,7 @@ export default function ListItem({ result, session, role }: ListItemProps) {
           className='shadow-md bg-white rounded-md p-5 mb-3 opacity-100 transition-all duration-1000'
           key={i}
         >
-          <Link href={'/detail/' + result[i]._id.toString()}>
+          <Link href={'/detail2/' + result[i]._id.toString()}>
             <h4 className='text-2xl font-bold m-0'>{el.title}</h4>
             <p className='text-gray-500 my-1 mx-0'>{el.content}</p>
           </Link>
