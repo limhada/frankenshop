@@ -24,8 +24,6 @@ export default async function Mainpage() {
 
   return (
     <div>
-      <h1>메인페이지</h1>
-
       <ImageComponent />
       <Contents result={result} />
     </div>

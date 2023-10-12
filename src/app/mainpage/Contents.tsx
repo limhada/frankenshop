@@ -30,37 +30,30 @@ export default function Content({ result }: ContentsProps) {
   // TODO: 로그인 x 시 좋아요 클릭 시 로그인 하라고 알림창, 모든 하트 아이콘 기본 검은색으로
   // FIXME: 서버에서 받아온 데이터 값 가져오기
 
-  const [contentData, setContentData] = useState(result);
-
-  const handelLikeClick = (i: number) => {
-    // console.log('ㅎㅇ1~~~~', contentData[0].like === true);
-    const updateData = [...contentData];
-    updateData[i].like = !updateData[i].like;
-    setContentData(updateData);
-    // TODO: 변경된 like 값 db에 업데이트 언제 할지 고민해보고 처리하기
-  };
-  // console.log('ㅎㅇ~~~~~~~',contentData);
   return (
     <div>
       <h1>상품리스트</h1>
       {/* <img src='/imgtest/1.jpeg' /> */}
-      <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+      <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5' >
         {result.map((el, i) => (
-          <div key={i} className='max-w-sm rounded overflow-hidden shadow-lg'>
+          <div
+            key={i}
+            className='max-w-[12.5rem] rounded overflow-hidden shadow-lg place-self-center'
+          >
             <Link href={'/detail/' + el._id.toString()}>
               {/* <img src={el.img_src} alt={el.title} className='w-full' /> */}
-              <Image src={el.img_src} alt={el.title} width={500} height={500} />
+              <Image src={el.img_src} alt={el.title} width={300} height={100} />
               <div className='px-6 py-4'>
                 <div
                   onClick={(e) => {
                     e.preventDefault();
                   }}
-                  className='inline-block'
+                  // className='inline-block'
+                  className='inline-flex'
                   // 위 코드와 동일 style={{ display: 'inline-block' }}
                 >
-                  
                   {/* 컴포넌트로 분리한 좋아요 버튼 */}
-                  <Like result={el}/>
+                  <Like result={el} />
 
                   {/* 기존 좋아요 버튼 */}
                   {/* <FontAwesomeIcon
@@ -89,3 +82,4 @@ export default function Content({ result }: ContentsProps) {
     </div>
   );
 }
+

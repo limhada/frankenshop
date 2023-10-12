@@ -21,6 +21,7 @@ type ImageGroup = {
 };
 
 export default function ImageComponent(): React.ReactElement {
+  // TODO: imgArr 서버에서 받아온 값으로 업데이트 하기
   const imgArr: ImageGroup = {
     imgtest: [
       '/imgtest/1.jpeg',

@@ -10,7 +10,7 @@ export default function Like({ result }: any) {
   const [contentData, setContentData] = useState(result);
 
   const handelLikeClick = () => {
-    console.log(result, 'ㅎㅇ~~~~~~~~~~~~~~`');
+    // console.log(result, 'ㅎㅇ~~~~~~~~~~~~~~`');
     const updateData = Object.assign({}, contentData); // 객체 복사 result = {} 객체 형식이기 때문
     updateData.like = !updateData.like;
     setContentData(updateData);
@@ -18,7 +18,7 @@ export default function Like({ result }: any) {
   };
 
   return (
-    <div>
+    <>
       <FontAwesomeIcon
         icon={contentData.like ? faHeart : regularHeart}
         // 몽고db에서 받아온 result 데이터의 like는 string 형식이라 별도로 변환이나 처리가 필요함
@@ -26,6 +26,6 @@ export default function Like({ result }: any) {
         // FIXME: 좋아요 버튼 클릭 시 좋아요 상태 true or false 몽고 db에 어떻게 업데이트 할 것인지 정하기
         className={`h-2 ${contentData.like ? 'text-red-500' : ''}`}
       />
-    </div>
+    </>
   );
 }

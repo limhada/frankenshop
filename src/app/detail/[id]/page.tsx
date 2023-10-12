@@ -1,10 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../../util/database';
 import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import Like from '@/app/components/like';
 
 interface DetailProps {
