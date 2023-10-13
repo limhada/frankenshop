@@ -8,6 +8,7 @@ import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
 import Like from '../components/like';
+import axios from 'axios';
 
 interface ContentItem {
   _id: ObjectId;
@@ -29,7 +30,8 @@ export default function Content({ result }: ContentsProps) {
   // TODO: 해당 상품 클릭 시 상세페이지로 이동하게
   // TODO: 로그인 x 시 좋아요 클릭 시 로그인 하라고 알림창, 모든 하트 아이콘 기본 검은색으로
   // FIXME: 서버에서 받아온 데이터 값 가져오기
-
+  // TODO: 로고 캐릭터 및 프란켄샵 글꼴 이쁘게 바꿔서 이미지로 넣기
+  // TODO: 컨텐츠 내용 무한스크롤 구현하기? or 페이지 번호 만들기 (한 페이지에 10개만 보여주는 등 )
   return (
     <div>
       <h1>상품리스트</h1>
@@ -41,6 +43,8 @@ export default function Content({ result }: ContentsProps) {
             // max-w-[20rem] min-w-[20rem] // TODO: 최소 최대 크기 정하기
             className=' w-[18rem] rounded overflow-hidden shadow-lg place-self-center'
           >
+            {/* <div>현재 데이터 확인용{JSON.stringify(el)}</div> */}
+            
             <Link href={'/detail/' + el._id.toString()}>
               {/* <img src={el.img_src} alt={el.title} className='w-full' /> */}
               <Image src={el.img_src} alt={el.title} width={500} height={500} />
@@ -70,6 +74,18 @@ export default function Content({ result }: ContentsProps) {
                   <FontAwesomeIcon
                     icon={faCartShopping}
                     style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
+                    onClick={(el) => {
+                      const _id = {_id: result[i]._id}
+                      axios
+                        .post('/api/products/addToCart', _id)
+                        .then((r) => {
+                          console.log(r.data,);
+                        })
+                        .catch((error) => {
+                          // 요청이 실패한 경우에 대한 처리
+                          console.error(error);
+                        });
+                    }}
                   />
                 </div>
                 {/* TODO: 평점? 추가할지 말지 */}

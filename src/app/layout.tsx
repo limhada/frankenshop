@@ -34,7 +34,7 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={`${inter.className}`}>
         {/* navbar */}
-        <div className='bg-mycolor1 p-5 fixed top-0 left-0 right-0 z-50 h-[200px]'>
+        <div className='text-white bg-myColor1 p-5 fixed top-0 left-0 right-0 z-50 h-[200px] shadow-lg'>
           {/* FIXME: h값 조정하기 */}
           <Link href='/' className='mr-3 no-underline'>
             frankenshop
