@@ -28,7 +28,7 @@ export default async function RootLayout({
 }) {
   // 현재 auth로 로그인한 유저의 정보가 나타남(이름, 이메일, 프로필사진)
   let session = await getServerSession(authOptions);
-  console.log('getServerSession로그인 유저 정보 확인', session);
+  console.log('layout - getServerSession로그인 유저 정보 확인', session);
 
   return (
     <html lang='en'>
@@ -48,7 +48,7 @@ export default async function RootLayout({
           <Link href='/mypage' className='mr-3 no-underline'>
             마이페이지
           </Link>
-          <Link href='/cart' className='mr-3 no-underline'>
+          <Link href='/carts' className='mr-3 no-underline'>
             장바구니
           </Link>
           {session ? (

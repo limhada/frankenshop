@@ -9,6 +9,7 @@ export default function Like({ result }: any) {
   // FIXME: result any로 받아오는 부분 타입 명확하게 수정하기
   const [contentData, setContentData] = useState(result);
 
+  // TODO: 좋아요 회원 별 좋아요 기능 구현하기 (현재는 일괄적으로 똑같은 좋아요가 적용되어 있음)
   const handelLikeClick = () => {
     // console.log(result, 'ㅎㅇ~~~~~~~~~~~~~~`');
     const updateData = Object.assign({}, contentData); // 객체 복사 result = {} 객체 형식이기 때문

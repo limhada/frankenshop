@@ -77,7 +77,7 @@ export default function Content({ result }: ContentsProps) {
                     onClick={(el) => {
                       const _id = {_id: result[i]._id}
                       axios
-                        .post('/api/products/addToCart', _id)
+                        .post('/api/contents/addToCart', _id)
                         .then((r) => {
                           console.log(r.data,);
                         })
