@@ -1,39 +1,65 @@
 'use client';
 
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
+import Image from 'next/image';
+import { useState } from 'react';
+
+// TODO: 할인쿠폰
+// TODO: 결제정보
+// TODO: 포인트
+
+// TODO: 장바구니에서 상품 삭제
+// TODO: 수량 증감
+// TODO: 총 결제 금액 // 할인금액 // 배송비 등
+// TODO: 결제하기 버튼
+// TODO: 전체 선택 및 부분 선택을 위한 체크박스
+// TODO: 전체선택( 3 / 3 ) 전체삭제 선택된 상품 삭제 버튼
+
+// TODO: 각 제품에 배송비 여부 추가하기
+
+// TODO: 01옵션선택 > 02장바구니 > 03주문/결제 > 04주문완료 진행현황 표시하기
 
 export interface CartProps {
-  cartData: {_id: ObjectId;
-  title: string;
-  description: string;
-  img_src: string;
-  author: string;
-  price: string;
-  like: boolean;}[]
+  cartData: {
+    _id: ObjectId;
+    title: string;
+    description: string;
+    img_src: string;
+    author: string;
+    price: string;
+    like: boolean;
+    quantity: number;
+  }[];
 }
 
-
 export default function CartList({ cartData }: CartProps) {
-  console.log(cartData);
-  console.log(cartData[0]);
+  // console.log(cartData);
+  // console.log(cartData[0]);
   // const t = JSON.parse(cartData)
-  /**
-   * 
-   * cartData =  [{"_id":"6509b47802b7712df0cd3d53","title":"상품1","img_src":"https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true","author":"q","price":"10,000","like":true,"description":"상품1의 내용","cart":false},{"_id":"65254cdcbbca6b503b707627","title":"상품2","img_src":"https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true","author":"q","price":"12,000","like":true,"description":"상품2의 내용","cart":false},{"_id":"65254d63bbca6b503b70762a","title":"상품3","img_src":"https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true","author":"q","price":"13,000","like":false,"description":"상품3의 내용","cart":false}]
-   */
+
+  const [cartList, setCartList] = useState(cartData);
+
   return (
     <div>
-      데이터 확인용 {JSON.stringify(cartData)}
-      
-      {cartData.map((item, i) => (
-        <div key={i}>
-          <h3>{item.title}</h3>
-          {/* <img src={item.img_src} alt="상품 이미지" /> */}
-          <p>{item.price}</p>
-        </div>
-      ))} 
-
-
+      {/* 데이터 확인용 {JSON.stringify(cartList)} */}
+      <div className='p-2 bg-gray-100'>
+        {cartList.map((el, i) => (
+          <div
+            className='shadow-md bg-white rounded-md p-5 mb-3 opacity-100 transition-all duration-1000'
+            key={i}
+          >
+            <h3>이름: {el.title}</h3>
+            <Image
+              src={el.img_src}
+              width={100}
+              height={100}
+              alt='상품 이미지'
+            />
+            <p>가격 {el.price}</p>
+            <p>수량: {el.quantity}</p>
+          </div>
+        ))}{' '}
+      </div>
     </div>
   );
 }
