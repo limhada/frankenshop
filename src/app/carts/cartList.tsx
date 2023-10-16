@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -44,21 +45,49 @@ export default function CartList({ cartData }: CartProps) {
       {/* 데이터 확인용 {JSON.stringify(cartList)} */}
       <div className='p-2 bg-gray-100'>
         {cartList.map((el, i) => (
-          <div
-            className='shadow-md bg-white rounded-md p-5 mb-3 opacity-100 transition-all duration-1000'
-            key={i}
-          >
-            <h3>이름: {el.title}</h3>
-            <Image
-              src={el.img_src}
-              width={100}
-              height={100}
-              alt='상품 이미지'
-            />
-            <p>가격 {el.price}</p>
-            <p>수량: {el.quantity}</p>
+          <div key={i} className='flex'>
+            <div className='w-[90%] shadow-md bg-white rounded-md p-5 mb-3 opacity-100 transition-all duration-1000'>
+              <h3>이름: {el.title}</h3>
+              <Image
+                src={el.img_src}
+                width={100}
+                height={100}
+                alt='상품 이미지'
+              />
+              <p>가격 {el.price}</p>
+              <p>수량: {el.quantity}</p>
+            </div>
+            <button onClick={(e) => {
+                  
+                  // axios({
+                  //   url: '/api/post/delete',
+                  //   method: 'DELETE',
+                  //   data: result[i]._id.toString(),
+                  // })
+                  //   .then((r) => {
+                  //     // console.log(r.status);
+                  //     if (r.status === 200 && target) {
+                  //       // console.log("확인");
+                  //       target.style.opacity = '0';
+                  //       setTimeout(() => {
+                  //         target.style.display = 'none';
+                  //       }, 1000);
+                  //     }
+                  //   })
+                  //   .catch((error) => {
+                  //     console.log(error);
+                  //     // console.log(error.request.status);
+                  //     // console.log(error.request.response);
+                  //     if (error.request.status) {
+                  //       // FIXME: request가 아닌 response를 사용해야 되나???
+                  //       // alert("권한이 없습니다.")
+                  //       alert(JSON.parse(error.request.response));
+                  //     }
+                  //   });
+
+                }}>X</button>
           </div>
-        ))}{' '}
+        ))}
       </div>
     </div>
   );

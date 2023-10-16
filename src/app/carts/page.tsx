@@ -5,6 +5,7 @@ import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 
 import CartList from './cartList';
 
+// TODO: nextjs Middleware 사용해서 로그인 안된 사용자 일때, /carts 페이지 접근 막기
 export interface CartProps {
   _id: ObjectId;
   title: string;
@@ -41,10 +42,8 @@ export default async function Carts() {
     cartData.push(el.contents);
     // console.log(el.contents," 확인~~~~~~~~~~~~~~~~");
   }
-  // console.log(cartData, '~~~~~~~~~~~~~ㅎㅇ');
+  // console.log(cartData, 'cartData ㅎㅇ~~~~~~~~~~~~~');
 
-  const cartQuantity = result.map((el) => el.quantity);
-  console.log(cartData, '@@@@@@@@@@@@@@@@@@@@');
 
   return (
     <div>
