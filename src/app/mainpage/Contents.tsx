@@ -32,6 +32,8 @@ export default function Content({ result }: ContentsProps) {
   // FIXME: 서버에서 받아온 데이터 값 가져오기
   // TODO: 로고 캐릭터 및 프란켄샵 글꼴 이쁘게 바꿔서 이미지로 넣기
   // TODO: 컨텐츠 내용 무한스크롤 구현하기? or 페이지 번호 만들기 (한 페이지에 10개만 보여주는 등 )
+
+  // TODO: 로그인 x 시 장바구니 페이지 접근 x 
   return (
     <div>
       <h1>상품리스트</h1>
@@ -70,7 +72,7 @@ export default function Content({ result }: ContentsProps) {
                     className={`h-2 ${el.like ? 'text-red-500' : ''}`}
                   /> */}
 
-                  {/* 장바구니 로직 추가하기 */}
+                  {/* 장바구니 아이콘 */}
                   <FontAwesomeIcon
                     icon={faCartShopping}
                     style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
