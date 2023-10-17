@@ -76,6 +76,7 @@ export default function Content({ result }: ContentsProps) {
                   /> */}
 
                   {/* 장바구니 아이콘 */}
+                  {/* TODO: 장바구니에 몇개 담겨있는지 표시할지 말지?? */}
                   <FontAwesomeIcon
                     icon={faCartShopping}
                     style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
