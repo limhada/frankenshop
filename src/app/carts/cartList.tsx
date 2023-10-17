@@ -40,10 +40,11 @@ export default function CartList({ cartData }: CartProps) {
 
   const [cartList, setCartList] = useState(cartData);
 
+
+  
   return (
     <div>
       {/* 데이터 확인용 {JSON.stringify(cartList)} */}
-
       <div className='p-2 bg-gray-100'>
         {cartList.map((el, i) => (
           <div key={i} className='flex'>
@@ -57,7 +58,7 @@ export default function CartList({ cartData }: CartProps) {
               />
               <p>가격 {el.price}</p>
               <p>수량: {el.quantity}</p>
-              <p>테스트: {el._id.toString()}</p>
+              <p>이메일:</p>
             </div>
             <button
               onClick={(e) => {
@@ -70,9 +71,7 @@ export default function CartList({ cartData }: CartProps) {
                   .delete(`/api/contents/delete`, { data: el._id.toString() })
                   .then((r) => {
                     // api요청으로 삭제 성공 시 화면에서 삭제한 상품 안보이게하는 로직
-                    console.log(r.status);
                     if (r.status === 200 && target) {
-                      console.log('확인');
                       target.style.opacity = '0';
                       setTimeout(() => {
                         target.style.display = 'none';

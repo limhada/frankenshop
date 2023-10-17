@@ -21,8 +21,10 @@ export default async function handler(
       let result = await db
         .collection('carts')
         .deleteOne({ contents: new ObjectId(req.body) });
-      console.log(result); // document의 삭제결과를 알려줌 이런식으로 -> { acknowledged: true, deletedCount: 1 }
-      console.log('확인 200~~~~');
+      // console.log(result); // document의 삭제결과를 알려줌 이런식으로 -> { acknowledged: true, deletedCount: 1 }
+      // console.log('확인 200~~~~');
+
+      
 
       return res.status(200).json('삭제완료');
     } catch (error) {
