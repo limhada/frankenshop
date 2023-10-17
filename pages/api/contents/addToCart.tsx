@@ -42,11 +42,6 @@ export default async function handler(
         // console.log("카트값 1증가 성공");
       }
 
-      // console.log(
-      //   session.user.email,
-      //   ' 회원정보 ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~~~₩'
-      // );
-
       // let updateResult = await db
       //   .collection('carts')
       //   .find({ email: session.user.email })

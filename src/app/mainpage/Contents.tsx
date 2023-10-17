@@ -86,7 +86,7 @@ export default function Content({ result }: ContentsProps) {
                         .then((r) => {
                           // console.log("장바구니 추가 확인", r.data);
 
-                          // FIXME: 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
+                          // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
                           router.refresh();
                         })
                         .catch((error) => {
