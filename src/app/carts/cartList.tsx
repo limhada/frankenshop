@@ -20,6 +20,7 @@ import { useState } from 'react';
 
 // TODO: 01옵션선택 > 02장바구니 > 03주문/결제 > 04주문완료 진행현황 표시하기
 
+// TODO: 중요 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
 export interface CartProps {
   cartData: {
     _id: ObjectId;
@@ -58,41 +59,89 @@ export default function CartList({ cartData }: CartProps) {
             </div>
             <div className='flex'>
               <button
-                onClick={() => {
-                  axios.post('/api/contents/quantityUpdate');
-                }}
-              >
-                +
-              </button>
-              <div>수량: {el.quantity}</div>
-              <button>-</button>
-
-              <button
+                // FIXME: 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임
                 onClick={(e) => {
-                  // FIXME: aixos로 삭제 버튼 api 만들고 axios.delete로 코드 변경하기
-
-                  // 버튼의 부모 요소를 찾기
-                  const target = (e.target as HTMLElement).parentElement;
-                  console.log('ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~~~', target);
                   axios
-                    .delete(`/api/contents/delete`, { data: el._id.toString() })
+                    .post('/api/contents/quantityUpdate', {
+                      increase: 1,
+                      _id: el._id.toString(),
+                    })
                     .then((r) => {
-                      // api요청으로 삭제 성공 시 화면에서 삭제한 상품 안보이게하는 로직
-                      if (r.status === 200 && target) {
-                        target.style.opacity = '0';
-                        setTimeout(() => {
-                          target.style.display = 'none';
-                        }, 1000);
-                      }
+                      //  console.log(r.data);
+                      // el.quantity = r.data
+                      setCartList((prevCartList) => {
+                        const updatedCartList = prevCartList.map((cartItem) => {
+                          if (cartItem._id === el._id) {
+                            // 현재 항목의 _id와 일치하는 경우 수량을 업데이트
+                            return { ...cartItem, quantity: r.data };
+                          }
+                          return cartItem;
+                        });
+                        return updatedCartList;
+                      });
                     })
                     .catch((error) => {
                       console.log(error);
                     });
                 }}
               >
-                X
+                +
+              </button>
+              <div>수량: {el.quantity}</div>
+
+              <button
+                onClick={(e) => {
+                  axios
+                    .post('/api/contents/quantityUpdate', {
+                      decrease: -1,
+                      _id: el._id.toString(),
+                    })
+                    .then((r) => {
+                      //  console.log(r.data);
+                      // el.quantity = r.data
+                      setCartList((prevCartList) => {
+                        const updatedCartList = prevCartList.map((cartItem) => {
+                          if (cartItem._id === el._id) {
+                            // 현재 항목의 _id와 일치하는 경우 수량을 업데이트
+                            return { ...cartItem, quantity: r.data };
+                          }
+                          return cartItem;
+                        });
+                        return updatedCartList;
+                      });
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                }}
+              >
+                -
               </button>
             </div>
+            <button
+              onClick={(e) => {
+                // 버튼의 부모 요소를 찾기
+                const target = (e.target as HTMLElement).parentElement;
+                // console.log('ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~~~', target);
+                // FIXME: axios로 삭제 버튼 api 만들고 axios.delete로 코드 변경하기
+                axios
+                  .delete(`/api/contents/delete`, { data: el._id.toString() })
+                  .then((r) => {
+                    // api요청으로 삭제 성공 시 화면에서 삭제한 상품 안보이게하는 로직
+                    if (r.status === 200 && target) {
+                      target.style.opacity = '0';
+                      setTimeout(() => {
+                        target.style.display = 'none';
+                      }, 1000);
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}
+            >
+              X
+            </button>
           </div>
         ))}
       </div>
