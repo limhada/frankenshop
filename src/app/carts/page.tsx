@@ -19,7 +19,7 @@ export interface CartProps {
 
 export default async function Carts() {
   let session = await getServerSession(authOptions);
-  console.log(session.user.email, 'ㅎㅇ~~~~~~~~~~~~~');
+  // console.log(session.user.email, 'ㅎㅇ~~~~~~~~~~~~~');
 
   const db = (await connectDB).db('frankenshop');
   let result = await db
@@ -30,19 +30,14 @@ export default async function Carts() {
 
   const contentsCollection = db.collection('contents');
   // carts 컬렉션에서 contents필드의 값을 배열로 저장
-  // const resultsArray = await db.collection('carts').distinct('contents');
-  // console.log(resultsArray, '???????????????');
   const cartData: CartProps[] = [];
   for (const el of result) {
-    // console.log(el.quantity,"????????????????????????????????????????");
     const contents = await contentsCollection.findOne({ _id: el.contents });
     el.contents = contents;
     // cartData.push(contents as CartProps); // 아래 코드와 동치
     el.contents.quantity = el.quantity;
     cartData.push(el.contents);
-    // console.log(el.contents," 확인~~~~~~~~~~~~~~~~");
   }
-  // console.log(cartData, 'cartData ㅎㅇ~~~~~~~~~~~~~');
 
 
   return (

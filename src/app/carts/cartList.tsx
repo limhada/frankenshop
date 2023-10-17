@@ -55,37 +55,44 @@ export default function CartList({ cartData }: CartProps) {
                 alt='상품 이미지'
               />
               <p>가격 {el.price}</p>
-              <p>수량: {el.quantity}</p>
             </div>
-            <button onClick={(e) => {
-                  
-                  // axios({
-                  //   url: '/api/post/delete',
-                  //   method: 'DELETE',
-                  //   data: result[i]._id.toString(),
-                  // })
-                  //   .then((r) => {
-                  //     // console.log(r.status);
-                  //     if (r.status === 200 && target) {
-                  //       // console.log("확인");
-                  //       target.style.opacity = '0';
-                  //       setTimeout(() => {
-                  //         target.style.display = 'none';
-                  //       }, 1000);
-                  //     }
-                  //   })
-                  //   .catch((error) => {
-                  //     console.log(error);
-                  //     // console.log(error.request.status);
-                  //     // console.log(error.request.response);
-                  //     if (error.request.status) {
-                  //       // FIXME: request가 아닌 response를 사용해야 되나???
-                  //       // alert("권한이 없습니다.")
-                  //       alert(JSON.parse(error.request.response));
-                  //     }
-                  //   });
+            <div className='flex'>
+              <button
+                onClick={() => {
+                  axios.post('/api/contents/quantityUpdate');
+                }}
+              >
+                +
+              </button>
+              <div>수량: {el.quantity}</div>
+              <button>-</button>
 
-                }}>X</button>
+              <button
+                onClick={(e) => {
+                  // FIXME: aixos로 삭제 버튼 api 만들고 axios.delete로 코드 변경하기
+
+                  // 버튼의 부모 요소를 찾기
+                  const target = (e.target as HTMLElement).parentElement;
+                  console.log('ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~~~', target);
+                  axios
+                    .delete(`/api/contents/delete`, { data: el._id.toString() })
+                    .then((r) => {
+                      // api요청으로 삭제 성공 시 화면에서 삭제한 상품 안보이게하는 로직
+                      if (r.status === 200 && target) {
+                        target.style.opacity = '0';
+                        setTimeout(() => {
+                          target.style.display = 'none';
+                        }, 1000);
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                }}
+              >
+                X
+              </button>
+            </div>
           </div>
         ))}
       </div>
