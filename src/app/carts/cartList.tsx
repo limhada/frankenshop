@@ -20,7 +20,7 @@ import { useState } from 'react';
 
 // TODO: 01옵션선택 > 02장바구니 > 03주문/결제 > 04주문완료 진행현황 표시하기
 
-// TODO: 중요 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
+// TODO: 해결 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
 export interface CartProps {
   cartData: {
     _id: ObjectId;
