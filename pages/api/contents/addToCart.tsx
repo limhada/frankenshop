@@ -25,8 +25,9 @@ export default async function handler(
 
       let result = await db
         .collection('carts')
-        .find({ contents: new ObjectId(req.body._id) })
+        .find({ contents: new ObjectId(req.body._id), email: session.user.email })
         .toArray();
+
       // console.log('ㅎㅇ~~~~~~~~~~', result);
       if (result.length === 0) {
         await db.collection('carts').insertOne(insertData);
@@ -36,7 +37,7 @@ export default async function handler(
         const updateResult = await db
           .collection('carts')
           .updateOne(
-            { contents: new ObjectId(req.body._id) },
+            { contents: new ObjectId(req.body._id), email: session.user.email },
             { $inc: { quantity: 1 } }
           );
         // console.log("카트값 1증가 성공");

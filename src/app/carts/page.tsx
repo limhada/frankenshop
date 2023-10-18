@@ -24,7 +24,7 @@ export default async function Carts() {
   const db = (await connectDB).db('frankenshop');
   let result = await db
     .collection('carts')
-    .find({ email: session.user.email })
+    .find({ email: session.user.email, })
     .toArray();
   // console.log('result확인~~~~~~~~~', result);
 
