@@ -43,6 +43,15 @@ export default function CartList({ cartData }: CartProps) {
   const [cartList, setCartList] = useState(cartData);
   const [allChecked, setAllChecked] = useState(false); // 전체 선택 체크박스 상태
 
+  const initialTotalPrice = cartList
+  .filter((item) => item.checked)
+  .reduce(
+    (total, item) => total + parseFloat(item.price.replace(',', '')),
+    0
+  );
+  
+  const [totalPrice, setTotalPrice] = useState(initialTotalPrice); // 총 결제 금액
+
   const handleAllCheckboxChange = () => {
     // 전체 선택 체크박스의 상태를 토글
     setAllChecked(!allChecked);
@@ -52,6 +61,17 @@ export default function CartList({ cartData }: CartProps) {
       const updatedCartList = prevCartList.map((cartItem) => {
         return { ...cartItem, checked: !allChecked }; // 전체 선택 상태에 따라 체크박스 상태 변경
       });
+
+      // 체크박스 상태가 변경될 때 총 결제 금액을 다시 계산
+      const updatedTotalPrice = updatedCartList
+        .filter((item) => item.checked) // 체크된 아이템만 필터링
+        .reduce(
+          (total, item) => total + parseFloat(item.price.replace(',', '')),
+          0
+        ); // 체크된 아이템의 가격을 합산
+      // 총 결제 금액을 업데이트
+      setTotalPrice(updatedTotalPrice);
+
       return updatedCartList;
     });
 
@@ -67,7 +87,6 @@ export default function CartList({ cartData }: CartProps) {
 
     // 상태를 업데이트하여 화면에 반영
     setCartList((prevCartList) => {
-      console.log(prevCartList, '확인~~~~~~~~~~~~~~~~~~~~~~~~~~~~~₩');
       // 현재 장바구니 데이터를 가져옵니다.
       const updatedCartList = prevCartList.map((cartItem) => {
         // 현재 항목의 _id와 일치하는 경우 체크박스 상태를 업데이트합니다.
@@ -78,6 +97,17 @@ export default function CartList({ cartData }: CartProps) {
         // 다른 경우는 이전 상태를 유지합니다.
         return cartItem;
       });
+
+      // 체크박스 상태가 변경될 때 총 결제 금액을 다시 계산
+      const updatedTotalPrice = updatedCartList
+        .filter((item) => item.checked) // 체크된 아이템만 필터링
+        .reduce(
+          (total, item) => total + parseFloat(item.price.replace(',', '')),
+          0
+        ); // 체크된 아이템의 가격을 합산
+      // 총 결제 금액을 업데이트
+      setTotalPrice(updatedTotalPrice);
+
       // 장바구니 데이터를 업데이트합니다.
       return updatedCartList;
     });
@@ -214,6 +244,13 @@ export default function CartList({ cartData }: CartProps) {
           </div>
         ))}
       </div>
+      <div>총 결제 금액: </div>
+      <div>총 결제 금액: {totalPrice}</div>
     </div>
   );
 }
+
+// 총 결제 금액 계산
+// const checkedItems = cartList.filter((el) => el.checked);
+// const checkedPrice = checkedItems.reduce((acc, el) => acc + Number(el.price.replace(/,/g, '')) * el.quantity, 0);
+// setTotalPrice(checkedPrice);
