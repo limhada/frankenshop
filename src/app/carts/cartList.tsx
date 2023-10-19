@@ -31,6 +31,7 @@ export interface CartProps {
     price: string;
     like: boolean;
     quantity: number;
+    checked: boolean;
   }[];
 }
 
@@ -40,13 +41,81 @@ export default function CartList({ cartData }: CartProps) {
   // const t = JSON.parse(cartData)
 
   const [cartList, setCartList] = useState(cartData);
+  const [allChecked, setAllChecked] = useState(false); // 전체 선택 체크박스 상태
+
+  const handleAllCheckboxChange = () => {
+    // 전체 선택 체크박스의 상태를 토글
+    setAllChecked(!allChecked);
+
+    // 현재 장바구니 데이터를 업데이트합니다.
+    setCartList((prevCartList) => {
+      const updatedCartList = prevCartList.map((cartItem) => {
+        return { ...cartItem, checked: !allChecked }; // 전체 선택 상태에 따라 체크박스 상태 변경
+      });
+      return updatedCartList;
+    });
+
+    // 여기에서 API 호출로 서버에 체크박스 상태 업데이트를 수행할 수 있습니다.
+    // API 호출 로직을 추가하여 서버에 변경된 체크박스 상태를 업데이트할 수 있습니다.
+  };
+
+  // TODO: 체크박스상태 변화에 따라 api요청해서 해당 제품의 체크박스 db에 정보 업데이트 하고,
+  // 아래 코드 살펴보고 주석 지우기
+  const handleCheckboxChange = (el: any) => {
+    // 체크박스 상태를 변경
+    el.checked = !el.checked;
+
+    // 상태를 업데이트하여 화면에 반영
+    setCartList((prevCartList) => {
+      console.log(prevCartList, '확인~~~~~~~~~~~~~~~~~~~~~~~~~~~~~₩');
+      // 현재 장바구니 데이터를 가져옵니다.
+      const updatedCartList = prevCartList.map((cartItem) => {
+        // 현재 항목의 _id와 일치하는 경우 체크박스 상태를 업데이트합니다.
+        if (cartItem._id === el._id) {
+          // 체크박스 상태를 반대로 설정합니다.
+          return { ...cartItem, checked: cartItem.checked };
+        }
+        // 다른 경우는 이전 상태를 유지합니다.
+        return cartItem;
+      });
+      // 장바구니 데이터를 업데이트합니다.
+      return updatedCartList;
+    });
+
+    // API로 체크박스 상태 업데이트
+    //   try {
+    //     const response = await axios.post('/api/contents/checkedUpdate', {
+    //       _id: el._id.toString(),
+    //       checked: el.checked,
+    //     });
+    //     // 서버 응답 처리
+    //     if (response.status === 200) {
+    //       // 성공적으로 업데이트된 경우
+    //     }
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+  };
 
   return (
     <div>
       {/* 데이터 확인용 {JSON.stringify(cartList)} */}
       <div className='p-2 bg-gray-100'>
+        <div>
+          <input
+            type='checkbox'
+            checked={allChecked}
+            onChange={handleAllCheckboxChange} // 전체 선택 체크박스 클릭 시 함수 호출
+          />
+          전체선택
+        </div>
         {cartList.map((el, i) => (
           <div key={i} className='flex'>
+            <input
+              type='checkbox'
+              checked={el.checked} // 체크박스 상태를 cartData에 있는 값으로 설정
+              onChange={() => handleCheckboxChange(el)} // 체크박스 상태가 변경될 때 함수 호출
+            />
             <div className='w-[90%] shadow-md bg-white rounded-md p-5 mb-3 opacity-100 transition-all duration-1000'>
               <h3>이름: {el.title}</h3>
               <Image
@@ -60,7 +129,7 @@ export default function CartList({ cartData }: CartProps) {
             <div className='flex'>
               <button
                 // FIXME: 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임
-                onClick={(e) => {
+                onClick={() => {
                   axios
                     .post('/api/contents/quantityUpdate', {
                       increase: 1,
@@ -90,7 +159,7 @@ export default function CartList({ cartData }: CartProps) {
               <div>수량: {el.quantity}</div>
 
               <button
-                onClick={(e) => {
+                onClick={() => {
                   axios
                     .post('/api/contents/quantityUpdate', {
                       decrease: -1,

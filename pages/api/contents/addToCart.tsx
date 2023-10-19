@@ -18,6 +18,7 @@ export default async function handler(
       contents: new ObjectId(req.body._id),
       email: session.user.email,
       quantity: 1,
+      checked : false,
     };
 
     try {
@@ -30,6 +31,7 @@ export default async function handler(
 
       // console.log('ㅎㅇ~~~~~~~~~~', result);
       if (result.length === 0) {
+        
         await db.collection('carts').insertOne(insertData);
         // console.log('처음 데이터 추가 완료');
       } else if (result.length > 0) {
