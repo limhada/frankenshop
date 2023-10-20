@@ -106,7 +106,7 @@ export default function CartList({ cartData }: CartProps) {
     }
   };
 
-  const handleDelete = (el: any) => {
+  const handleDelete = (el: any, i: number) => {
     axios
       .delete(`/api/contents/delete`, { data: el._id.toString() })
       .then((r) => {
@@ -116,20 +116,36 @@ export default function CartList({ cartData }: CartProps) {
           );
           setCartList(updatedCartList);
 
-          // 해당 요소를 1초 후에 숨기도록 설정
-          // setTimeout(() => {
-          // TODO: 1초 후 자연스럽게 장바구니 상품 삭제되게 수정하기
-          //   const target = document.getElementById()
-          //   if (target) {
+          const target = document.getElementById('cartList-' + i);
+          if (target) {
+            // 투명도에 1초 동안의 트랜지션 적용
+            target.classList.add('transition-opacity');
+            // 투명하게 만듭니다.
+            target.classList.add('opacity-0');
+            
+            // opacity가 0이 되는 1초 후에 display를 변경
+            setTimeout(() => {
+              // display를 none으로 변경
+              target.classList.add('hidden');
+            }, 1000);
+          }
+          // TODO: 위 코드와 동일함 블로그에 정리하기
+          // 투명도에 1초 동안의 트랜지션 적용 후 투명하게 만든 뒤 opacity(투명도)가 0이 되는 1초 후에 display를 none으로 변경해서 사라지게 함
+          // 1초동안 천천히 사라지는 효과
+          // if (target) {
+          //   target.style.transition = 'opacity 1s'; // 투명도에 1초 동안의 트랜지션 적용
+          //   target.style.opacity = '0'; // 투명하게 만듭니다.
+          //   // opacity가 0이 되는 1초 후에 display를 변경
+          //   setTimeout(() => {
           //     target.style.display = 'none';
-          //   }
-          // }, 1000);
+          //   }, 1000);
+          // }
         }
       })
       .catch((error) => {
         console.error(error);
       });
-  };
+    };
 
   return (
     <div>
@@ -143,7 +159,7 @@ export default function CartList({ cartData }: CartProps) {
           전체선택
         </div>
         {cartList.map((el, i) => (
-          <div key={i} className='flex'>
+          <div key={i} className='flex' id={`cartList-` + i}>
             <input
               type='checkbox'
               checked={el.checked}
@@ -165,7 +181,7 @@ export default function CartList({ cartData }: CartProps) {
               <div>수량: {el.quantity}</div>
               <button onClick={() => handleQuantityChange(el, -1)}>-</button>
             </div>
-            <button onClick={() => handleDelete(el)}>X</button>
+            <button onClick={() => handleDelete(el, i)}>X</button>
           </div>
         ))}
       </div>
