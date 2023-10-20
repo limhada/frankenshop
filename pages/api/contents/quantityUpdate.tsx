@@ -18,9 +18,10 @@ export default async function handler(
     try {
       const db = (await connectDB).db('frankenshop');
 
-      let result = await db
-        .collection('carts')
-        .findOne({ contents: new ObjectId(req.body._id), email: session.user.email });
+      let result = await db.collection('carts').findOne({
+        contents: new ObjectId(req.body._id),
+        email: session.user.email,
+      });
 
       // console.log('ㅎㅇ~~~~~~~~~~', result?.quantity);
       // console.log('ㅎㅇ~~~~~~~~~~', result.);
@@ -61,11 +62,11 @@ export default async function handler(
       }
 
       // quantity(수량) 증가 및 감소 시 증감이 반영된 quantity 값 응답으로 클라이언트에 전해주기
-      let quantityResult = await db
-        .collection('carts')
-        .findOne({ contents: new ObjectId(req.body._id), email: session.user.email });
+      let quantityResult = await db.collection('carts').findOne({
+        contents: new ObjectId(req.body._id),
+        email: session.user.email,
+      });
       return res.status(200).json(quantityResult?.quantity);
-
     } catch (error) {
       console.log('에러!', error);
       return res.status(500).json({ message: '서버 에러가 발생했습니다.' });

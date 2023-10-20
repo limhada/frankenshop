@@ -3,8 +3,7 @@
 import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 // TODO: 할인쿠폰
 // TODO: 결제정보
 // TODO: 포인트
@@ -36,76 +35,110 @@ export interface CartProps {
 }
 
 export default function CartList({ cartData }: CartProps) {
-  // console.log(cartData);
-  // console.log(cartData[0]);
-  // const t = JSON.parse(cartData)
-
   const [cartList, setCartList] = useState(cartData);
   const [allChecked, setAllChecked] = useState(false); // 전체 선택 체크박스 상태
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    // 총 결제 금액을 업데이트하는 함수
+    const updateTotalPrice = () => {
+      const totalPrice = cartList
+        .filter((item) => item.checked)
+        .reduce(
+          (total, item) =>
+            total + parseFloat(item.price.replace(',', '')) * item.quantity,
+          0
+        );
+      setTotalPrice(totalPrice);
+    };
+
+    // 초기 총 결제 금액 설정
+    updateTotalPrice();
+  }, [cartList]);
 
   const handleAllCheckboxChange = () => {
-    // 전체 선택 체크박스의 상태를 토글
-    setAllChecked(!allChecked);
+    setAllChecked(!allChecked); // 전체 선택 체크박스의 상태를 토글
 
     // 현재 장바구니 데이터를 업데이트합니다.
     setCartList((prevCartList) => {
-      const updatedCartList = prevCartList.map((cartItem) => {
-        return { ...cartItem, checked: !allChecked }; // 전체 선택 상태에 따라 체크박스 상태 변경
-      });
+      const updatedCartList = prevCartList.map((cartItem) => ({
+        ...cartItem,
+        checked: !allChecked,
+      }));
+
+      setTotalPrice(
+        updatedCartList
+          .filter((item) => item.checked)
+          .reduce(
+            (total, item) =>
+              total + parseFloat(item.price.replace(',', '')) * item.quantity,
+            0
+          )
+      );
+
       return updatedCartList;
     });
-
-    // 여기에서 API 호출로 서버에 체크박스 상태 업데이트를 수행할 수 있습니다.
-    // API 호출 로직을 추가하여 서버에 변경된 체크박스 상태를 업데이트할 수 있습니다.
   };
 
-  // TODO: 체크박스상태 변화에 따라 api요청해서 해당 제품의 체크박스 db에 정보 업데이트 하고,
-  // 아래 코드 살펴보고 주석 지우기
   const handleCheckboxChange = (el: any) => {
-    // 체크박스 상태를 변경
-    el.checked = !el.checked;
+    const updatedCartList = cartList.map((cartItem) => ({
+      ...cartItem,
+      checked: cartItem._id === el._id ? !cartItem.checked : cartItem.checked,
+    }));
+    setCartList(updatedCartList);
+  };
 
-    // 상태를 업데이트하여 화면에 반영
-    setCartList((prevCartList) => {
-      console.log(prevCartList, '확인~~~~~~~~~~~~~~~~~~~~~~~~~~~~~₩');
-      // 현재 장바구니 데이터를 가져옵니다.
-      const updatedCartList = prevCartList.map((cartItem) => {
-        // 현재 항목의 _id와 일치하는 경우 체크박스 상태를 업데이트합니다.
-        if (cartItem._id === el._id) {
-          // 체크박스 상태를 반대로 설정합니다.
-          return { ...cartItem, checked: cartItem.checked };
-        }
-        // 다른 경우는 이전 상태를 유지합니다.
-        return cartItem;
+  const handleQuantityChange = async (el: any, action: number) => {
+    const actionStr = action > 0 ? 'increase' : 'decrease';
+    try {
+      const response = await axios.post('/api/contents/quantityUpdate', {
+        [actionStr]: action,
+        // TODO: 객체 문법 정리하기
+        _id: el._id.toString(),
       });
-      // 장바구니 데이터를 업데이트합니다.
-      return updatedCartList;
-    });
+      const updatedCartList = cartList.map((cartItem) => ({
+        ...cartItem,
+        quantity: cartItem._id === el._id ? response.data : cartItem.quantity,
+      }));
+      setCartList(updatedCartList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    // API로 체크박스 상태 업데이트
-    //   try {
-    //     const response = await axios.post('/api/contents/checkedUpdate', {
-    //       _id: el._id.toString(),
-    //       checked: el.checked,
-    //     });
-    //     // 서버 응답 처리
-    //     if (response.status === 200) {
-    //       // 성공적으로 업데이트된 경우
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
+  const handleDelete = (el: any) => {
+    axios
+      .delete(`/api/contents/delete`, { data: el._id.toString() })
+      .then((r) => {
+        if (r.status === 200) {
+          const updatedCartList = cartList.filter(
+            (item) => item._id !== el._id
+          );
+          setCartList(updatedCartList);
+
+          // 해당 요소를 1초 후에 숨기도록 설정
+          // setTimeout(() => {
+          // TODO: 1초 후 자연스럽게 장바구니 상품 삭제되게 수정하기
+          //   const target = document.getElementById()
+          //   if (target) {
+          //     target.style.display = 'none';
+          //   }
+          // }, 1000);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
     <div>
-      {/* 데이터 확인용 {JSON.stringify(cartList)} */}
       <div className='p-2 bg-gray-100'>
         <div>
           <input
             type='checkbox'
             checked={allChecked}
-            onChange={handleAllCheckboxChange} // 전체 선택 체크박스 클릭 시 함수 호출
+            onChange={handleAllCheckboxChange}
           />
           전체선택
         </div>
@@ -113,8 +146,8 @@ export default function CartList({ cartData }: CartProps) {
           <div key={i} className='flex'>
             <input
               type='checkbox'
-              checked={el.checked} // 체크박스 상태를 cartData에 있는 값으로 설정
-              onChange={() => handleCheckboxChange(el)} // 체크박스 상태가 변경될 때 함수 호출
+              checked={el.checked}
+              onChange={() => handleCheckboxChange(el)}
             />
             <div className='w-[90%] shadow-md bg-white rounded-md p-5 mb-3 opacity-100 transition-all duration-1000'>
               <h3>이름: {el.title}</h3>
@@ -127,93 +160,16 @@ export default function CartList({ cartData }: CartProps) {
               <p>가격 {el.price}</p>
             </div>
             <div className='flex'>
-              <button
-                // FIXME: 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임
-                onClick={() => {
-                  axios
-                    .post('/api/contents/quantityUpdate', {
-                      increase: 1,
-                      _id: el._id.toString(),
-                    })
-                    .then((r) => {
-                      //  console.log(r.data);
-                      // el.quantity = r.data
-                      setCartList((prevCartList) => {
-                        const updatedCartList = prevCartList.map((cartItem) => {
-                          if (cartItem._id === el._id) {
-                            // 현재 항목의 _id와 일치하는 경우 수량을 업데이트
-                            return { ...cartItem, quantity: r.data };
-                          }
-                          return cartItem;
-                        });
-                        return updatedCartList;
-                      });
-                    })
-                    .catch((error) => {
-                      console.log(error);
-                    });
-                }}
-              >
-                +
-              </button>
+              {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
+              <button onClick={() => handleQuantityChange(el, 1)}>+</button>
               <div>수량: {el.quantity}</div>
-
-              <button
-                onClick={() => {
-                  axios
-                    .post('/api/contents/quantityUpdate', {
-                      decrease: -1,
-                      _id: el._id.toString(),
-                    })
-                    .then((r) => {
-                      //  console.log(r.data);
-                      // el.quantity = r.data
-                      setCartList((prevCartList) => {
-                        const updatedCartList = prevCartList.map((cartItem) => {
-                          if (cartItem._id === el._id) {
-                            // 현재 항목의 _id와 일치하는 경우 수량을 업데이트
-                            return { ...cartItem, quantity: r.data };
-                          }
-                          return cartItem;
-                        });
-                        return updatedCartList;
-                      });
-                    })
-                    .catch((error) => {
-                      console.log(error);
-                    });
-                }}
-              >
-                -
-              </button>
+              <button onClick={() => handleQuantityChange(el, -1)}>-</button>
             </div>
-            <button
-              onClick={(e) => {
-                // 버튼의 부모 요소를 찾기
-                const target = (e.target as HTMLElement).parentElement;
-                // console.log('ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~~~', target);
-                // FIXME: axios로 삭제 버튼 api 만들고 axios.delete로 코드 변경하기
-                axios
-                  .delete(`/api/contents/delete`, { data: el._id.toString() })
-                  .then((r) => {
-                    // api요청으로 삭제 성공 시 화면에서 삭제한 상품 안보이게하는 로직
-                    if (r.status === 200 && target) {
-                      target.style.opacity = '0';
-                      setTimeout(() => {
-                        target.style.display = 'none';
-                      }, 1000);
-                    }
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
-              }}
-            >
-              X
-            </button>
+            <button onClick={() => handleDelete(el)}>X</button>
           </div>
         ))}
       </div>
+      <div>총 결제 금액: {totalPrice}</div>
     </div>
   );
 }
