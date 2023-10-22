@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 // TODO: 할인쿠폰
 // TODO: 결제정보
@@ -122,7 +123,7 @@ export default function CartList({ cartData }: CartProps) {
             target.classList.add('transition-opacity');
             // 투명하게 만듭니다.
             target.classList.add('opacity-0');
-            
+
             // opacity가 0이 되는 1초 후에 display를 변경
             setTimeout(() => {
               // display를 none으로 변경
@@ -145,7 +146,7 @@ export default function CartList({ cartData }: CartProps) {
       .catch((error) => {
         console.error(error);
       });
-    };
+  };
 
   return (
     <div>
@@ -185,7 +186,12 @@ export default function CartList({ cartData }: CartProps) {
           </div>
         ))}
       </div>
-      <div>총 결제 금액: {totalPrice}</div>
+      <div className='flex'>
+        <div>총 결제 금액: {totalPrice}</div>
+        <Link href='/order' className=' bg-slate-600'>
+          결제하기
+        </Link>
+      </div>
     </div>
   );
 }
