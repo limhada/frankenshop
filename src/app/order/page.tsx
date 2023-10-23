@@ -1,5 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
+import SelectWithOptions from './selectWithOptions';
 
 // TODO: 주소검색 api 적용하기
 
@@ -26,7 +27,7 @@ export default async function Oder() {
         </div>
         <div>주소</div>
         {/* TODO: 선택 가능한 체크박스? */}
-        <select
+        {/* <select
           id='omessage_select'
           name='omessage_select'
           fw-filter='' // 드롭다운 목록에 표시할 옵션을 필터링하는 데 사용되는 값을 지정합니다.
@@ -43,7 +44,8 @@ export default async function Oder() {
           <option value='oMessage-4'>빠른 배송 부탁드립니다.</option>
           <option value='oMessage-5'>택배함에 보관해 주세요.</option>
           <option value='oMessage-input'>직접 입력</option>
-        </select>
+        </select> */}
+        <SelectWithOptions></SelectWithOptions>
       </div>
       <button>결제하기</button>
     </div>
