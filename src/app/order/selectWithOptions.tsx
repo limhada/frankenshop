@@ -3,6 +3,19 @@ import { useState } from 'react';
 
 // TODO: select사용법 블로그에 정리하기
 
+// type User = {
+//   name: string;
+//   email: string;
+//   role: string;
+// };
+
+// type Data = {
+//   session: {
+//     user: User;
+//   };
+// };
+
+// export default function SelectWithOptions({ session }: Data) {
 export default function SelectWithOptions() {
   const options = [
     { value: 'oMessage-0', label: '-- 메시지 선택 (선택사항) --' },
@@ -27,6 +40,7 @@ export default function SelectWithOptions() {
     setCustomMessage(e.target.value);
   };
 
+  // console.log(session, 'ㅎㅇ~~~~~~~~~~~~~~~~~~');
   return (
     <div>
       <select
