@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
-import Like from '../components/like';
+import LikeChange from '../components/likeChange';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
@@ -64,7 +64,7 @@ export default function Content({ result }: ContentsProps) {
                   // 위 코드와 동일 style={{ display: 'inline-block' }}
                 >
                   {/* 컴포넌트로 분리한 좋아요 버튼 */}
-                  <Like result={el} />
+                  <LikeChange result={el} />
 
                   {/* 기존 좋아요 버튼 */}
                   {/* <FontAwesomeIcon

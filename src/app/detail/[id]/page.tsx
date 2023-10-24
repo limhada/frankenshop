@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../../util/database';
 import Image from 'next/image';
 
-import Like from '@/app/components/like';
+import LikeChange from '@/app/components/likeChange';
 
 interface DetailProps {
   params: {
@@ -17,7 +17,7 @@ export default async function Detail(props: DetailProps) {
   let result = await db
     .collection('contents')
     .findOne({ _id: new ObjectId(props.params.id) });
-    
+
   return (
     <div>
       상세페이지
@@ -32,8 +32,7 @@ export default async function Detail(props: DetailProps) {
       />
       <div>내용: {result?.description}</div>
       <div>가격: {result?.price}</div>
-      
-      <Like result={result} />
+      <LikeChange result={result} />
     </div>
   );
 }
