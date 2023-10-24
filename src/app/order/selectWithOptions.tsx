@@ -2,6 +2,7 @@
 import { useState } from 'react';
 
 // TODO: select사용법 블로그에 정리하기
+// TODO: components로 이동시키고 재활용하기 이메일 선택 창에 select 적용하기
 
 // type User = {
 //   name: string;
