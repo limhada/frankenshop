@@ -18,8 +18,10 @@ export interface ListProps {
 export default async function Mainpage() {
   const client = await connectDB;
   const db = client.db('frankenshop');
-  // let result = await db.collection('contents').find().toArray();
 
+
+
+  // TODO: 중요 - likeChange.tsx에 똑같은 코드 있음 중복을 줄이기 위한 해결방법 찾고 개선하기
   let result = await db.collection<ListProps>('contents').find().toArray();
 
   // console.log(result, 'result');
@@ -34,14 +36,8 @@ export default async function Mainpage() {
     .toArray();
 
   // console.log(likesResult,'ㅎㅇ~~~~~~~~~~~~~~~~~~likesResult');
-  // {
-  //   _id: new ObjectId("6537da06a6d4799ab594caf8"),
-  //   contents: new ObjectId("6509b47802b7712df0cd3d53"),
-  //   email: 'w',
-  //   checked: true
-  // },
 
-  // const n = likesResult.filter((el)=> el.contents.toString() )
+
 
   // 받아온 result 값에 isLiked 값을 추가한 데이터
   const updateResult: ListProps[] = [];
@@ -68,22 +64,6 @@ export default async function Mainpage() {
     }
   });
   // console.log(updateResult, 'updateResult~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-
-  // const contentsCollection = db.collection('contents');
-  // // 'contents' 컬렉션에 연결합니다.
-  // const cartData = [];
-  // // 장바구니 데이터를 가공한 결과를 저장할 빈 배열을 선언합니다.
-  // for (const el of likesResult) {
-  //   // 'result' 배열을 순회하면서 각 장바구니 항목을 'el'이라고 합니다.
-  //   const contents = await contentsCollection.findOne({
-  //     _id: new ObjectId(el.contents),
-  //   });
-  //   // 'contentsCollection'에서 해당 상품 ID를 사용하여 상품 정보를 찾습니다.
-  //   el.contents = contents; // 'el' 객체에 상품 정보를 추가합니다.
-  //   el.contents.quantity = el.quantity; // 상품 정보 객체에 'el'에서 가져온 체크상태 정보를 추가합니다.
-  //   el.contents.checked = el.checked; // 상품 정보 객체에 'el'에서 가져온 수량 정보를 추가합니다.
-  //   cartData.push(el.contents); // 처리된 상품 정보를 'cartData' 배열에 추가합니다.
-  // }
 
   return (
     <div>
