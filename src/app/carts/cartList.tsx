@@ -85,11 +85,22 @@ export default function CartList({ cartData }: CartProps) {
   };
 
   const handleCheckboxChange = (el: any) => {
+    // 체크박스 n번의 체크 상태를 false로 변경
     const updatedCartList = cartList.map((cartItem) => ({
+      // cartList 배열에서 체크박스 n번의 상태를 false로 변경한 배열
       ...cartItem,
       checked: cartItem._id === el._id ? !cartItem.checked : cartItem.checked,
     }));
+
+    // 체크박스 n번의 체크를 해제하면 전체선택 체크박스의 체크도 해제되는 로직
+    // 전체 선택 체크박스의 상태를 업데이트합니다.
+    const updatedAllChecked = updatedCartList.every((item) => item.checked);
+    // updatedCartList 배열의 모든 항목의 checked 속성의 값이 true인지 여부를 나타냄
+    setAllChecked(updatedAllChecked);
+    // allChecked 상태 변수의 값을 updatedAllChecked 변수의 값으로 변경
+
     setCartList(updatedCartList);
+    // cartList 상태 변수의 값을 updatedCartList 배열로 변경
   };
 
   const handleQuantityChange = async (el: any, action: number) => {
