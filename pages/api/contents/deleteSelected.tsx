@@ -17,7 +17,6 @@ export default async function handler(
     try {
       const db = (await connectDB).db('frankenshop');
       const selectedIds: string[] = req.body.selectedIds; // 선택된 항목들의 _id 배열
-      console.log('selectedIds ㅎㅇ~~~~~~~~~~~~~~~~~~', selectedIds);
       // 선택된 항목들을 삭제
       const result = await db.collection('carts').deleteMany({
         contents: { $in: selectedIds.map((id) => new ObjectId(id)) },

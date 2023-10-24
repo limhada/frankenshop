@@ -153,15 +153,15 @@ export default function CartList({ cartData }: CartProps) {
   const handleDeleteSelected = () => {
     // 체크된 항목만 필터링
     const selectedItems = cartList.filter((item) => item.checked);
-  
+
     if (selectedItems.length === 0) {
       // 체크된 항목이 없으면 아무 작업도 수행하지 않음
       return;
     }
-  
+
     // 선택된 항목들의 _id 값을 배열로 추출
     const selectedIds = selectedItems.map((item) => item._id);
-  
+
     // 서버로 선택된 항목들을 삭제하는 요청을 보낸다. (axios 또는 fetch 등을 사용)
     axios
       .post('/api/contents/deleteSelected', {
@@ -193,7 +193,9 @@ export default function CartList({ cartData }: CartProps) {
           />
           전체선택
         </div>
-        <button onClick={handleDeleteSelected}>선택삭제</button>
+        <button onClick={handleDeleteSelected}>
+          {/* {allChecked ? '전체삭제' : '선택삭제'} */}
+        </button>
         {cartList.map((el, i) => (
           <div key={i} className='flex' id={`cartList-` + i}>
             <input
