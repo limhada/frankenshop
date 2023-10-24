@@ -18,7 +18,7 @@ interface ContentItem {
   img_src: string;
   author: string;
   price: string;
-  like: boolean;
+  isLiked: boolean;
 }
 
 interface ContentsProps {
@@ -34,15 +34,20 @@ export default function Content({ result }: ContentsProps) {
   // TODO: 로고 캐릭터 및 프란켄샵 글꼴 이쁘게 바꿔서 이미지로 넣기
   // TODO: 컨텐츠 내용 무한스크롤 구현하기? or 페이지 번호 만들기 (한 페이지에 10개만 보여주는 등 )
 
+  // TODO: 장바구니에 추가 시
   // TODO: 로그인 x 시 장바구니 페이지 접근 x
 
   const router = useRouter();
+
+  const [contentsData, setContentsData] = useState(result);
+
+  // console.log(contentsData, "ㅎㅇ contentsData~~~~~~~~~~~~~~~~~~~~");
   return (
     <div>
       <h1>상품리스트</h1>
       {/* <img src='/imgtest/1.jpeg' /> */}
       <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5'>
-        {result.map((el, i) => (
+        {contentsData.map((el, i) => (
           <div
             key={i}
             // max-w-[20rem] min-w-[20rem] // TODO: 최소 최대 크기 정하기
@@ -75,13 +80,35 @@ export default function Content({ result }: ContentsProps) {
                     className={`h-2 ${el.like ? 'text-red-500' : ''}`}
                   /> */}
 
+                  {/* ////////////////////////////// */}
+
+                  <FontAwesomeIcon
+                    icon={el.isLiked ? faHeart : regularHeart}
+                    style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
+                    onClick={() => {
+                      const _id = { _id: contentsData[i]._id };
+                      axios
+                        .post('/api/contents/likeChange', _id)
+                        .then((r) => {
+                          // console.log("좋아요 데이터 확인", r.data);
+
+                          // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
+                          router.refresh();
+                        })
+                        .catch((error) => {
+                          // 요청이 실패한 경우에 대한 처리
+                          console.error(error);
+                        });
+                    }}
+                  />
+
                   {/* 장바구니 아이콘 */}
                   {/* TODO: 장바구니에 몇개 담겨있는지 표시할지 말지?? */}
                   <FontAwesomeIcon
                     icon={faCartShopping}
                     style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
                     onClick={(el) => {
-                      const _id = { _id: result[i]._id };
+                      const _id = { _id: contentsData[i]._id };
                       axios
                         .post('/api/contents/addToCart', _id)
                         .then((r) => {
