@@ -3,7 +3,7 @@ import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 import SelectWithOptions from './selectWithOptions';
 
 // TODO: 주소검색 api 적용하기
-
+// TODO: 주소 처음 입력 시 db에 저장 후 마이페이지에 나타내기
 export default async function Oder() {
   let session = await getServerSession(authOptions);
   // console.log(session);

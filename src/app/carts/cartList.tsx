@@ -18,9 +18,12 @@ import { useState, useEffect } from 'react';
 
 // TODO: 각 제품에 배송비 여부 추가하기
 
-// TODO: 01옵션선택 > 02장바구니 > 03주문/결제 > 04주문완료 진행현황 표시하기
+// TODO: 중요 - 선택삭제 및 전체 삭제 추가하기
+
+// TODO: 고민 - 01옵션선택 > 02장바구니 > 03주문/결제 > 04주문완료 진행현황 표시하기
 
 // TODO: 해결 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
+
 export interface CartProps {
   cartData: {
     _id: ObjectId;
@@ -93,8 +96,7 @@ export default function CartList({ cartData }: CartProps) {
     const actionStr = action > 0 ? 'increase' : 'decrease';
     try {
       const response = await axios.post('/api/contents/quantityUpdate', {
-        [actionStr]: action,
-        // TODO: 객체 문법 정리하기
+        [actionStr]: action, // TODO: 객체 문법 정리하기
         _id: el._id.toString(),
       });
       const updatedCartList = cartList.map((cartItem) => ({
@@ -148,6 +150,38 @@ export default function CartList({ cartData }: CartProps) {
       });
   };
 
+  const handleDeleteSelected = () => {
+    // 체크된 항목만 필터링
+    const selectedItems = cartList.filter((item) => item.checked);
+  
+    if (selectedItems.length === 0) {
+      // 체크된 항목이 없으면 아무 작업도 수행하지 않음
+      return;
+    }
+  
+    // 선택된 항목들의 _id 값을 배열로 추출
+    const selectedIds = selectedItems.map((item) => item._id);
+  
+    // 서버로 선택된 항목들을 삭제하는 요청을 보낸다. (axios 또는 fetch 등을 사용)
+    axios
+      .post('/api/contents/deleteSelected', {
+        selectedIds,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          // 선택된 항목들을 삭제한 뒤, 화면에서도 삭제한다.
+          const updatedCartList = cartList.filter(
+            (item) => !selectedIds.includes(item._id)
+          );
+          setCartList(updatedCartList);
+          setAllChecked(false); // 전체 선택 체크박스 초기화
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <div>
       <div className='p-2 bg-gray-100'>
@@ -159,6 +193,7 @@ export default function CartList({ cartData }: CartProps) {
           />
           전체선택
         </div>
+        <button onClick={handleDeleteSelected}>선택삭제</button>
         {cartList.map((el, i) => (
           <div key={i} className='flex' id={`cartList-` + i}>
             <input
