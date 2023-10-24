@@ -68,8 +68,7 @@ export default function Content({ result }: ContentsProps) {
                   className='inline-flex' // 자식 요소의 크기만큼만 자리차지
                   // 위 코드와 동일 style={{ display: 'inline-block' }}
                 >
-                  {/* 컴포넌트로 분리한 좋아요 버튼 */}
-                  <LikeChange result={el} />
+                  
 
                   {/* 기존 좋아요 버튼 */}
                   {/* <FontAwesomeIcon
@@ -84,7 +83,9 @@ export default function Content({ result }: ContentsProps) {
 
                   <FontAwesomeIcon
                     icon={el.isLiked ? faHeart : regularHeart}
-                    style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
+                    // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
+                    className={`h-2 ${el.isLiked ? 'text-red-500' : ''}`}
+
                     onClick={() => {
                       const _id = { _id: contentsData[i]._id };
                       axios
