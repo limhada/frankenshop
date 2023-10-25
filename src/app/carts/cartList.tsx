@@ -129,32 +129,22 @@ export default function CartList({ cartData }: CartProps) {
           const updatedCartList = cartList.filter(
             (item) => item._id !== el._id
           );
-          setCartList(updatedCartList);
 
-          const target = document.getElementById('cartList-' + i);
+          // TODO: 중요 - ㄴ삭제버튼 클릭 시 1초후 사라지는 효과 적용안됨...
+
+          const target = document.getElementById(`carList-${el._id}`);
           if (target) {
-            // 투명도에 1초 동안의 트랜지션 적용
-            target.classList.add('transition-opacity');
-            // 투명하게 만듭니다.
-            target.classList.add('opacity-0');
+            // 1초 후에 투명도를 조절하고 display를 변경합니다.
 
-            // opacity가 0이 되는 1초 후에 display를 변경
+            target.style.opacity = '0';
+            target.style.transition = 'opacity 1s';
+
             setTimeout(() => {
-              // display를 none으로 변경
-              target.classList.add('hidden');
-            }, 1000);
+              target.style.display = 'none';
+              setCartList(updatedCartList);
+            }, 800);
+            // 10ms 대기
           }
-          // TODO: 위 코드와 동일함 블로그에 정리하기
-          // 투명도에 1초 동안의 트랜지션 적용 후 투명하게 만든 뒤 opacity(투명도)가 0이 되는 1초 후에 display를 none으로 변경해서 사라지게 함
-          // 1초동안 천천히 사라지는 효과
-          // if (target) {
-          //   target.style.transition = 'opacity 1s'; // 투명도에 1초 동안의 트랜지션 적용
-          //   target.style.opacity = '0'; // 투명하게 만듭니다.
-          //   // opacity가 0이 되는 1초 후에 display를 변경
-          //   setTimeout(() => {
-          //     target.style.display = 'none';
-          //   }, 1000);
-          // }
         }
       })
       .catch((error) => {
@@ -209,7 +199,7 @@ export default function CartList({ cartData }: CartProps) {
           {allChecked ? '전체삭제' : '선택삭제'}
         </button>
         {cartList.map((el, i) => (
-          <div key={i} className='flex' id={`cartList-` + i}>
+          <div key={`${el._id}`} className='flex' id={`carList-${el._id}`}>
             <input
               type='checkbox'
               checked={el.checked}
@@ -231,7 +221,7 @@ export default function CartList({ cartData }: CartProps) {
               <div>수량: {el.quantity}</div>
               <button onClick={() => handleQuantityChange(el, -1)}>-</button>
             </div>
-            <button onClick={() => handleDelete(el, i)}>X</button>
+            <button onClick={() => handleDelete(el, i)}>삭제</button>
           </div>
         ))}
       </div>
