@@ -20,6 +20,7 @@ import { useState, useEffect } from 'react';
 
 // TODO: 중요 - 선택삭제 및 전체 삭제 추가하기
 
+// TODO: 고민 - 장바구니 각 상품 별 주문하기 버튼 추가할지?
 // TODO: 고민 - 01옵션선택 > 02장바구니 > 03주문/결제 > 04주문완료 진행현황 표시하기
 
 // TODO: 해결 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
@@ -120,7 +121,7 @@ export default function CartList({ cartData }: CartProps) {
     }
   };
 
-  const handleDelete = (el: any, i: number) => {
+  const handleDelete = (el: any) => {
     axios
       .delete(`/api/contents/delete`, { data: el._id.toString() })
       .then((r) => {
@@ -128,32 +129,21 @@ export default function CartList({ cartData }: CartProps) {
           const updatedCartList = cartList.filter(
             (item) => item._id !== el._id
           );
-          setCartList(updatedCartList);
 
-          const target = document.getElementById('cartList-' + i);
+          // TODO: 해결 - 삭제버튼 클릭 시 1초후 사라지는 효과 적용안됨...
+
+          const target = document.getElementById(`carList-${el._id}`);
           if (target) {
-            // 투명도에 1초 동안의 트랜지션 적용
-            target.classList.add('transition-opacity');
-            // 투명하게 만듭니다.
-            target.classList.add('opacity-0');
+            // 1초 후에 투명도를 조절하고 display를 변경합니다.
 
-            // opacity가 0이 되는 1초 후에 display를 변경
+            target.style.opacity = '0';
+            target.style.transition = 'opacity 1s';
+
             setTimeout(() => {
-              // display를 none으로 변경
-              target.classList.add('hidden');
-            }, 1000);
+              target.style.display = 'none';
+              setCartList(updatedCartList);
+            }, 800);
           }
-          // TODO: 위 코드와 동일함 블로그에 정리하기
-          // 투명도에 1초 동안의 트랜지션 적용 후 투명하게 만든 뒤 opacity(투명도)가 0이 되는 1초 후에 display를 none으로 변경해서 사라지게 함
-          // 1초동안 천천히 사라지는 효과
-          // if (target) {
-          //   target.style.transition = 'opacity 1s'; // 투명도에 1초 동안의 트랜지션 적용
-          //   target.style.opacity = '0'; // 투명하게 만듭니다.
-          //   // opacity가 0이 되는 1초 후에 display를 변경
-          //   setTimeout(() => {
-          //     target.style.display = 'none';
-          //   }, 1000);
-          // }
         }
       })
       .catch((error) => {
@@ -164,7 +154,6 @@ export default function CartList({ cartData }: CartProps) {
   const handleDeleteSelected = () => {
     // 체크된 항목만 필터링
     const selectedItems = cartList.filter((item) => item.checked);
-
     if (selectedItems.length === 0) {
       // 체크된 항목이 없으면 아무 작업도 수행하지 않음
       return;
@@ -180,11 +169,27 @@ export default function CartList({ cartData }: CartProps) {
       })
       .then((response) => {
         if (response.status === 200) {
-          // 선택된 항목들을 삭제한 뒤, 화면에서도 삭제한다.
-          const updatedCartList = cartList.filter(
-            (item) => !selectedIds.includes(item._id)
-          );
-          setCartList(updatedCartList);
+          // 1초마다 선택된 항목을 순환하며 사라지는 효과 적용
+          selectedIds.forEach((_id) => {
+            // console.log('ㅎㅇ~~~~~~~~~~~~~~~~~~', _id);
+
+            const selectedEl = document.getElementById(`carList-${_id}`);
+            if (selectedEl) {
+              selectedEl.style.transition = 'opacity 1s'; // 투명도에 1초 동안의 트랜지션 적용
+              selectedEl.style.opacity = '0'; // 투명하게 만듭니다.
+
+              // 1초 후에 display를 변경
+              setTimeout(() => {
+                selectedEl.style.display = 'none';
+                // 선택된 항목들을 삭제한 뒤, 화면에서도 삭제한다.
+                const updatedCartList = cartList.filter(
+                  (item) => !selectedIds.includes(item._id)
+                );
+                setCartList(updatedCartList);
+              }, 1000);
+            }
+          });
+
           setAllChecked(false); // 전체 선택 체크박스 초기화
         }
       })
@@ -205,10 +210,10 @@ export default function CartList({ cartData }: CartProps) {
           전체선택
         </div>
         <button onClick={handleDeleteSelected}>
-          {/* {allChecked ? '전체삭제' : '선택삭제'} */}
+          {allChecked ? '전체삭제' : '선택삭제'}
         </button>
         {cartList.map((el, i) => (
-          <div key={i} className='flex' id={`cartList-` + i}>
+          <div key={`${el._id}`} className='flex' id={`carList-${el._id}`}>
             <input
               type='checkbox'
               checked={el.checked}
@@ -230,7 +235,7 @@ export default function CartList({ cartData }: CartProps) {
               <div>수량: {el.quantity}</div>
               <button onClick={() => handleQuantityChange(el, -1)}>-</button>
             </div>
-            <button onClick={() => handleDelete(el, i)}>X</button>
+            <button onClick={() => handleDelete(el)}>삭제</button>
           </div>
         ))}
       </div>

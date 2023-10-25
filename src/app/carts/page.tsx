@@ -25,7 +25,7 @@ export default async function Carts() {
   const db = (await connectDB).db('frankenshop');
   let result = await db
     .collection('carts')
-    .find({ email: session.user.email })
+    .find({ email: session?.user.email })
     .toArray();
 
   const contentsCollection = db.collection('contents');
@@ -38,14 +38,10 @@ export default async function Carts() {
       _id: new ObjectId(el.contents),
     });
     // 'contentsCollection'에서 해당 상품 ID를 사용하여 상품 정보를 찾습니다.
-    el.contents = contents;
-    // 'el' 객체에 상품 정보를 추가합니다.
-    el.contents.quantity = el.quantity;
-    // 상품 정보 객체에 'el'에서 가져온 체크상태 정보를 추가합니다.
-    el.contents.checked = el.checked;
-    // 상품 정보 객체에 'el'에서 가져온 수량 정보를 추가합니다.
-    cartData.push(el.contents);
-    // 처리된 상품 정보를 'cartData' 배열에 추가합니다.
+    el.contents = contents; // 'el' 객체에 상품 정보를 추가합니다.
+    el.contents.quantity = el.quantity; // 상품 정보 객체에 'el'에서 가져온 체크상태 정보를 추가합니다.
+    el.contents.checked = el.checked; // 상품 정보 객체에 'el'에서 가져온 수량 정보를 추가합니다.
+    cartData.push(el.contents); // 처리된 상품 정보를 'cartData' 배열에 추가합니다.
   }
   // console.log('ㅎㅇ~~~~~~~~~~₩', cartData);
   return (

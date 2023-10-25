@@ -11,8 +11,8 @@ export default async function handler(
   if (req.method === 'DELETE') {
     let session = await getServerSession(req, res, authOptions);
 
-    console.log(req.body, '확인~~~~~~~~~~~~~~~');
-    console.log(session.user.email);
+    // console.log(req.body, '확인~~~~~~~~~~~~~~~');
+    // console.log(session.user.email);
     try {
       const db = (await connectDB).db('frankenshop');
       // let findAuthor = await db

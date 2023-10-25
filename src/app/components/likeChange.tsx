@@ -5,7 +5,9 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
 
-export default function Like({ result }: any) {
+// TODO: 중요 - 삭제 할 컴포넌트
+
+export default function LikeChange({ result }: any) {
   // FIXME: result any로 받아오는 부분 타입 명확하게 수정하기
   const [contentData, setContentData] = useState(result);
 
