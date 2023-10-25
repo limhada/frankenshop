@@ -121,7 +121,7 @@ export default function CartList({ cartData }: CartProps) {
     }
   };
 
-  const handleDelete = (el: any, i: number) => {
+  const handleDelete = (el: any) => {
     axios
       .delete(`/api/contents/delete`, { data: el._id.toString() })
       .then((r) => {
@@ -130,7 +130,7 @@ export default function CartList({ cartData }: CartProps) {
             (item) => item._id !== el._id
           );
 
-          // TODO: 중요 - ㄴ삭제버튼 클릭 시 1초후 사라지는 효과 적용안됨...
+          // TODO: 해결 - 삭제버튼 클릭 시 1초후 사라지는 효과 적용안됨...
 
           const target = document.getElementById(`carList-${el._id}`);
           if (target) {
@@ -143,7 +143,6 @@ export default function CartList({ cartData }: CartProps) {
               target.style.display = 'none';
               setCartList(updatedCartList);
             }, 800);
-            // 10ms 대기
           }
         }
       })
@@ -155,7 +154,6 @@ export default function CartList({ cartData }: CartProps) {
   const handleDeleteSelected = () => {
     // 체크된 항목만 필터링
     const selectedItems = cartList.filter((item) => item.checked);
-
     if (selectedItems.length === 0) {
       // 체크된 항목이 없으면 아무 작업도 수행하지 않음
       return;
@@ -171,11 +169,27 @@ export default function CartList({ cartData }: CartProps) {
       })
       .then((response) => {
         if (response.status === 200) {
-          // 선택된 항목들을 삭제한 뒤, 화면에서도 삭제한다.
-          const updatedCartList = cartList.filter(
-            (item) => !selectedIds.includes(item._id)
-          );
-          setCartList(updatedCartList);
+          // 1초마다 선택된 항목을 순환하며 사라지는 효과 적용
+          selectedIds.forEach((_id) => {
+            // console.log('ㅎㅇ~~~~~~~~~~~~~~~~~~', _id);
+
+            const selectedEl = document.getElementById(`carList-${_id}`);
+            if (selectedEl) {
+              selectedEl.style.transition = 'opacity 1s'; // 투명도에 1초 동안의 트랜지션 적용
+              selectedEl.style.opacity = '0'; // 투명하게 만듭니다.
+
+              // 1초 후에 display를 변경
+              setTimeout(() => {
+                selectedEl.style.display = 'none';
+                // 선택된 항목들을 삭제한 뒤, 화면에서도 삭제한다.
+                const updatedCartList = cartList.filter(
+                  (item) => !selectedIds.includes(item._id)
+                );
+                setCartList(updatedCartList);
+              }, 1000);
+            }
+          });
+
           setAllChecked(false); // 전체 선택 체크박스 초기화
         }
       })
@@ -221,7 +235,7 @@ export default function CartList({ cartData }: CartProps) {
               <div>수량: {el.quantity}</div>
               <button onClick={() => handleQuantityChange(el, -1)}>-</button>
             </div>
-            <button onClick={() => handleDelete(el, i)}>삭제</button>
+            <button onClick={() => handleDelete(el)}>삭제</button>
           </div>
         ))}
       </div>
