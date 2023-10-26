@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faCartShopping, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,7 +41,8 @@ export default function Content({ result }: ContentsProps) {
 
   const [contentsData, setContentsData] = useState(result);
 
-  console.log(contentsData, "ㅎㅇ contentsData~~~~~~~~~~~~~~~~~~~~");
+
+  // console.log(contentsData, "ㅎㅇ contentsData~~~~~~~~~~~~~~~~~~~~");
   return (
     <div>
       <h1>상품리스트</h1>
@@ -91,7 +92,7 @@ export default function Content({ result }: ContentsProps) {
                       axios
                         .post('/api/contents/likeChange', _id)
                         .then((r) => {
-                          console.log("좋아요 데이터 확인", r.data);
+                          // console.log("좋아요 데이터 확인", r.data);
 
                           setContentsData(r.data)
                           // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함

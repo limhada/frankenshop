@@ -137,12 +137,12 @@ export default function CartList({ cartData }: CartProps) {
             // 1초 후에 투명도를 조절하고 display를 변경합니다.
 
             target.style.opacity = '0';
-            target.style.transition = 'opacity 1s';
+            target.style.transition = 'opacity 0.4s';
 
             setTimeout(() => {
               target.style.display = 'none';
               setCartList(updatedCartList);
-            }, 800);
+            }, 400);
           }
         }
       })
