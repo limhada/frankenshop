@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -21,13 +21,15 @@ interface ContentsProps {
   result: ContentItem[];
 }
 
-export default function LikeButton( {result}: any) {
+// TODO: 중요 - 메인페이지와 상세페이지의 좋아요 버튼이 새로고침 해야 서로 상태가 업데이트 되는 문제 해결해야 됨
+
+export default function LikeButton({ result }: any) {
   // const result = {isLiked: true, _id: '123'}
   // console.log(result,"ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~");
-  const [resultData, setResultData] = useState(result)
+  const [resultData, setResultData] = useState(result);
   // console.log(resultData, 'resultData ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~₩');
 
-  return(
+  return (
     <div>
       <FontAwesomeIcon
         icon={resultData.isLiked ? faHeart : regularHeart}
@@ -35,13 +37,11 @@ export default function LikeButton( {result}: any) {
         className={`h-2 ${resultData.isLiked ? 'text-red-500' : ''}`}
         onClick={() => {
           axios
-            .post('/api/contents/detailLikeChange', {_id: resultData._id})
+            .post('/api/contents/detailLikeChange', { _id: resultData._id })
             .then((r) => {
               console.log('좋아요 데이터 확인', r.data.isLiked);
 
-              setResultData(r.data)
-
-
+              setResultData(r.data);
             })
             .catch((error) => {
               // 요청이 실패한 경우에 대한 처리
@@ -50,5 +50,5 @@ export default function LikeButton( {result}: any) {
         }}
       />
     </div>
-  )
+  );
 }
