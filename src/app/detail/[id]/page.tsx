@@ -5,6 +5,7 @@ import Image from 'next/image';
 import LikeButton from './likeButton';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
+import Link from 'next/link';
 
 interface DetailProps {
   params: {
@@ -49,8 +50,14 @@ export default async function Detail(props: DetailProps) {
       />
       <div>내용: {result?.description}</div>
       <div>가격: {result?.price}</div>
-      {/* <LikeChange result={result} /> */}
       <LikeButton result={result} />
+
+      <button >+</button>
+              <div>수량: {1}</div>
+      <button >-</button>
+      <Link href='/order' className=' bg-slate-600'>
+          결제하기
+        </Link>
     </div>
   );
 }
