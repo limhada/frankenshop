@@ -73,7 +73,11 @@ export default async function RootLayout({
         <div className='mt-[250px] pl-[2.75rem] pr-[2.75rem]'>{children}</div>
         <ScrollToTop />
         <div className='bg-gray-300 p-4 h-[200px] mt-9'>
-          하단 문의전화번호 or 회사 명 등등 각종 정보
+          ABOUT
+          leem1315@gmail.com
+          <div>
+            꾸준함을 신천하고 몰입을 즐기며 웹 프론트엔드 개발자로 성장을 추구하는 임종정입니다.
+          </div>
         </div>
       </body>
     </html>
