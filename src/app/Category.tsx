@@ -13,6 +13,9 @@ export default function Category() {
     setIsOpen(!isOpen);
   };
 
+  // TODO: ex) 인기상품 클릭 시 메인 페이지에서 인기상품만 필터링 되서 보여지고 상단에 인기상품 or 할인상품 같은 제목만 추가하기 로직 구현하기
+  // TODO: 카테고리 다양하게 추가하기
+  
   let categoryData = [
     {name:'인기상품'}, 
     {name:'할인상품'}, 

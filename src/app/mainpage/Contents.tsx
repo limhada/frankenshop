@@ -34,8 +34,10 @@ export default function Content({ result }: ContentsProps) {
   // TODO: 로고 캐릭터 및 프란켄샵 글꼴 이쁘게 바꿔서 이미지로 넣기
   // TODO: 컨텐츠 내용 무한스크롤 구현하기? or 페이지 번호 만들기 (한 페이지에 10개만 보여주는 등 )
 
-  // TODO: 장바구니에 추가 시
+  // TODO: 장바구니에 추가
   // TODO: 로그인 x 시 장바구니 페이지 접근 x
+  // TODO: 몽고db 상품 정보에 수량, 배송비 추가하기(배송비는 얼마이상 및 묶음배송 시 어떻게 처리할지 정하기)
+
 
   const router = useRouter();
 

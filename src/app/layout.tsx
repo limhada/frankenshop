@@ -40,7 +40,7 @@ export default async function RootLayout({
             frankenshop
           </Link>
           <Link href='/write' className='mr-3 no-underline'>
-            글 쓰기
+            상품 추가
           </Link>
           <Link href='/list' className='mr-3 no-underline'>
             상품 리스트
