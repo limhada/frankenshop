@@ -6,6 +6,7 @@ import LikeButton from './likeButton';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import Link from 'next/link';
+import QuantityButton from '@/app/components/QuantityButton';
 
 interface DetailProps {
   params: {
@@ -52,9 +53,8 @@ export default async function Detail(props: DetailProps) {
       <div>가격: {result?.price}</div>
       <LikeButton result={result} />
 
-      <button >+</button>
-              <div>수량: {1}</div>
-      <button >-</button>
+      
+      <QuantityButton></QuantityButton>
       <Link href='/order' className=' bg-slate-600'>
           결제하기
         </Link>
