@@ -8,6 +8,9 @@ import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import Link from 'next/link';
 import QuantityButton from '@/app/components/QuantityButton';
 
+// TODO: 결제하기 버튼 클릭 시 결제 api 로 request 하기
+// TODO: 장바구니 재사용 가능하게 별도 컴포넌트로 분리해서 재사용하기
+
 interface DetailProps {
   params: {
     id: string;
@@ -34,7 +37,7 @@ export default async function Detail(props: DetailProps) {
   // result에 해당 제품의 isLiked값 추가
   if (result) {
     result.isLiked = likesResult?.isLiked;
-    result.email = session.user.email
+    result.email = session.user.email;
   }
 
   return (
@@ -51,13 +54,15 @@ export default async function Detail(props: DetailProps) {
       />
       <div>내용: {result?.description}</div>
       <div>가격: {result?.price}</div>
+      {/* 좋아요 버튼 */}
       <LikeButton result={result} />
-
-      
+      {/* 장바구니 버튼 */}
+      {/*  TODO: 아이콘으로 변경하기 */}
+      <div>장바구니 추가</div>
       <QuantityButton></QuantityButton>
       <Link href='/order' className=' bg-slate-600'>
-          결제하기
-        </Link>
+        결제하기
+      </Link>
     </div>
   );
 }
