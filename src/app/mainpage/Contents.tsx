@@ -1,13 +1,12 @@
 'use client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faCartShopping, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
-import LikeChange from '../components/likeChange';
+// import LikeChange from '../components/likeChange';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
@@ -82,8 +81,8 @@ export default function Content({ result }: ContentsProps) {
                     className={`h-2 ${el.like ? 'text-red-500' : ''}`}
                   /> */}
 
-                  {/* ////////////////////////////// */}
 
+                  {/* 좋아요 아아이콘 */}
                   <FontAwesomeIcon
                     icon={el.isLiked ? faHeart : regularHeart}
                     // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
