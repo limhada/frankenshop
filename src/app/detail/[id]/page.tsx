@@ -59,6 +59,7 @@ export default async function Detail(props: DetailProps) {
       {/* 장바구니 버튼 */}
       {/*  TODO: 아이콘으로 변경하기 */}
       <div>장바구니 추가</div>
+      
       <QuantityButton></QuantityButton>
       <Link href='/order' className=' bg-slate-600'>
         결제하기
