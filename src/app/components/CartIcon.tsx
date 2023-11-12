@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
