@@ -241,7 +241,7 @@ export default function CartList({ cartData }: CartProps) {
       </div>
       <div className='flex'>
         <div>총 결제 금액: {totalPrice}</div>
-        <Link href='/order' className=' bg-slate-600'>
+        <Link href='/order/cart' className=' bg-slate-600'>
           결제하기
         </Link>
       </div>
