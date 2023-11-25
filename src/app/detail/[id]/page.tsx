@@ -62,7 +62,7 @@ export default async function Detail(props: DetailProps) {
       <div>장바구니 추가</div>
       <CartIcon itemId={result?._id.toString()}></CartIcon>
       <QuantityButton></QuantityButton>
-      <Link href='/order' className=' bg-slate-600'>
+      <Link href='/order/detail' className=' bg-slate-600'>
         결제하기
       </Link>
     </div>
