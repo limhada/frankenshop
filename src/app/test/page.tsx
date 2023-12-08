@@ -15,9 +15,16 @@ import {
   incrementByAmount2,
 } from '../GlobalRedux/counterSlice2';
 
+import { asyncAxios } from '../GlobalRedux/counterSlice';
+
 export default function Test() {
   const count = useSelector((state: RootState) => state.counter.value);
   const count2 = useSelector((state: RootState) => state.counter2.value);
+  const status = useSelector((state: RootState) => state.counter.status);
+
+  // 비동기 처리 값 확인
+  const value2 = useSelector((state: RootState) => state.counter.value2);
+
   const dispatch = useDispatch();
 
   return (
@@ -25,6 +32,10 @@ export default function Test() {
       테스트페이지
       <div>
         <div>
+          <span>
+            <div className='bg-red-300'>1번 slice 값: {count}</div>
+            <div>2번 slice 값: {count2}</div>
+          </span>
           <button
             // className={styles.button}
             className='bg-red-300 rounded-lg'
@@ -41,10 +52,6 @@ export default function Test() {
           2번 증가{' '}
         </button>
       </div>
-      <span>
-        <div className='bg-red-300'>1번 slice 값: {count}</div>
-        <div>2번 slice 값: {count2}</div>
-      </span>
       <div>
         <div>
           <button
@@ -76,6 +83,22 @@ export default function Test() {
         2번 Increment by 2
       </button>
       <div className='bg-slate-500'></div>
+      <div>
+        비동기 상태:
+        <span>
+          {/* 비동기 상태 */}
+          {status}
+        </span>
+        <div>비동기 값 확인: {value2}</div>
+      </div>
+      {/* redux thunk 테스트 */}
+      <button
+        onClick={() => {
+          dispatch(asyncAxios());
+        }}
+      >
+        비동기 테스트 버튼
+      </button>
     </div>
   );
 }
