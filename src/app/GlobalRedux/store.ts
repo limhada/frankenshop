@@ -1,12 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from './counterSlice'
+import counterReducer2 from './counterSlice2'
 
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer
+    // 실제 사용되는 이름
+    // counter 이름은 소비자 페이지인 test/page.tsx에서
+    // useSelector(안에서 사용되는 이름)
+    counter: counterReducer,
+    counter2: counterReducer2
   }
 })
+
 
 // Redux 스토어의 상태 타입을 정의
 // store.getState 함수는 스토어의 현재 상태를 반환하며, 이 타입은 해당 상태의 구조를 정확하게 반영
