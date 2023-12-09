@@ -77,7 +77,7 @@ export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
 // counterSlice의 리듀서를 내보내는 코드
 // export default counterSlice.reducers; 대신 export default counterSlice.reducer;를 사용하는 이유
-// createSlice 함수는 reducers 속성을 받지만, 실제로 내보내는 것은 단일 reducer 함수입니다. 이 함수는 reducers 속성에 정의된 각 리듀서 함수를 결합하여 하나의 함수로 만든 것
+// createSlice 함수는 reducers 속성을 받지만, 실제로 내보내는 것은 단일 reducer 함수 하나이기 때문에 s를 붙이지 않음, 이 함수는 reducers 속성에 정의된 각 리듀서 함수를 결합하여 하나의 함수로 만든 것
 export default counterSlice.reducer;
 // counterSlice.reducers는 객체이기 때문에 에러 발생!
 
