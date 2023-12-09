@@ -1,4 +1,5 @@
 'use client'
+// TODO: 에러페이지 수정하기
 // global-error는 최상위 layout의 오류 처리에 사용됨
 // 무조건 클라이언트 컴포넌트만 가능
 export default function Error({ 

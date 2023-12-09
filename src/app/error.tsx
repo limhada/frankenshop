@@ -1,4 +1,5 @@
 'use client'
+// TODO: 에러페이지 수정하기
 // 무조건 클라이언트 컴포넌트만 가능
 export default function Error({ 
   error, // 에러 정보가 들어있음 
