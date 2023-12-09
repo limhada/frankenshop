@@ -33,7 +33,7 @@ export default function Test() {
       <div>
         <div>
           <span>
-            <div className='bg-red-300'>1번 slice 값: {count}</div>
+            <span className='bg-red-300 rounded-lg'>1번 slice 값: {count}</span>
             <div>2번 slice 값: {count2}</div>
           </span>
           <button
@@ -93,6 +93,7 @@ export default function Test() {
       </div>
       {/* redux thunk 테스트 */}
       <button
+        className='bg-red-300 rounded-lg'
         onClick={() => {
           dispatch(asyncAxios());
         }}
