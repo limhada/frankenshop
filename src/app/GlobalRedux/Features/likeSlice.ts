@@ -1,16 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { connectDB } from "../../../../util/database";
-import { ObjectId } from "mongodb";
+
+
+
 
 
 export const asyncLikeState: any = createAsyncThunk(
   'likeSlice/asyncLike',
-  async (id: string) => {
+  async () => {
     try {
-      const db = (await connectDB).db('frankenshop');
-      const result = await db.collection('contents').findOne({ _id: new ObjectId(id) });
-      return result;
+      const {data} = await axios.get('/api/like/likeState');
+
+      return data;
     } catch(error) {
       throw error
     }
@@ -21,7 +22,7 @@ export interface likeState {
   likeState: boolean;
 }
 
-const initialState: likeState = {
+const initialState = {
   likeState: false
 }
 
@@ -36,6 +37,7 @@ export const likeSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(asyncLikeState.fulfilled, (state, action) => {
       // 서버에서 받아온 값(action.payload)으로 업데이트
+      // console.log(action.payload, 'ㅎㅇ~~~~');
       state.likeState = action.payload
     })
   },
