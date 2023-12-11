@@ -1,6 +1,8 @@
+import { likeState } from './Features/likeSlice';
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from './counterSlice'
 import counterReducer2 from './counterSlice2'
+import likeReducer from './Features/likeSlice';
 
 
 export const store = configureStore({
@@ -9,7 +11,8 @@ export const store = configureStore({
     // counter 이름은 소비자 페이지인 test/page.tsx에서
     // useSelector(안에서 사용되는 이름)
     counter: counterReducer,
-    counter2: counterReducer2
+    counter2: counterReducer2,
+    like: likeReducer
   }
 })
 

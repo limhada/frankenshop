@@ -1,6 +1,6 @@
 'use client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
 import { ObjectId } from 'mongodb';
@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 // import LikeChange from '../components/likeChange';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import CartIcon from '../components/CartIcon';
 
 interface ContentItem {
@@ -38,7 +38,7 @@ export default function Content({ result }: ContentsProps) {
   // TODO: 로그인 x 시 장바구니 페이지 접근 x
   // TODO: 몽고db 상품 정보에 수량, 배송비 추가하기(배송비는 얼마이상 및 묶음배송 시 어떻게 처리할지 정하기)
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const [contentsData, setContentsData] = useState(result);
 

@@ -16,6 +16,7 @@ import {
 } from '../GlobalRedux/counterSlice2';
 
 import { asyncAxios } from '../GlobalRedux/counterSlice';
+import { asyncLikeState } from '../GlobalRedux/Features/likeSlice';
 
 export default function Test() {
   const count = useSelector((state: RootState) => state.counter.value);
@@ -25,12 +26,29 @@ export default function Test() {
   // 비동기 처리 값 확인
   const value2 = useSelector((state: RootState) => state.counter.value2);
 
+  // likeState 테스트
+  const likeState = useSelector((state: RootState) => state.like.likeState);
+  // const { _id, contents, email, isLiked } = likeState;
   const dispatch = useDispatch();
-
+  const _id = '6509b47802b7712df0cd3d53' // 임의 값을 넣음
   return (
     <div>
       테스트페이지
       <div>
+        <div className='bg-lime-100'>
+          <span>likeState: {likeState}</span>
+          {/* <span>ID: {_id}</span>
+          <p>{contents}</p>
+          <span>Email: {email}</span>
+          {isLiked && <span>Liked</span>} */}
+          <button
+            onClick={() => {
+              dispatch(asyncLikeState(_id));
+            }}
+          >
+            likeState 버튼
+          </button>
+        </div>
         <div>
           <span>
             <span className='bg-red-300 rounded-lg'>1번 slice 값: {count}</span>

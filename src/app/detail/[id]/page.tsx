@@ -19,7 +19,7 @@ interface DetailProps {
 }
 
 export default async function Detail(props: DetailProps) {
-  // console.log(props.params.id); // props.params.id는 detail/[id] 에서 id 값임
+  console.log(props.params.id, '= props.params.id~~~~~~~~~'); // props.params.id는 detail/[id] 에서 id 값임
 
   const db = (await connectDB).db('frankenshop');
   let result = await db
@@ -38,7 +38,7 @@ export default async function Detail(props: DetailProps) {
   // result에 해당 제품의 isLiked값 추가
   if (result) {
     result.isLiked = likesResult?.isLiked;
-    result.email = session.user.email;
+    // result.email = session.user.email;
   }
 
   return (
@@ -49,6 +49,8 @@ export default async function Detail(props: DetailProps) {
       <Image
         src={result?.img_src}
         alt={result?.title}
+        // priority 비활성화 시 경고 메세지 : was detected as the Largest Contentful Paint (LCP). Please add the "priority"
+        priority={true}
         width={200}
         height={200}
         // style={{ height: 100 }} // 이미지 세로 크기 조절

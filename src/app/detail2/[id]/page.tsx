@@ -1,3 +1,5 @@
+// TODO: 상세페이지2 댓글 페이지
+
 import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../../util/database';
 import Comment from './Comment';
@@ -31,7 +33,7 @@ export default async function Detail2(props: DetailProps) {
 
   return (
     <div>
-      <h4>상세 페이지</h4>
+      <h4>상세 페이지2</h4>
       <h2>제목: {result?.title}</h2>
       <div>내용: {result?.content}</div>
       <img src={result?.img_src} />
