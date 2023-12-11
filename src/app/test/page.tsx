@@ -30,7 +30,7 @@ export default function Test() {
   const likeState = useSelector((state: RootState) => state.like.likeState);
   // const { _id, contents, email, isLiked } = likeState;
   const dispatch = useDispatch();
-
+  const _id = '6509b47802b7712df0cd3d53' // 임의 값을 넣음
   return (
     <div>
       테스트페이지
@@ -43,7 +43,7 @@ export default function Test() {
           {isLiked && <span>Liked</span>} */}
           <button
             onClick={() => {
-              dispatch(asyncLikeState());
+              dispatch(asyncLikeState(_id));
             }}
           >
             likeState 버튼

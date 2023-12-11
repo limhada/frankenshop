@@ -7,10 +7,10 @@ import axios from "axios";
 
 export const asyncLikeState: any = createAsyncThunk(
   'likeSlice/asyncLike',
-  async () => {
+  async (_id) => {
     try {
-      const {data} = await axios.get('/api/like/likeState');
-
+      // 쿼리스트링으로 likeState api로 _id값 전송
+      const {data} = await axios.get(`/api/like/likeState?_id=${_id}`);
       return data;
     } catch(error) {
       throw error
@@ -18,13 +18,15 @@ export const asyncLikeState: any = createAsyncThunk(
   }
 )
 
-export interface likeState {
+export interface LikeState {
   likeState: boolean;
+
 }
 
-const initialState = {
+const initialState: LikeState = {
   likeState: false
 }
+
 
 export const likeSlice = createSlice({
   name: 'like',
