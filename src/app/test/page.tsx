@@ -30,17 +30,12 @@ export default function Test() {
   const likeState = useSelector((state: RootState) => state.like.likeState);
   // const { _id, contents, email, isLiked } = likeState;
   const dispatch = useDispatch();
-  const _id = '6509b47802b7712df0cd3d53' // 임의 값을 넣음
+  const _id = '6509b47802b7712df0cd3d53'; // 임의 값을 넣음
   return (
     <div>
       테스트페이지
       <div>
         <div className='bg-lime-100'>
-          <span>likeState: {likeState}</span>
-          {/* <span>ID: {_id}</span>
-          <p>{contents}</p>
-          <span>Email: {email}</span>
-          {isLiked && <span>Liked</span>} */}
           <button
             onClick={() => {
               dispatch(asyncLikeState(_id));
@@ -48,6 +43,20 @@ export default function Test() {
           >
             likeState 버튼
           </button>
+          {likeState ? (
+            <div>
+              <div>title: {likeState?.title}</div>
+              <div>img_src: {likeState?.img_src}</div>
+              <div>author: {likeState?.author}</div>
+              <div>price: {likeState?.price}</div>
+              <div>description: {likeState?.description}</div>
+              <div>isLiked: {String(likeState?.isLiked)}?</div>
+            </div>
+          ) : null}
+          {/* <span>ID: {_id}</span>
+          <p>{contents}</p>
+          <span>Email: {email}</span>
+          {isLiked && <span>Liked</span>} */}
         </div>
         <div>
           <span>

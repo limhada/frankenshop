@@ -19,8 +19,9 @@ interface DetailProps {
 }
 
 export default async function Detail(props: DetailProps) {
-  console.log(props.params.id, '= props.params.id~~~~~~~~~'); // props.params.id는 detail/[id] 에서 id 값임
+  // console.log(props.params.id, '= props.params.id~~~~~~~~~'); // props.params.id는 detail/[id] 에서 id 값임
 
+  // db의 contents컬렉션에서 id에 해당하는 상품 정보 검색
   const db = (await connectDB).db('frankenshop');
   let result = await db
     .collection('contents')
@@ -30,6 +31,7 @@ export default async function Detail(props: DetailProps) {
 
   let session = await getServerSession(authOptions);
 
+  // db의 likes컬렉션에서 현재 로그인된 사용자의 이메일과 id에 해당하는 상품 정보가 일치하는
   let likesResult = await db.collection('likes').findOne({
     email: session?.user.email,
     contents: new ObjectId(result?._id.toString()),

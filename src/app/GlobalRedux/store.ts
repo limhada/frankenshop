@@ -1,4 +1,3 @@
-import { likeState } from './Features/likeSlice';
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from './counterSlice'
 import counterReducer2 from './counterSlice2'
