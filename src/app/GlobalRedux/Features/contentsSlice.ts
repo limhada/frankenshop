@@ -14,8 +14,7 @@ export const asyncContents: any = createAsyncThunk(
 )
 
 const initialState = {
-  // const initialState = {
-  data: null,
+  data: [],
 };
 
 export const contentsSlice = createSlice({

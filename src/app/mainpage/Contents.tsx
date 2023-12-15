@@ -43,22 +43,26 @@ export default function Content({ result }: ContentsProps) {
 
   // const router = useRouter();
 
-  const [contentsData, setContentsData] = useState(result);
-
-  const allContents = useSelector((state: RootState) => state.allContents.data)
+  // TODO: 정리하기 -> as ContentItem[] 지정 안할 시 'never' 형식에 '_id' 속성이 없습니다. 에러 발생 데이터를 받아오기 전 빈 배열 [] 이기 때문!
+  const allContents = useSelector((state: RootState) => state.allContents.data as ContentItem[])
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(asyncContents());
   }, []);
+  console.log('allContents ㅎㅇ~~~~~',allContents);
+  console.log('result ㅎㅇ~~~~~',result);
+
+  const [contentsData, setContentsData] = useState(result);
 
   // console.log(contentsData, "ㅎㅇ contentsData~~~~~~~~~~~~~~~~~~~~");
   return (
     <div>
-      <div>테스트~~~ allContents : {allContents}</div>
+      {/* <div>테스트~~~ allContents : {allContents}</div> */}
       <h1>상품리스트</h1>
       {/* <img src='/imgtest/1.jpeg' /> */}
       <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5'>
-        {contentsData.map((el, i) => (
+        {allContents.map((el, i) => (
           <div
             key={i}
             // max-w-[20rem] min-w-[20rem] // TODO: 최소 최대 크기 정하기

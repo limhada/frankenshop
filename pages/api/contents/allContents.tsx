@@ -25,7 +25,7 @@ export default async function handler(
       // let result = await db.collection<ListProps>('contents').find().toArray();
       let result = await db.collection('contents').find().toArray();
 
-      // console.log('데이터 확인', result);
+      console.log('데이터 확인', result);
       /*
       result = [
         {
@@ -49,8 +49,8 @@ export default async function handler(
       ];
       */
 
-      // return res.status(200).json(result);
-      return res.status(200).json('allContents 서버 응답 테스트 성공');
+      return res.status(200).json(result);
+      // return res.status(200).json('allContents 서버 응답 테스트 성공');
     } catch (error) {
       console.log(error, '서버에러');
     }
