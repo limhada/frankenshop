@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from './counterSlice'
 import counterReducer2 from './counterSlice2'
 import likeReducer from './Features/likeSlice';
-
+import contentsReducer from './Features/contentsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +11,8 @@ export const store = configureStore({
     // useSelector(안에서 사용되는 이름)
     counter: counterReducer,
     counter2: counterReducer2,
-    like: likeReducer
+    like: likeReducer,
+    allContents: contentsReducer
   }
 })
 

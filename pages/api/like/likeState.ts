@@ -41,16 +41,17 @@ export default async function handler(
       // console.log('result ㅎㅇ~~~~~~', result);
 
       /*
-result = {
-  _id: new ObjectId("6509b47802b7712df0cd3d53"),
-  title: '상품1',
-  img_src: 'https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true',
-  author: 'q',
-  price: '10,000',
-  description: '상품1의 내용',
-  isLiked: true
-}
-*/
+      result = {
+        _id: new ObjectId('6509b47802b7712df0cd3d53'),
+        title: '상품1',
+        img_src:
+          'https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true',
+        author: 'q',
+        price: '10,000',
+        description: '상품1의 내용',
+        isLiked: true,
+      };
+      */
 
       // result에 담겨있는 상품 정보에 likesResult에서 가져온 isLiked값을 result에 추가하기
       return res.status(200).json(result);
