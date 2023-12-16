@@ -12,9 +12,9 @@ import axios from 'axios';
 import CartIcon from '../components/CartIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../GlobalRedux/store';
-import { asyncContents } from '../GlobalRedux/Features/contentsSlice';
+import { asyncContents, likeToggle } from '../GlobalRedux/Features/contentsSlice';
 
-interface ContentItem {
+export interface ContentItem {
   _id: ObjectId;
   title: string;
   description: string;
@@ -123,18 +123,19 @@ export default function Content() {
                     className={`h-2 ${el.isLiked ? 'text-red-500' : ''}`}
                     onClick={() => {
                       const _id = { _id: allContents[i]._id };
-                      axios
-                        .post('/api/contents/likeChange', _id)
-                        .then((r) => {
-                          // console.log("좋아요 데이터 확인", r.data);
+                      dispatch(likeToggle(_id))
+                      // axios
+                      //   .post('/api/contents/likeChange', _id)
+                      //   .then((r) => {
+                      //     // console.log("좋아요 데이터 확인", r.data);
 
-                          // setContentsData(r.data);
-                          // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
-                        })
-                        .catch((error) => {
-                          // 요청이 실패한 경우에 대한 처리
-                          console.error(error);
-                        });
+                      //     // setContentsData(r.data);
+                      //     // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
+                      //   })
+                      //   .catch((error) => {
+                      //     // 요청이 실패한 경우에 대한 처리
+                      //     console.error(error);
+                      //   });
                     }}
                   />
 
