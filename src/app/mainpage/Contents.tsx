@@ -24,11 +24,12 @@ interface ContentItem {
   isLiked: boolean;
 }
 
-interface ContentsProps {
-  result: ContentItem[];
-}
+// interface ContentsProps {
+//   result: ContentItem[];
+// }
 
-export default function Content({ result }: ContentsProps) {
+// export default function Content({ result }: ContentsProps) {
+export default function Content() {
   // 이미지와 정보가 들어있는 배열 객체
   // TODO: 서버에서 받아오는 데이터로 변경하기
   // TODO: 해당 상품 클릭 시 상세페이지로 이동하게
@@ -44,16 +45,17 @@ export default function Content({ result }: ContentsProps) {
   // const router = useRouter();
 
   // TODO: 정리하기 -> as ContentItem[] 지정 안할 시 'never' 형식에 '_id' 속성이 없습니다. 에러 발생 데이터를 받아오기 전 빈 배열 [] 이기 때문!
-  const allContents = useSelector((state: RootState) => state.allContents.data as ContentItem[])
+  const allContents = useSelector((state: RootState) => state.allContents.contentsData as ContentItem[])
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(asyncContents());
   }, []);
   console.log('allContents ㅎㅇ~~~~~',allContents);
-  console.log('result ㅎㅇ~~~~~',result);
+  // console.log('result ㅎㅇ~~~~~',result);
 
-  const [contentsData, setContentsData] = useState(result);
+  // const [contentsData, setContentsData] = useState(result);
 
   // console.log(contentsData, "ㅎㅇ contentsData~~~~~~~~~~~~~~~~~~~~");
   return (
@@ -83,7 +85,7 @@ export default function Content({ result }: ContentsProps) {
                   className='inline-flex' // 자식 요소의 크기만큼만 자리차지
                   // 위 코드와 동일 style={{ display: 'inline-block' }}
                 >
-                  {/* 기존 좋아요 버튼 */}
+                  {/* 기존 좋아요 버튼 v1 */}
                   {/* <FontAwesomeIcon
                     icon={el.like ? faHeart : regularHeart}
                     // 몽고db에서 받아온 result 데이터의 like는 string 형식이라 별도로 변환이나 처리가 필요함
@@ -92,13 +94,13 @@ export default function Content({ result }: ContentsProps) {
                     className={`h-2 ${el.like ? 'text-red-500' : ''}`}
                   /> */}
 
-                  {/* 좋아요 아아이콘 */}
-                  <FontAwesomeIcon
+                  {/* 좋아요 아아이콘 v2 */}
+                  {/* <FontAwesomeIcon
                     icon={el.isLiked ? faHeart : regularHeart}
                     // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
                     className={`h-2 ${el.isLiked ? 'text-red-500' : ''}`}
                     onClick={() => {
-                      const _id = { _id: contentsData[i]._id };
+                      const _id = { _id: allContents[i]._id };
                       axios
                         .post('/api/contents/likeChange', _id)
                         .then((r) => {
@@ -112,11 +114,34 @@ export default function Content({ result }: ContentsProps) {
                           console.error(error);
                         });
                     }}
+                  /> */}
+
+                   {/* 좋아요 아아이콘 v3*/}
+                   <FontAwesomeIcon
+                    icon={el.isLiked ? faHeart : regularHeart}
+                    // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
+                    className={`h-2 ${el.isLiked ? 'text-red-500' : ''}`}
+                    onClick={() => {
+                      const _id = { _id: allContents[i]._id };
+                      axios
+                        .post('/api/contents/likeChange', _id)
+                        .then((r) => {
+                          // console.log("좋아요 데이터 확인", r.data);
+
+                          // setContentsData(r.data);
+                          // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
+                        })
+                        .catch((error) => {
+                          // 요청이 실패한 경우에 대한 처리
+                          console.error(error);
+                        });
+                    }}
                   />
+
 
                   {/* 장바구니 아이콘 */}
                   {/* TODO: 장바구니에 몇개 담겨있는지 표시할지 말지?? */}
-                  <CartIcon itemId={contentsData[i]._id}></CartIcon>
+                  <CartIcon itemId={allContents[i]._id}></CartIcon>
                 </div>
                 {/* TODO: 평점? 추가할지 말지 */}
                 <div className='font-bold text-xl mb-2'>{el.title}</div>
