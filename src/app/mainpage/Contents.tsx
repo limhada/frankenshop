@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,6 +10,9 @@ import Link from 'next/link';
 import axios from 'axios';
 // import { useRouter } from 'next/navigation';
 import CartIcon from '../components/CartIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../GlobalRedux/store';
+import { asyncContents } from '../GlobalRedux/Features/contentsSlice';
 
 interface ContentItem {
   _id: ObjectId;
@@ -42,9 +45,16 @@ export default function Content({ result }: ContentsProps) {
 
   const [contentsData, setContentsData] = useState(result);
 
+  const allContents = useSelector((state: RootState) => state.allContents.data)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(asyncContents());
+  }, []);
+
   // console.log(contentsData, "ㅎㅇ contentsData~~~~~~~~~~~~~~~~~~~~");
   return (
     <div>
+      <div>테스트~~~ allContents : {allContents}</div>
       <h1>상품리스트</h1>
       {/* <img src='/imgtest/1.jpeg' /> */}
       <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5'>
