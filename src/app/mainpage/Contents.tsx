@@ -12,7 +12,7 @@ import axios from 'axios';
 import CartIcon from '../components/CartIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../GlobalRedux/store';
-import { asyncContents, likeToggle } from '../GlobalRedux/Features/contentsSlice';
+import { asyncContents, likeChange, likeToggle } from '../GlobalRedux/Features/contentsSlice';
 
 export interface ContentItem {
   _id: ObjectId;
@@ -52,8 +52,9 @@ export default function Content() {
   useEffect(() => {
     dispatch(asyncContents());
   }, []);
-  console.log('allContents ㅎㅇ~~~~~',allContents);
-  // console.log('result ㅎㅇ~~~~~',result);
+  
+  // console.log('allContents ㅎㅇ~~~~~',allContents);
+
 
   // const [contentsData, setContentsData] = useState(result);
 
@@ -123,7 +124,11 @@ export default function Content() {
                     className={`h-2 ${el.isLiked ? 'text-red-500' : ''}`}
                     onClick={() => {
                       const _id = { _id: allContents[i]._id };
+                      
                       dispatch(likeToggle(_id))
+
+                      // likeChange 액션을 디스패치하여 서버에 like 상태 변경 요청
+                      dispatch(likeChange(_id));
                       // axios
                       //   .post('/api/contents/likeChange', _id)
                       //   .then((r) => {

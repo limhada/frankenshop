@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { ContentItem } from '@/app/mainpage/Contents';
+import { useDispatch } from 'react-redux';
 // 모든 컨텐츠 정보 비동기 요청
 export const asyncContents: any = createAsyncThunk(
   'contentsSlice/asynContents',
@@ -19,7 +20,7 @@ export const likeChange: any = createAsyncThunk(
   'contentsSlice/likeChange',
   async (_id) => {
     try {
-      const { data } = await axios.post('/api/contents/likeChange', { _id });
+      const { data } = await axios.post('/api/contents/likeChange', _id);
       return data;
     } catch (error) {
       throw error;
@@ -32,6 +33,7 @@ const initialState = {
   likeState: [],
 };
 
+
 export const contentsSlice = createSlice({
   name: 'contents',
   initialState,
@@ -43,17 +45,24 @@ export const contentsSlice = createSlice({
       const toggledId = action.payload._id;
       // console.log('toggledId= ~~~~~~~', toggledId);
       // state.contentsData의 _id가 toggledId와 일치하는 객체 찾기
-      const targetItem = state.contentsData.findIndex((item: ContentItem) => {
+      state.contentsData.findIndex((item: ContentItem) => {
         if (item._id === toggledId) {
           item.isLiked = !item.isLiked;
         }
       });
+
+      
+
     },
   },
+
+  // TODO: 할차례
+
+  
   extraReducers(builder) {
     builder.addCase(asyncContents.fulfilled, (state, action) => {
       state.contentsData = action.payload;
-      console.log('state.contentsData = ㅎㅇ~~~~~~~1', state.contentsData);
+      // console.log('state.contentsData = ㅎㅇ~~~~~~~', state.contentsData);
     }),
       builder.addCase(likeChange.fulfilled, (state, action) => {
         state.likeState = action.payload;
