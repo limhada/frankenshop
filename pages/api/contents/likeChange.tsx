@@ -52,7 +52,7 @@ export default async function handler(
       // // console.log('장바구니에 추가된 값 확인~~~~~~~~~~~~~~~', updateResult);
 
 
-      // 기존 로직 몽고db에 업데이트 한 값 다시 결과로 반환하는 로직
+      // TODO: 정리 - 기존 로직 몽고db에 업데이트 한 값 다시 결과로 반환하는 로직
       // let contentsResult = await db.collection('contents').find().toArray();
 
       // let likesResult = await db

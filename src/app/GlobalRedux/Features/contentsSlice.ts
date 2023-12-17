@@ -38,6 +38,7 @@ export const contentsSlice = createSlice({
   name: 'contents',
   initialState,
   reducers: {
+    // 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
     likeToggle: (state, action) => {
       // state: 현재의 상태. 우리가 관리하고 있는 상태 데이터입
       // action: 디스패치된 액션 객체. 이 객체는 어떤 종류의 액션이 발생했는지 식별하고 추가적인 데이터를 포함할 수 있다

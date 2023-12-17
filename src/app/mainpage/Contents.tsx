@@ -117,7 +117,7 @@ export default function Content() {
                     }}
                   /> */}
 
-                   {/* 좋아요 아아이콘 v3*/}
+                   {/* 좋아요 아아이콘 v3 - 리덕스 툴킷 적용*/}
                    <FontAwesomeIcon
                     icon={el.isLiked ? faHeart : regularHeart}
                     // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
@@ -125,6 +125,7 @@ export default function Content() {
                     onClick={() => {
                       const _id = { _id: allContents[i]._id };
                       
+                      // likeToggle 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
                       dispatch(likeToggle(_id))
 
                       // likeChange 액션을 디스패치하여 서버에 like 상태 변경 요청
