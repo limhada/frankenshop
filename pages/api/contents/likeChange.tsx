@@ -9,7 +9,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    console.log('likeChange api ㅎㅇ~~', req.body._id); // req.body -> 현재 제품의 _id
+    // console.log('likeChange api ㅎㅇ~~', req.body._id); // req.body -> 현재 제품의 _id
     // likeChange api ㅎㅇ~~ 6509b47802b7712df0cd3d53
     let session = await getServerSession(req, res, authOptions);
     // console.log('회원정보 확인~~~~~~~~~~~~', session.user.email);

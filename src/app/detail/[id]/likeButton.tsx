@@ -3,7 +3,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import { ObjectId } from 'mongodb';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ import {
   likeToggle,
 } from '@/app/GlobalRedux/Features/contentsSlice';
 import { RootState } from '@/app/GlobalRedux/store';
+import { useParams } from 'next/navigation';
 
 interface ContentItem {
   _id: ObjectId;
@@ -37,20 +38,36 @@ export default function LikeButton({ result }: any) {
   // console.log(resultData, 'resultData ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~₩');
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(asyncContents());
-  }, []);
+  let params = useParams();
+  // console.log('ㅎㅇ~~~~~~~~~~params ', params?.id);
+  // id는 detail/[id] 값임
+  const _id = params?.id;
 
   const allContents = useSelector(
-    (state: RootState) => state.allContents.contentsData as ContentItem[]
+    (state: RootState) => state.contents.contentsData as ContentItem[]
   );
-  console.log('allContents ㅎㅇ~~~~~~~~~', allContents);
+
+  useEffect(() => {
+    if (allContents.length === 0) {
+      dispatch(asyncContents());
+    }
+  }, []);
+
+  // console.log(allContents, 'ㅎㅇ~~~~~~~~~22');
+  const detailContent = allContents.find(
+    (content) => content._id === (_id as ObjectId | string)
+  );
+
+  // console.log(detailContent, 'ㅎㅇ~~~~~~~~~33');
+
+  // console.log(allContents, 'ㅎㅇ~~~~~~~~~~~~~~~~~~₩');
+
   return (
     <div>
       <FontAwesomeIcon
-        icon={resultData.isLiked ? faHeart : regularHeart}
+        icon={detailContent?.isLiked ? faHeart : regularHeart}
         // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
-        className={`h-2 ${resultData.isLiked ? 'text-red-500' : ''}`}
+        className={`h-2 ${detailContent?.isLiked ? 'text-red-500' : ''}`}
         onClick={() => {
           // 기존 코드
           // axios
@@ -66,10 +83,10 @@ export default function LikeButton({ result }: any) {
           //   });
 
           // likeToggle 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
-          dispatch(likeToggle(_id));
+          dispatch(likeToggle({ _id }));
 
           // likeChange 액션을 디스패치하여 서버에 like 상태 변경 요청
-          dispatch(likeChange(_id));
+          dispatch(likeChange({ _id }));
         }}
       />
     </div>
