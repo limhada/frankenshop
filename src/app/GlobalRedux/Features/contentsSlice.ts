@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { ContentItem } from '@/app/mainpage/Contents';
-import { useDispatch } from 'react-redux';
+
 // 모든 컨텐츠 정보 비동기 요청
 export const asyncContents: any = createAsyncThunk(
   'contentsSlice/asynContents',
@@ -31,6 +31,7 @@ export const likeChange: any = createAsyncThunk(
 const initialState = {
   contentsData: [],
   likeState: [],
+  detailData: {},
 };
 
 
@@ -51,10 +52,10 @@ export const contentsSlice = createSlice({
           item.isLiked = !item.isLiked;
         }
       });
-
-      
-
     },
+    detailContentsData: (state, action) => {
+      
+    }
   },
 
   // TODO: 할차례
@@ -72,5 +73,5 @@ export const contentsSlice = createSlice({
 });
 
 // export const {} = contentsSlice.actions
-export const { likeToggle } = contentsSlice.actions;
+export const { likeToggle, detailContentsData } = contentsSlice.actions;
 export default contentsSlice.reducer;

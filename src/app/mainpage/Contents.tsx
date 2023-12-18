@@ -12,7 +12,11 @@ import axios from 'axios';
 import CartIcon from '../components/CartIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../GlobalRedux/store';
-import { asyncContents, likeChange, likeToggle } from '../GlobalRedux/Features/contentsSlice';
+import {
+  asyncContents,
+  likeChange,
+  likeToggle,
+} from '../GlobalRedux/Features/contentsSlice';
 
 export interface ContentItem {
   _id: ObjectId;
@@ -45,16 +49,21 @@ export default function Content() {
   // const router = useRouter();
 
   // TODO: 정리하기 -> as ContentItem[] 지정 안할 시 'never' 형식에 '_id' 속성이 없습니다. 에러 발생 데이터를 받아오기 전 빈 배열 [] 이기 때문!
-  const allContents = useSelector((state: RootState) => state.allContents.contentsData as ContentItem[])
-  
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(asyncContents());
+    dispatch(asyncContents())
+    // .then(() => {
+    // console.log('모든 컨텐츠 데이터 가져옴');
+    // });
   }, []);
-  
-  // console.log('allContents ㅎㅇ~~~~~',allContents);
 
+  // const allContents = useSelector((state: RootState) => state.allContents.contentsData as ContentItem[])
+  const allContents = useSelector(
+    (state: RootState) => state.contents.contentsData as ContentItem[]
+  );
+
+  // console.log('allContents ㅎㅇ~~~~~',allContents);
 
   // const [contentsData, setContentsData] = useState(result);
 
@@ -117,16 +126,15 @@ export default function Content() {
                     }}
                   /> */}
 
-                   {/* 좋아요 아아이콘 v3 - 리덕스 툴킷 적용*/}
-                   <FontAwesomeIcon
+                  {/* 좋아요 아아이콘 v3 - 리덕스 툴킷 적용*/}
+                  <FontAwesomeIcon
                     icon={el.isLiked ? faHeart : regularHeart}
                     // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
                     className={`h-2 ${el.isLiked ? 'text-red-500' : ''}`}
                     onClick={() => {
                       const _id = { _id: allContents[i]._id };
-                      
                       // likeToggle 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
-                      dispatch(likeToggle(_id))
+                      dispatch(likeToggle(_id));
 
                       // likeChange 액션을 디스패치하여 서버에 like 상태 변경 요청
                       dispatch(likeChange(_id));
@@ -144,7 +152,6 @@ export default function Content() {
                       //   });
                     }}
                   />
-
 
                   {/* 장바구니 아이콘 */}
                   {/* TODO: 장바구니에 몇개 담겨있는지 표시할지 말지?? */}
