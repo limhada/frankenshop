@@ -32,17 +32,31 @@ export default async function handler(
         .toArray();
 
       // console.log('ㅎㅇ~~~~~~~~~~', result);
-      if (result.length === 0) {
+      // if (result.length === 0) {
+      //   await db.collection('likes').insertOne(insertData);
+      //   // console.log('처음 데이터 추가 완료');
+      // } else if (result.length > 0) {
+      //   // console.log('ㅎㅇ222222222~~~',result[0].isLiked);
+      //   // const updateResult = await db
+      //   //   .collection('likes')
+      //   //   .updateOne(
+      //   //     { contents: new ObjectId(req.body._id), email: session.user.email },
+      //   //     { $set: { isLiked: !result[0].isLiked } }
+      //   //   );
+      // }
+
+      // 데이터가 있으면 삭제합니다.
+      if (result.length > 0) {
+        console.log('ㅎㅇ~~~~~~~~~result', result);
+        // 찾은 데이터를 반복하여 삭제합니다.
+        for (const like of result) {
+          await db.collection('likes').deleteOne({ _id: like._id });
+        }
+        // console.log('데이터 삭제 완료');
+      } else {
+        // 데이터가 없으면 추가합니다.
         await db.collection('likes').insertOne(insertData);
         // console.log('처음 데이터 추가 완료');
-      } else if (result.length > 0) {
-        // console.log('ㅎㅇ222222222~~~',result[0].isLiked);
-        const updateResult = await db
-          .collection('likes')
-          .updateOne(
-            { contents: new ObjectId(req.body._id), email: session.user.email },
-            { $set: { isLiked: !result[0].isLiked } }
-          );
       }
 
       // let updateResult = await db
@@ -50,7 +64,6 @@ export default async function handler(
       //   .find({ email: session?.user.email })
       //   .toArray();
       // // console.log('장바구니에 추가된 값 확인~~~~~~~~~~~~~~~', updateResult);
-
 
       // TODO: 정리 - 기존 로직 몽고db에 업데이트 한 값 다시 결과로 반환하는 로직
       // let contentsResult = await db.collection('contents').find().toArray();
