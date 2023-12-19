@@ -31,6 +31,7 @@ export const likeChange: any = createAsyncThunk(
 const initialState = {
   contentsData: [],
   likeState: [],
+  detailData: {},
 };
 
 
@@ -52,6 +53,9 @@ export const contentsSlice = createSlice({
         }
       });
     },
+    detailContentsData: (state, action) => {
+      
+    }
   },
 
   // TODO: 할차례
@@ -69,5 +73,5 @@ export const contentsSlice = createSlice({
 });
 
 // export const {} = contentsSlice.actions
-export const { likeToggle } = contentsSlice.actions;
+export const { likeToggle, detailContentsData } = contentsSlice.actions;
 export default contentsSlice.reducer;
