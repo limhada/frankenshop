@@ -52,7 +52,7 @@ export default function Content() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(asyncContents())
+    dispatch(asyncContents());
     // .then(() => {
     // console.log('모든 컨텐츠 데이터 가져옴');
     // });
@@ -84,7 +84,13 @@ export default function Content() {
 
             <Link href={'/detail/' + el._id.toString()}>
               {/* <img src={el.img_src} alt={el.title} className='w-full' /> */}
-              <Image src={el.img_src} alt={el.title} width={500} height={500} />
+              <Image
+                src={el.img_src}
+                alt={el.title}
+                width={500}
+                height={500}
+                priority={true}
+              />
 
               <div className='px-6 py-4'>
                 <div

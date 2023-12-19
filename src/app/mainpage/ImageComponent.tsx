@@ -5,16 +5,16 @@
 // FIXME: 이미지 슬라이드 디바이스 별 크기 조정하기
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-interface Project {
-  id: number;
-  image: string;
-  title: string;
-  github: string;
-  deployment: string;
-  description: string;
-  background: React.ReactNode;
-  imageName: string;
-}
+// interface Project {
+//   id: number;
+//   image: string;
+//   title: string;
+//   github: string;
+//   deployment: string;
+//   description: string;
+//   background: React.ReactNode;
+//   imageName: string;
+// }
 
 type ImageGroup = {
   [key: string]: string[];
