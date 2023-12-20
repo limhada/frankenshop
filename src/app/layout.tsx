@@ -37,10 +37,9 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={`${inter.className}`}>
-      <Providers>
-
-      {/* navbar */}
-      <div className='text-white bg-myColor1 p-5 fixed top-0 left-0 right-0 z-50 h-[200px] shadow-lg'>
+        <Providers>
+          {/* navbar */}
+          <div className='text-white bg-myColor1 p-5 fixed top-0 left-0 right-0 z-50 h-[200px] shadow-lg'>
             {/* FIXME: h값 조정하기 */}
             <Link href='/' className='mr-3 no-underline'>
               frankenshop
@@ -88,8 +87,13 @@ export default async function RootLayout({
               </div>
             </div>
           </div>
+        </Providers>
 
-          </Providers>
+        {/* 카카오 주소 api */}
+        <script
+          src='//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
+          async
+        ></script>
       </body>
     </html>
   );
