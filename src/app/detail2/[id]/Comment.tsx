@@ -25,7 +25,7 @@ interface CommentData {
 // TODO: 댓글 작성 버튼 클릭 시 댓글창에 기존에 입력 한 값 초기화 시키기
 
 export default function Comment({ _id, session }: CommentProps) {
-  let router = useRouter();
+  // let router = useRouter();
 
   let [comment, setComment] = useState('');
 

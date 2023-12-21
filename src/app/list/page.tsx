@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../util/database';
-import ListItem from './ListItem';
+import ListItem from './listItem';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 
@@ -17,7 +17,7 @@ export default async function List() {
   const client = await connectDB;
   const db = client.db('frankenshop');
   let result = await db.collection<ListProps>('post').find().toArray();
-  
+
   // 로그인한 유저의 정보를 db에서 찾아오기
   let userCred = await db
     .collection('user_cred')
@@ -33,7 +33,6 @@ export default async function List() {
       <div className='p-2 bg-gray-100'>
         <ListItem result={result} session={session} role={userCred?.role} />
       </div>
-      
     </div>
   );
 }

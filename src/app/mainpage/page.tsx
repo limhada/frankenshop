@@ -1,9 +1,5 @@
-import { ObjectId } from 'mongodb';
-import { connectDB } from '../../../util/database';
-import Contents from './Contents';
-import ImageComponent from './ImageComponent';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../pages/api/auth/[...nextauth]';
+import Contents from './contents';
+import ImageComponent from './imageComponent';
 
 // export interface ListProps {
 //   _id: ObjectId;
@@ -12,14 +8,12 @@ import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 //   img_src: string;
 //   author: string;
 //   price: string;
-//   isLiked: boolean; 
+//   isLiked: boolean;
 // }
 
 export default async function Mainpage() {
   // const client = await connectDB;
   // const db = client.db('frankenshop');
-
-
 
   // // TODO: 중요 - likeChange.tsx에 똑같은 코드 있음 중복을 줄이기 위한 해결방법 찾고 개선하기
   // let result = await db.collection<ListProps>('contents').find().toArray();
@@ -36,8 +30,6 @@ export default async function Mainpage() {
   //   .toArray();
 
   // // console.log(likesResult,'ㅎㅇ~~~~~~~~~~~~~~~~~~likesResult');
-
-
 
   // // 받아온 result 값에 isLiked 값을 추가한 데이터
   // const updateResult: ListProps[] = [];

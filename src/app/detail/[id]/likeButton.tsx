@@ -11,8 +11,8 @@ import {
   asyncContents,
   likeChange,
   likeToggle,
-} from '@/app/GlobalRedux/Features/contentsSlice';
-import { RootState } from '@/app/GlobalRedux/store';
+} from '@/app/redux/Features/contentsSlice';
+import { RootState } from '@/app/redux/store';
 import { useParams } from 'next/navigation';
 
 interface ContentItem {
