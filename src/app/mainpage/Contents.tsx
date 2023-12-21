@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,12 +11,12 @@ import axios from 'axios';
 // import { useRouter } from 'next/navigation';
 import CartIcon from '../components/CartIcon';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../GlobalRedux/store';
+import { RootState } from '../redux/store';
 import {
   asyncContents,
   likeChange,
   likeToggle,
-} from '../GlobalRedux/Features/contentsSlice';
+} from '../redux/Features/contentsSlice';
 
 export interface ContentItem {
   _id: ObjectId;

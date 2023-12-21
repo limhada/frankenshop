@@ -47,7 +47,7 @@ export default async function handler(
 
       // 데이터가 있으면 삭제합니다.
       if (result.length > 0) {
-        console.log('ㅎㅇ~~~~~~~~~result', result);
+        // console.log('ㅎㅇ~~~~~~~~~result', result);
         // 찾은 데이터를 반복하여 삭제합니다.
         for (const like of result) {
           await db.collection('likes').deleteOne({ _id: like._id });

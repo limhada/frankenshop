@@ -5,7 +5,6 @@
 import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { MouseEvent } from 'react';
 
 interface ListItemProps {

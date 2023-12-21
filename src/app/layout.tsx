@@ -8,14 +8,14 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
 import LogoutBtn from './LogoutBtn';
 import SearchBar from './SearchBar';
-import Category from './Category';
+import Category from './category';
 import ScrollToTop from './ScrollToTop';
 
 const inter = Inter({ subsets: ['latin'] });
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
-import { Providers } from './GlobalRedux/provider';
+import { Providers } from './redux/provider';
 
 // autoAddCss 속성을 false로 설정하면 Font Awesome 의 CSS 파일을 자동으로 추가하지 않습니다.
 config.autoAddCss = false;
@@ -32,7 +32,7 @@ export default async function RootLayout({
 }) {
   // 현재 auth로 로그인한 유저의 정보가 나타남(이름, 이메일, 프로필사진)
   let session = await getServerSession(authOptions);
-  console.log('layout - getServerSession로그인 유저 정보 확인', session);
+  console.log('RootLayout - getServerSession로그인 유저 정보 확인', session);
 
   return (
     <html lang='en'>
@@ -45,7 +45,10 @@ export default async function RootLayout({
               frankenshop
             </Link>
             <Link href='/write' className='mr-3 no-underline'>
-              상품 추가
+              상품추가
+            </Link>
+            <Link href='/write' className='mr-3 no-underline'>
+              글쓰기
             </Link>
             <Link href='/list' className='mr-3 no-underline'>
               상품 리스트
