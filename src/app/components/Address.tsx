@@ -99,7 +99,7 @@ export default function Address() {
   return (
     <div>
       <div>
-        <div className='inline-block font-bold mb-[0.4rem]'>배송지</div>
+        <div className='inline-block font-bold'>배송지</div>
         <br />
         <input
           type='text'
@@ -110,7 +110,7 @@ export default function Address() {
           style={{
             overflow: 'visible',
             padding: '1rem',
-            marginTop: '1.25rem',
+            marginTop: '0.4rem',
             marginRight: '1.25rem',
             border: '1px solid #dcdee0',
             borderRadius: '0.5rem',
@@ -126,7 +126,6 @@ export default function Address() {
             cursor: 'pointer',
             overflow: 'visible',
             padding: '1rem',
-            marginTop: '1.25rem',
             border: '1px solid #dcdee0', // 입체적인 느낌 추가?
             borderRadius: '0.5rem',
             backgroundColor: '#41644A',
