@@ -23,6 +23,67 @@ const Test = () => {
     setInputValue(e.target.value);
   };
 
+  const [value, setValue] = useState('1');
+
+  const max = 3;
+  const handleChange22 = (event: any) => {
+    const target = event.target;
+    const value = target.value;
+
+    if (value.length > max) {
+      setValue(value.slice(0, max));
+    } else {
+      setValue(value);
+    }
+  };
+
+  ///////////////////////////////////////////////
+
+  const [inputValue1, setInputValue1] = useState('');
+  const [inputValue2, setInputValue2] = useState('');
+  const [inputValue3, setInputValue3] = useState('');
+
+  const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target;
+    const value = target.value;
+
+    // 입력 값을 업데이트합니다.
+    setInputValue1(value);
+  };
+
+  const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target;
+    const value = target.value;
+
+    // 입력 값을 업데이트합니다.
+    setInputValue2(value);
+  };
+
+  const handleChange3 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target;
+    const value = target.value;
+
+    // 입력 값을 업데이트합니다.
+    setInputValue3(value);
+  };
+
+  ////////////////////////////////////////////////////////////
+
+
+
+  const [inputValue4, setInputValue4] = useState(["", "", ""]);
+
+const handleChange4 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const target = event.target;
+  const value = target.value;
+
+  // 입력 값을 업데이트합니다.
+  setInputValue4((prevValues) => {
+    const index = event.target.name.slice(-1);
+    return [...prevValues, value];
+  });
+};
+
   return (
     <div>
       <ul>
@@ -49,6 +110,82 @@ const Test = () => {
             placeholder='전화번호를 입력하세요'
             className='w-50% overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'
           />
+          <br />
+
+          <br />
+          <input
+            type='number'
+            value={value}
+            onChange={handleChange22}
+            min='0'
+            max={max}
+            className='border border-gray-200 rounded-md w-50% text-base font-semibold text-gray-900 focus:ring-indigo-500 focus:border-indigo-500'
+          />
+
+          <br />
+
+          <div>
+            <input
+              type='tel'
+              maxLength={3}
+              value={inputValue1}
+              onChange={handleChange1}
+              placeholder='3자리 입력'
+              className='w-50% overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'
+              pattern='[0-9]'
+            />
+            <input
+              type='tel'
+              maxLength={4}
+              value={inputValue2}
+              onChange={handleChange2}
+              placeholder='4자리 입력'
+              className='w-50% overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'
+              pattern='[0-9]'
+            />
+            <input
+              type='tel'
+              maxLength={4}
+              value={inputValue3}
+              onChange={handleChange3}
+              placeholder='4자리 입력'
+              className='w-50% overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'
+              pattern='[0-9]'
+            />
+          </div>
+          {/* //////////// */}
+          <div>
+    <input
+      type="tel"
+      maxLength={3}
+      name="input1"
+      value={inputValue4[0]}
+      onChange={handleChange4}
+      placeholder="3자리 입력"
+      className="w-50% overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900"
+      pattern="[0-9]"
+    />
+    <input
+      type="tel"
+      maxLength={4}
+      name="input2"
+      value={inputValue4[1]}
+      onChange={handleChange4}
+      placeholder="4자리 입력"
+      className="w-50% overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900"
+      pattern="[0-9]"
+    />
+    <input
+      type="tel"
+      maxLength={4}
+      name="input3"
+      value={inputValue4[2]}
+      onChange={handleChange4}
+      placeholder="4자리 입력"
+      className="w-50% overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900"
+      pattern="[0-9]"
+    />
+  </div>
         </li>
       </ul>
     </div>
