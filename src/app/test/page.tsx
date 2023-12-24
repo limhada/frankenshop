@@ -1,28 +1,17 @@
-'use client';
-import { useState } from 'react';
+'use client'
+import { useState, ChangeEvent } from 'react';
 import Address from '../components/Address';
 
 const Test = () => {
-  const [inputValue1, setInputValue1] = useState('');
-  const [inputValue2, setInputValue2] = useState('');
-  const [inputValue3, setInputValue3] = useState('');
+  const [inputValues, setInputValues] = useState(['', '', '']);
 
-  const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target;
-    const value = target.value;
-    setInputValue1(value);
-  };
-
-  const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target;
-    const value = target.value;
-    setInputValue2(value);
-  };
-
-  const handleChange3 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target;
-    const value = target.value;
-    setInputValue3(value);
+  const handleChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setInputValues((prevValues) => {
+      const newValues = [...prevValues];
+      newValues[index] = value;
+      return newValues;
+    });
   };
 
   return (
@@ -38,40 +27,25 @@ const Test = () => {
           />
         </li>
         <li className='mb-[1.25rem]'>
-          <Address></Address>
+          <Address />
         </li>
         <li className='mb-[1.25rem]'>
           <div className='inline-block font-bold mt-[0.4rem]'>연락처</div>
-          <div>
-            <input
-              type='tel'
-              maxLength={3}
-              value={inputValue1}
-              onChange={handleChange1}
-              placeholder='010'
-              className='w-[5rem] overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'
-              pattern='[0-9]'
-            />
-            <span className='m-[0.5rem]'>-</span>
-            <input
-              type='tel'
-              maxLength={4}
-              value={inputValue2}
-              onChange={handleChange2}
-              placeholder='0000'
-              className='w-[5rem] overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'
-              pattern='[0-9]'
-            />
-            <span className='m-[0.5rem]'>-</span>
-            <input
-              type='tel'
-              maxLength={4}
-              value={inputValue3}
-              onChange={handleChange3}
-              placeholder='0000'
-              className='w-[5rem] overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'
-              pattern='[0-9]'
-            />
+          <div className='flex'>
+            {inputValues.map((value, index) => (
+              <div key={index} className='items-center'>
+                <input
+                  type='tel'
+                  maxLength={index === 0 ? 3 : 4}
+                  value={value}
+                  onChange={handleChange(index)}
+                  placeholder={index === 0 ? '010' : '0000'}
+                  className='w-[5rem] overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900 text-center'
+                  pattern='[0-9]'
+                />
+                {index < 2 && <span className='m-[0.5rem]'>-</span>}
+              </div>
+            ))}
           </div>
         </li>
       </ul>
