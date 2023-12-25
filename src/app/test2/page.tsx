@@ -1,11 +1,11 @@
-// 1~5까지 입력할 수 있는 인풋
+// 1~1000까지 입력할 수 있는 인풋
 
 'use client';
 import { useState } from 'react';
 
-const Test = () => {
+const Quantity = () => {
   const [value, setValue] = useState('1');
-  const max = 5;
+  const max = 1000;
 
   const handleChange = (event: any) => {
     const target = event.target;
@@ -15,21 +15,21 @@ const Test = () => {
     // 숫자 이외의 문자 제거
     newValue = newValue.replace(/[^0-9]/g, '');
 
+    // ''이면 다시 1로 초기화
     if (newValue === '') {
       newValue = '1';
     }
 
-    // // 최대값 제한
-    // if (parseInt(newValue, 10) > max) {
-    //   newValue = String(max);
-    // }
-    // // 최소값 제한 (1 미만을 1로 변경)
-    // if (parseInt(newValue, 10) < 1) {
-    //   newValue = '1';
-    // }
+    // 최대값 제한 (max값 보다 큰 값이 들어오면 max값으로 자동 수정)
+    if (parseInt(newValue, 10) > max) {
+      newValue = String(max);
+    }
+    // 최소값 제한 (1 미만을 1로 변경)
+    if (parseInt(newValue, 10) < 1) {
+      newValue = '1';
+    }
 
     setValue(newValue);
-    
   };
 
   return (
@@ -46,4 +46,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default Quantity;
