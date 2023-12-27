@@ -2,11 +2,11 @@
 import { useState } from 'react';
 
 // 1~1000까지 입력할 수 있는 인풋
-const QuantityInput = () => {
-  const [value, setValue] = useState(1);
+const QuantityInput = ({ initialValue = 1 }) => {
+  const [value, setValue] = useState(initialValue);
   const max = 1000;
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
 
     let newValue = target.value;
@@ -16,17 +16,17 @@ const QuantityInput = () => {
 
     // ''이면 다시 1로 초기화
     if (newValue === '') {
-      newValue = 1;
+      newValue = '1';
     }
 
     // 최대값 제한 (max값 보다 큰 값이 들어오면 max값으로 자동 수정)
     if (parseInt(newValue, 10) > max) {
-      newValue = max;
+      newValue = String(max);
     }
     // 최소값 제한 (1 미만을 1로 변경)
-    // if (parseInt(newValue, 10) < 1) {
-    //   newValue = 1;
-    // }
+    if (parseInt(newValue, 10) < 1) {
+      newValue = '1';
+    }
 
     setValue(parseInt(newValue, 10));
   };
