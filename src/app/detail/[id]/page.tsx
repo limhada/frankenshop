@@ -8,6 +8,7 @@ import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import Link from 'next/link';
 import QuantityButton from '@/app/components/QuantityButton';
 import CartIcon from '@/app/components/CartIcon';
+import QuantityInput from '@/app/components/QuantityInput';
 
 // TODO: 결제하기 버튼 클릭 시 결제 api 로 request 하기
 // TODO: 장바구니 재사용 가능하게 별도 컴포넌트로 분리해서 재사용하기
@@ -65,7 +66,8 @@ export default async function Detail(props: DetailProps) {
       {/*  TODO: 아이콘으로 변경하기 */}
       <div>장바구니 추가</div>
       <CartIcon itemId={result?._id.toString()}></CartIcon>
-      <QuantityButton></QuantityButton>
+      {/* <QuantityButton></QuantityButton> */}
+      <QuantityInput></QuantityInput>
       <Link href='/order/detail' className=' bg-slate-600'>
         결제하기
       </Link>
