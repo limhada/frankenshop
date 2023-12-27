@@ -2,3 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 수량 input의 내부 스핀 버튼을 숨기기 */
+.quantity-input::-webkit-inner-spin-button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}

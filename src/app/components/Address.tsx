@@ -143,7 +143,7 @@ export default function Address() {
             addrType === '도로명주소' ? roadAddress + extraAddr : jibunAddress
           }
           readOnly
-          placeholder='도로명주소'
+          placeholder='주소'
           style={{
             width: '100%',
             maxWidth: '100%',
