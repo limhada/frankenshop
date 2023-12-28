@@ -27,7 +27,7 @@ export default async function Carts() {
     .collection('carts')
     .find({ email: session?.user.email })
     .toArray();
-  console.log('result~~~~~~~~~~~~`', result);
+  // console.log('result~~~~~~~~~~~~`', result);
   /*result = 
     {
     _id: new ObjectId("6550d1cd874519fb68dc308a"),
@@ -46,7 +46,7 @@ export default async function Carts() {
     const contents = await contentsCollection.findOne({
       _id: new ObjectId(el.contents),
     });
-    console.log('contents~~~~~~~', contents);
+    // console.log('contents~~~~~~~', contents);
     /*
     contents = 
     {
@@ -64,7 +64,7 @@ export default async function Carts() {
     el.contents.checked = el.checked; // 상품 정보 객체에 'el'에서 가져온 체크상태 정보를 추가합니다.
     cartData.push(el.contents); // 처리된 상품 정보를 'cartData' 배열에 추가합니다.
   }
-  console.log('cartData ㅎㅇ~~~~~~~~~~₩', cartData);
+  // console.log('cartData ㅎㅇ~~~~~~~~~~₩', cartData);
   /*
   cartData=
   {

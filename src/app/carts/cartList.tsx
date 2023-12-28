@@ -229,8 +229,8 @@ export default function CartList({ cartData }: CartProps) {
             </div>
             <div className='flex'>
               {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
-              {/* <button onClick={() => handleQuantityChange(el, 1)}>+</button>
-              <button onClick={() => handleQuantityChange(el, -1)}>-</button> */}
+              <button onClick={() => handleQuantityChange(el, 1)}>+</button>
+              <button onClick={() => handleQuantityChange(el, -1)}>-</button>
               <div>수량: {el.quantity}</div>
             <QuantityInput initialValue={el.quantity}></QuantityInput>
 
