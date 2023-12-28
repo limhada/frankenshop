@@ -5,6 +5,7 @@ import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import QuantityInput from '../components/QuantityInput';
 // TODO: 할인쿠폰
 // TODO: 결제정보
 // TODO: 포인트
@@ -129,9 +130,6 @@ export default function CartList({ cartData }: CartProps) {
           const updatedCartList = cartList.filter(
             (item) => item._id !== el._id
           );
-
-          // TODO: 해결 - 삭제버튼 클릭 시 1초후 사라지는 효과 적용안됨...
-
           const target = document.getElementById(`carList-${el._id}`);
           if (target) {
             // 1초 후에 투명도를 조절하고 display를 변경합니다.
@@ -232,8 +230,10 @@ export default function CartList({ cartData }: CartProps) {
             <div className='flex'>
               {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
               <button onClick={() => handleQuantityChange(el, 1)}>+</button>
-              <div>수량: {el.quantity}</div>
               <button onClick={() => handleQuantityChange(el, -1)}>-</button>
+              <div>수량: {el.quantity}</div>
+            <QuantityInput initialValue={el.quantity}></QuantityInput>
+
             </div>
             <button onClick={() => handleDelete(el)}>삭제</button>
           </div>

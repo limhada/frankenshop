@@ -27,7 +27,16 @@ export default async function Carts() {
     .collection('carts')
     .find({ email: session?.user.email })
     .toArray();
-
+  // console.log('result~~~~~~~~~~~~`', result);
+  /*result = 
+    {
+    _id: new ObjectId("6550d1cd874519fb68dc308a"),
+    contents: new ObjectId("6509b47802b7712df0cd3d53"),
+    email: 'w',
+    quantity: 7,
+    checked: false
+  },
+   */
   const contentsCollection = db.collection('contents');
   // 'contents' 컬렉션에 연결합니다.
   const cartData: CartProps[] = [];
@@ -37,13 +46,39 @@ export default async function Carts() {
     const contents = await contentsCollection.findOne({
       _id: new ObjectId(el.contents),
     });
+    // console.log('contents~~~~~~~', contents);
+    /*
+    contents = 
+    {
+  _id: new ObjectId("65254cdcbbca6b503b707627"),
+  title: '상품2',
+  img_src: 'https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true',
+  author: 'q',
+  price: '12,000',
+  description: '상품2의 내용'
+  }
+    */
     // 'contentsCollection'에서 해당 상품 ID를 사용하여 상품 정보를 찾습니다.
     el.contents = contents; // 'el' 객체에 상품 정보를 추가합니다.
-    el.contents.quantity = el.quantity; // 상품 정보 객체에 'el'에서 가져온 체크상태 정보를 추가합니다.
-    el.contents.checked = el.checked; // 상품 정보 객체에 'el'에서 가져온 수량 정보를 추가합니다.
+    el.contents.quantity = el.quantity; // 상품 정보 객체에 'el'에서 가져온 수량 정보를 추가합니다.
+    el.contents.checked = el.checked; // 상품 정보 객체에 'el'에서 가져온 체크상태 정보를 추가합니다.
     cartData.push(el.contents); // 처리된 상품 정보를 'cartData' 배열에 추가합니다.
   }
-  // console.log('ㅎㅇ~~~~~~~~~~₩', cartData);
+  // console.log('cartData ㅎㅇ~~~~~~~~~~₩', cartData);
+  /*
+  cartData=
+  {
+    _id: new ObjectId("6509b47802b7712df0cd3d53"),
+    title: '상품1',
+    img_src: 'https://github.com/limhada/frankenshop/blob/main/public/imgtest/1.jpeg?raw=true',
+    author: 'q',
+    price: '10,000',
+    description: '상품1의 내용',
+    quantity: 7,
+    checked: false
+  },
+  */
+
   return (
     <div>
       <h1>장바구니</h1>
