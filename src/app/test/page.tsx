@@ -1,56 +1,43 @@
-'use client'
-import { useState, ChangeEvent } from 'react';
-import Address from '../components/Address';
+'use client';
 
-const Test = () => {
-  const [inputValues, setInputValues] = useState(['', '', '']);
+import React from 'react';
+import { testApi } from '../redux/Features/cartSlice';
 
-  const handleChange = (index: number) => (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setInputValues((prevValues) => {
-      const newValues = [...prevValues];
-      newValues[index] = value;
-      return newValues;
-    });
-  };
-
+const Test = ({ name }: any) => {
+  const query = testApi.useGetCountQuery({ name });
+  // console.log(query,'query ㅎㅇ~~');
+  const mutation = testApi.useSetCountMutation();
+  const setCount = mutation[0];
+  // console.log("setCount ㅎㅇ~~~~~~~~~~", setCount);
+  if (query.isLoading) {
+    return <>Loading</>;
+  }
   return (
     <div>
-      <ul>
-        <li className='mb-[1.25rem]'>
-          <div className='inline-block font-bold'>배송지명</div>
-          <input
-            type='text'
-            id='detailAddress'
-            placeholder='예) 집'
-            className='w-full overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'
-          />
-        </li>
-        <li className='mb-[1.25rem]'>
-          <Address />
-        </li>
-        <li className='mb-[1.25rem]'>
-          <div className='inline-block font-bold mt-[0.4rem]'>연락처</div>
-          <div className='flex'>
-            {inputValues.map((value, index) => (
-              <div key={index} className='items-center'>
-                <input
-                  type='tel'
-                  maxLength={index === 0 ? 3 : 4}
-                  value={value}
-                  onChange={handleChange(index)}
-                  placeholder={index === 0 ? '010' : '0000'}
-                  className='w-[5rem] overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900 text-center'
-                  pattern='[0-9]'
-                />
-                {index < 2 && <span className='m-[0.5rem]'>-</span>}
-              </div>
-            ))}
-          </div>
-        </li>
-      </ul>
+      <button
+        onClick={async () => {
+          // console.log(typeof name, 'name?????');
+          // console.log(query.data, 'query.data?????');
+          const result = await setCount({ name, value: query.data + 1 });
+          // console.log('result ㅎㅇ~~~~~~~~~', result);
+          query.refetch(); // 쿼리 재실행
+        }}
+      >
+        {/* {mutation[1].isLoading ? "updating..." : ""} */}
+        {/* {query.isFetching ? "fetching..." : ""} */}
+        이름: {name} query.data= {query.data}
+      </button>
     </div>
   );
 };
 
-export default Test;
+export default function TestCompo() {
+  return (
+    <>
+      <Test name='1' />
+      <Test name='1' />
+      <Test name='2' />
+      <Test name='3' />
+    </>
+  );
+}
