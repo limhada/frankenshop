@@ -7,7 +7,7 @@ import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
 // import LikeChange from '../components/likeChange';
-import axios from 'axios';
+
 // import { useRouter } from 'next/navigation';
 import CartIcon from '../components/CartIcon';
 import { useDispatch, useSelector } from 'react-redux';
