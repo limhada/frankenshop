@@ -2,38 +2,52 @@
 
 import React from 'react';
 import { testApi } from '../redux/Features/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+
+import { increment } from '../redux/Features/cartSlice';
 
 const Test = ({ name }: any) => {
+  const dispatch = useDispatch();
+
   const query = testApi.useGetCountQuery({ name });
-  // console.log(query,'query ㅎㅇ~~');
+
   const mutation = testApi.useSetCountMutation();
   const setCount = mutation[0];
-  // console.log("setCount ㅎㅇ~~~~~~~~~~", setCount);
+
   if (query.isLoading) {
     return <>Loading</>;
   }
   return (
     <div>
+      <br />
       <button
         onClick={async () => {
-          // console.log(typeof name, 'name?????');
-          // console.log(query.data, 'query.data?????');
           const result = await setCount({ name, value: query.data + 1 });
-          // console.log('result ㅎㅇ~~~~~~~~~', result);
-          query.refetch(); // 쿼리 재실행
+          // TODO: tagTypes:를 등록하지 않고 refetch()를 사용해도 됨 하지만 차이가 있음 차이점 정리하기!
+          // query.refetch(); // 쿼리 재실행
+          console.log('result', result);
+          if (query.data !== result) {
+            console.log('query.data', query.data, 'result', result);
+            // query.data가 변경된 경우
+            dispatch(increment());
+          }
         }}
       >
-        {/* {mutation[1].isLoading ? "updating..." : ""} */}
-        {/* {query.isFetching ? "fetching..." : ""} */}
-        이름: {name} query.data= {query.data}
+        {mutation[1].isLoading ? 'updating...' : ''}
+        {query.isFetching ? 'fetching...' : ''}
+        버튼{name}번 query.data= {query.data}
       </button>
     </div>
   );
 };
 
 export default function TestCompo() {
+  const cartState = useSelector((state: RootState) => state.cart.count);
+
   return (
     <>
+      <div>값: {cartState}</div>
       <Test name='1' />
       <Test name='1' />
       <Test name='2' />

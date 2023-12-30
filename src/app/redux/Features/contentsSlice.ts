@@ -39,9 +39,6 @@ export const contentsSlice = createSlice({
   reducers: {
     // 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
     likeToggle: (state, action) => {
-      // state: 현재의 상태. 우리가 관리하고 있는 상태 데이터입
-      // action: 디스패치된 액션 객체. 이 객체는 어떤 종류의 액션이 발생했는지 식별하고 추가적인 데이터를 포함할 수 있다
-
       const toggledId = action.payload._id;
       // console.log('toggledId= ~~~~~~~', toggledId);
       // state.contentsData의 _id가 toggledId와 일치하는 객체 찾기
@@ -52,8 +49,6 @@ export const contentsSlice = createSlice({
       });
     },
   },
-
-  // TODO: 할차례
 
   extraReducers(builder) {
     builder.addCase(asyncContents.fulfilled, (state, action) => {
@@ -66,6 +61,5 @@ export const contentsSlice = createSlice({
   },
 });
 
-// export const {} = contentsSlice.actions
 export const { likeToggle } = contentsSlice.actions;
 export default contentsSlice.reducer;
