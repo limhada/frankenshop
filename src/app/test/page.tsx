@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { testApi } from '../redux/Features/cartSlice';
+import { testApi } from '../redux/apis/testApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 
-import { increment } from '../redux/Features/cartSlice';
+import { increment } from '../redux/features/cartSlice';
 
 const Test = ({ name }: any) => {
   const dispatch = useDispatch();

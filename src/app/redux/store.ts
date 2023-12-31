@@ -1,22 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
-import contentsReducer from '../redux/Features/contentsSlice';
-import { testApi } from '../redux/Features/cartSlice'
-import cartReducer from '../redux/Features/cartSlice'
+import contentsReducer from '../redux/features/contentsSlice';
+import { testApi } from '../redux/apis/testApi'
+import cartReducer from '../redux/features/cartSlice'
 
 export const store = configureStore({
   reducer: {
     // 실제 사용되는 이름
-    // counter 이름은 소비자 페이지인 test/page.tsx에서
-    // useSelector(안에서 사용되는 이름)
-    // counter: counterReducer,
+    // counters는 소비자 페이지인 test/page.tsx에서 useSelector(안에서 사용되는 이름)
     contents: contentsReducer,
 
     // testApi: testApi.reducer // 아래 코드와 동치
     // reducerPath: 'testApi' testApi를 직접 입력해도 되지만 좀 더 유연함을 위해 [testApi.reducerPath]
-    [testApi.reducerPath]: testApi.reducer,
-    
-    cart: cartReducer
-    
+    cart: cartReducer,
+
+    [testApi.reducerPath]: testApi.reducer,   
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(testApi.middleware),
