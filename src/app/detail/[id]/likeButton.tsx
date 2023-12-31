@@ -11,7 +11,7 @@ import {
   asyncContents,
   likeChange,
   likeToggle,
-} from '@/app/redux/Features/contentsSlice';
+} from '@/app/redux/features/contentsSlice';
 import { RootState } from '@/app/redux/store';
 import { useParams } from 'next/navigation';
 

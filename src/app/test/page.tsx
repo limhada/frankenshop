@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
-import { testApi } from '../redux/Features/cartSlice';
+
+import { testApi } from '../redux/apis/testApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 
-import { increment } from '../redux/Features/cartSlice';
+import { increment } from '../redux/features/cartSlice';
 
 const Test = ({ name }: any) => {
   const dispatch = useDispatch();
@@ -34,8 +34,8 @@ const Test = ({ name }: any) => {
           }
         }}
       >
-        {mutation[1].isLoading ? 'updating...' : ''}
-        {query.isFetching ? 'fetching...' : ''}
+        {/* {mutation[1].isLoading ? 'updating...' : ''} */}
+        {/* {query.isFetching ? 'fetching...' : ''} */}
         버튼{name}번 query.data= {query.data}
       </button>
     </div>
