@@ -9,7 +9,7 @@ const Test2 = () => {
   const query = cartsApi.useGetCartsQuery(name);
   // console.log('query.data', query.data);
   if (query.data) {
-        console.log(query.data[0].quantity)
+        console.log(query.data)
   }
 
   // const mutation = cartsApi.useSetCartMutation();
@@ -19,6 +19,7 @@ const Test2 = () => {
     <div>
       <h1>테스트2</h1>
       <div>서버에서 받아온 값: </div>
+      
     </div>
   );
 };

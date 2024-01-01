@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import QuantityInput from '../components/QuantityInput';
+import { cartsApi } from '../redux/apis/cartsApi';
 // TODO: 할인쿠폰
 // TODO: 결제정보
 // TODO: 포인트
@@ -26,8 +27,8 @@ import QuantityInput from '../components/QuantityInput';
 
 // TODO: 해결 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
 
-export interface CartProps {
-  cartData: {
+export interface CartsProps {
+  cartsData: {
     _id: ObjectId;
     title: string;
     description: string;
@@ -40,10 +41,31 @@ export interface CartProps {
   }[];
 }
 
-export default function CartList({ cartData }: CartProps) {
-  const [cartList, setCartList] = useState(cartData);
+export default function CartList() {
+  const name = 'cartsContents';
+  const query = cartsApi.useGetCartsQuery(name);
+
+  console.log('query@@@@@`', query.data);
+  // console.log('cartData~~~~', cartData);
+
+  const [cartList, setCartList] = useState<CartsProps['cartsData']>([]);
+  // const [cartList, setCartList] = useState(cartData);
   const [allChecked, setAllChecked] = useState(false); // 전체 선택 체크박스 상태
   const [totalPrice, setTotalPrice] = useState(0);
+
+   useEffect(() => {
+    if (query.data) {
+      // query.data가 변경될 때마다 실행되는 코드
+      // cartList 상태를 직접 업데이트하는 로직
+      // const updatedCartList = query.data.map((cartItem) => ({
+        const updatedCartList = (query.data as CartsProps['cartsData']).map((cartItem) => ({
+
+        ...cartItem,
+        checked: false, // 원하는 초기값 설정
+      }));
+      setCartList(updatedCartList);
+    }
+  }, [query.data]); // query.data가 변경될 때마다 useEffect 실행
 
   useEffect(() => {
     // 총 결제 금액을 업데이트하는 함수

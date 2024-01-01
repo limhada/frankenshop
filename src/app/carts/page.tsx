@@ -82,7 +82,7 @@ export default async function Carts() {
   return (
     <div>
       <h1>장바구니</h1>
-      <CartList cartData={cartData} />
+      <CartList />
     </div>
   );
 }

@@ -9,7 +9,7 @@ export const cartsApi = createApi({
     getCarts: builder.query({
       query: () => `/contents`,
       providesTags: (result, error, arg) => {
-        console.log(result, error, arg, 'providesTags ㅎㅇ~~');
+        console.log(result, error, arg, 'cartsApi/providesTags ㅎㅇ~~');
         return [{ type: 'Carts', id: arg.name }];
       },
     }),
