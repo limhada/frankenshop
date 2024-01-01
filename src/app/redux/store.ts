@@ -20,9 +20,9 @@ export const store = configureStore({
     [cartsApi.reducerPath]: cartsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(testApi.middleware),
+    getDefaultMiddleware().concat(testApi.middleware, cartsApi.middleware),
 });
-
+ 
 // Redux 스토어의 상태 타입을 정의
 // store.getState 함수는 스토어의 현재 상태를 반환하며, 이 타입은 해당 상태의 구조를 정확하게 반영
 export type RootState = ReturnType<typeof store.getState>;

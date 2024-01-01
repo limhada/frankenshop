@@ -27,6 +27,8 @@ import { cartsApi } from '../redux/apis/cartsApi';
 
 // TODO: 해결 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
 
+
+// TODO: 장바구니 총 결제 금액은 네비게이션바 처럼 항상 스롤상관없이 항상 보이게
 export interface CartsProps {
   cartsData: {
     _id: ObjectId;
@@ -61,7 +63,7 @@ export default function CartList() {
         const updatedCartList = (query.data as CartsProps['cartsData']).map((cartItem) => ({
 
         ...cartItem,
-        checked: false, // 원하는 초기값 설정
+        // checked: false, // 원하는 초기값 설정
       }));
       setCartList(updatedCartList);
     }
@@ -127,22 +129,22 @@ export default function CartList() {
     // cartList 상태 변수의 값을 updatedCartList 배열로 변경
   };
 
-  const handleQuantityChange = async (el: any, action: number) => {
-    const actionStr = action > 0 ? 'increase' : 'decrease';
-    try {
-      const response = await axios.post('/api/contents/quantityUpdate', {
-        [actionStr]: action, // TODO: 객체 문법 정리하기
-        _id: el._id.toString(),
-      });
-      const updatedCartList = cartList.map((cartItem) => ({
-        ...cartItem,
-        quantity: cartItem._id === el._id ? response.data : cartItem.quantity,
-      }));
-      setCartList(updatedCartList);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleQuantityChange = async (el: any, action: number) => {
+  //   const actionStr = action > 0 ? 'increase' : 'decrease';
+  //   try {
+  //     const response = await axios.post('/api/contents/quantityUpdate', {
+  //       [actionStr]: action, // TODO: 객체 문법 정리하기
+  //       _id: el._id.toString(),
+  //     });
+  //     const updatedCartList = cartList.map((cartItem) => ({
+  //       ...cartItem,
+  //       quantity: cartItem._id === el._id ? response.data : cartItem.quantity,
+  //     }));
+  //     setCartList(updatedCartList);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleDelete = (el: any) => {
     axios
@@ -251,21 +253,11 @@ export default function CartList() {
             </div>
             <div className='flex'>
               {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
-              <div>수량: {el.quantity}</div>
+
               <div className='flex items-center'>
-                <button
-                  className='flex items-center justify-center w-[3rem] h-[3rem] overflow-visible p-4 border border-gray-200 rounded-l-md text-base font-normal text-gray-900 bg-gray-300'
-                  onClick={() => handleQuantityChange(el, -1)}
-                >
-                  -
-                </button>
-                <QuantityInput initialValue={el.quantity}></QuantityInput>
-                <button
-                  className='flex items-center justify-center w-[3rem] h-[3rem] overflow-visible p-4 border border-gray-200 rounded-r-md text-base font-normal text-gray-900 bg-gray-300'
-                  onClick={() => handleQuantityChange(el, 1)}
-                >
-                  +
-                </button>
+   
+                <QuantityInput initialValue={el.quantity} _id={el._id as ObjectId}></QuantityInput>
+      
               </div>
             </div>
             <button onClick={() => handleDelete(el)}>삭제</button>
