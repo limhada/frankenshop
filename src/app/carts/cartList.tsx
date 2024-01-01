@@ -229,11 +229,22 @@ export default function CartList({ cartData }: CartProps) {
             </div>
             <div className='flex'>
               {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
-              <button onClick={() => handleQuantityChange(el, 1)}>+</button>
-              <button onClick={() => handleQuantityChange(el, -1)}>-</button>
               <div>수량: {el.quantity}</div>
-            <QuantityInput initialValue={el.quantity}></QuantityInput>
-
+              <div className='flex items-center'>
+                <button
+                  className='flex items-center justify-center w-[3rem] h-[3rem] overflow-visible p-4 border border-gray-200 rounded-l-md text-base font-normal text-gray-900 bg-gray-300'
+                  onClick={() => handleQuantityChange(el, -1)}
+                >
+                  -
+                </button>
+                <QuantityInput initialValue={el.quantity}></QuantityInput>
+                <button
+                  className='flex items-center justify-center w-[3rem] h-[3rem] overflow-visible p-4 border border-gray-200 rounded-r-md text-base font-normal text-gray-900 bg-gray-300'
+                  onClick={() => handleQuantityChange(el, 1)}
+                >
+                  +
+                </button>
+              </div>
             </div>
             <button onClick={() => handleDelete(el)}>삭제</button>
           </div>

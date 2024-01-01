@@ -1,10 +1,15 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // 1~1000까지 입력할 수 있는 인풋
 const QuantityInput = ({ initialValue = 1 }) => {
   const [value, setValue] = useState(initialValue);
   const max = 1000;
+
+  // useEffect를 사용하여 initialValue이 변경될 때 value 상태를 업데이트
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
@@ -31,26 +36,26 @@ const QuantityInput = ({ initialValue = 1 }) => {
     setValue(parseInt(newValue, 10));
   };
 
-  const handleIncrement = () => {
-    if (value < max) {
-      setValue(value + 1);
-    }
-  };
+  // const handleIncrement = () => {
+  //   if (value < max) {
+  //     setValue(value + 1);
+  //   }
+  // };
 
-  const handleDecrement = () => {
-    if (value > 1) {
-      setValue(value - 1);
-    }
-  };
+  // const handleDecrement = () => {
+  //   if (value > 1) {
+  //     setValue(value - 1);
+  //   }
+  // };
 
   return (
     <div className='flex items-center'>
-      <button
+      {/* <button
         className='flex items-center justify-center w-[3rem] h-[3rem] overflow-visible p-4 border border-gray-200 rounded-l-md text-base font-normal text-gray-900 bg-gray-300'
         onClick={handleIncrement}
       >
         +
-      </button>
+      </button> */}
 
       <input
         type='number'
@@ -60,12 +65,12 @@ const QuantityInput = ({ initialValue = 1 }) => {
         max={max}
         className='quantity-input w-[5rem] h-[3rem] text-center border border-gray-200 text-base font-semibold text-gray-900'
       />
-      <button
+      {/* <button
         className='flex items-center justify-center w-[3rem] h-[3rem] overflow-visible p-4 border border-gray-200 rounded-r-md text-base font-normal text-gray-900 bg-gray-300'
         onClick={handleDecrement}
       >
         -
-      </button>
+      </button> */}
     </div>
   );
 };
