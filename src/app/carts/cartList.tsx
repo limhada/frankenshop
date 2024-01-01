@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import QuantityInput from '../components/QuantityInput';
+import { cartsApi } from '../redux/apis/cartsApi';
 // TODO: 할인쿠폰
 // TODO: 결제정보
 // TODO: 포인트
@@ -26,8 +27,10 @@ import QuantityInput from '../components/QuantityInput';
 
 // TODO: 해결 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
 
-export interface CartProps {
-  cartData: {
+
+// TODO: 장바구니 총 결제 금액은 네비게이션바 처럼 항상 스롤상관없이 항상 보이게
+export interface CartsProps {
+  cartsData: {
     _id: ObjectId;
     title: string;
     description: string;
@@ -40,10 +43,31 @@ export interface CartProps {
   }[];
 }
 
-export default function CartList({ cartData }: CartProps) {
-  const [cartList, setCartList] = useState(cartData);
+export default function CartList() {
+  const name = 'cartsContents';
+  const query = cartsApi.useGetCartsQuery(name);
+
+  console.log('query@@@@@`', query.data);
+  // console.log('cartData~~~~', cartData);
+
+  const [cartList, setCartList] = useState<CartsProps['cartsData']>([]);
+  // const [cartList, setCartList] = useState(cartData);
   const [allChecked, setAllChecked] = useState(false); // 전체 선택 체크박스 상태
   const [totalPrice, setTotalPrice] = useState(0);
+
+   useEffect(() => {
+    if (query.data) {
+      // query.data가 변경될 때마다 실행되는 코드
+      // cartList 상태를 직접 업데이트하는 로직
+      // const updatedCartList = query.data.map((cartItem) => ({
+        const updatedCartList = (query.data as CartsProps['cartsData']).map((cartItem) => ({
+
+        ...cartItem,
+        // checked: false, // 원하는 초기값 설정
+      }));
+      setCartList(updatedCartList);
+    }
+  }, [query.data]); // query.data가 변경될 때마다 useEffect 실행
 
   useEffect(() => {
     // 총 결제 금액을 업데이트하는 함수
@@ -105,22 +129,22 @@ export default function CartList({ cartData }: CartProps) {
     // cartList 상태 변수의 값을 updatedCartList 배열로 변경
   };
 
-  const handleQuantityChange = async (el: any, action: number) => {
-    const actionStr = action > 0 ? 'increase' : 'decrease';
-    try {
-      const response = await axios.post('/api/contents/quantityUpdate', {
-        [actionStr]: action, // TODO: 객체 문법 정리하기
-        _id: el._id.toString(),
-      });
-      const updatedCartList = cartList.map((cartItem) => ({
-        ...cartItem,
-        quantity: cartItem._id === el._id ? response.data : cartItem.quantity,
-      }));
-      setCartList(updatedCartList);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleQuantityChange = async (el: any, action: number) => {
+  //   const actionStr = action > 0 ? 'increase' : 'decrease';
+  //   try {
+  //     const response = await axios.post('/api/contents/quantityUpdate', {
+  //       [actionStr]: action, // TODO: 객체 문법 정리하기
+  //       _id: el._id.toString(),
+  //     });
+  //     const updatedCartList = cartList.map((cartItem) => ({
+  //       ...cartItem,
+  //       quantity: cartItem._id === el._id ? response.data : cartItem.quantity,
+  //     }));
+  //     setCartList(updatedCartList);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleDelete = (el: any) => {
     axios
@@ -229,11 +253,12 @@ export default function CartList({ cartData }: CartProps) {
             </div>
             <div className='flex'>
               {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
-              <button onClick={() => handleQuantityChange(el, 1)}>+</button>
-              <button onClick={() => handleQuantityChange(el, -1)}>-</button>
-              <div>수량: {el.quantity}</div>
-            <QuantityInput initialValue={el.quantity}></QuantityInput>
 
+              <div className='flex items-center'>
+   
+                <QuantityInput initialValue={el.quantity} _id={el._id as ObjectId}></QuantityInput>
+      
+              </div>
             </div>
             <button onClick={() => handleDelete(el)}>삭제</button>
           </div>

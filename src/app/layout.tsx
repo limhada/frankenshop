@@ -85,7 +85,7 @@ export default async function RootLayout({
               ABOUT
               <div>leem1315@gmail.com</div>
               <div>
-                꾸준함을 신천하고 몰입을 즐기며 웹 프론트엔드 개발자로 성장을
+                꾸준함을 실천하고 몰입을 즐기며 웹 프론트엔드 개발자로 성장을
                 추구하는 임종정입니다.
               </div>
             </div>
