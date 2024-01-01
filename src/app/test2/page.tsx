@@ -1,13 +1,23 @@
-// 1~1000까지 입력할 수 있는 인풋
-
 'use client';
 
-import QuantityInput from "../components/QuantityInput";
+import { cartsApi } from '../redux/apis/cartsApi';
 
 const Test2 = () => {
-  return <div>테스트2
-    <QuantityInput/>
-  </div>;
+  let name = 'cartsContents';
+  const query = cartsApi.useGetCartQuery(name);
+  // console.log('query.data', query.data);
+  if (query.data) {
+    // console.log('query.data', query.data[0]);
+  }
+  // const mutation = cartsApi.useSetCartMutation();
+  // const setCount = mutation[0];
+
+  return (
+    <div>
+      <h1>테스트2</h1>
+      <div>서버에서 받아온 값: </div>
+    </div>
+  );
 };
 
 export default Test2;

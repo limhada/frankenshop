@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import contentsReducer from '../redux/features/contentsSlice';
-import { testApi } from '../redux/apis/testApi'
-import cartReducer from '../redux/features/cartSlice'
+import { testApi } from '../redux/apis/testApi';
+import cartReducer from '../redux/features/cartSlice';
+import { cartsApi } from './apis/cartsApi';
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,10 @@ export const store = configureStore({
     // reducerPath: 'testApi' testApi를 직접 입력해도 되지만 좀 더 유연함을 위해 [testApi.reducerPath]
     cart: cartReducer,
 
-    [testApi.reducerPath]: testApi.reducer,   
+    [testApi.reducerPath]: testApi.reducer,
+
+    // 장바구니 createApi
+    [cartsApi.reducerPath]: cartsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(testApi.middleware),
