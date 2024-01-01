@@ -6,14 +6,14 @@ export const cartsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api/carts' }),
   tagTypes: ['Carts'],
   endpoints: (builder) => ({
-    getCart: builder.query({
+    getCarts: builder.query({
       query: () => `/contents`,
       providesTags: (result, error, arg) => {
         console.log(result, error, arg, 'providesTags ㅎㅇ~~');
         return [{ type: 'Carts', id: arg.name }];
       },
     }),
-    setCart: builder.mutation({
+    setCarts: builder.mutation({
       query: ({ name, value }) => {
         return {
           url: `/cartsApi${name}`,
