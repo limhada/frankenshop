@@ -4,7 +4,7 @@ import { cartsApi } from '../redux/apis/cartsApi';
 import { ObjectId } from 'mongodb';
 
 interface QuantityInputProps {
-  initialValue: number;
+  initialValue?: number;
   _id?: ObjectId;
 }
 

@@ -28,5 +28,21 @@ export const cartsApi = createApi({
         { type: 'Carts', id: 'quantity' },
       ],
     }),
+
+    addToCart: builder.mutation({
+      // useupdateQuantityMutation에서 인자로 넘겨준 값 name, quantity, _id
+      query: ({ _id }) => {
+        return {
+          url: `/addToCart2`,
+          method: 'POST',
+          // 서버로 전송할 body
+          body: { _id },
+        };
+      },
+      invalidatesTags: (result, error, arg) => [
+        // { type: 'Carts', id: arg.name },
+        { type: 'Carts', id: 'quantity' },
+      ],
+    }),
   }),
 });

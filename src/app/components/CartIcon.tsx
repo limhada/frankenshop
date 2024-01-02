@@ -3,16 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { cartsApi } from '../redux/apis/cartsApi';
 
 // TODO: 상세페이지 및 메인 페이지의 장바구니 아이콘 함께 사용할 수 있게 코드 수정하기
 
-const CartIcon = ({ itemId }: any) => {
+const CartIcon = ({_id}: any) => {
   const router = useRouter();
 
+  console.log(_id, 'CartCion/_id~~~~~~~~~~~~~~~~~~~~ ');
+
   const handleAddToCart = () => {
-    const _id = { _id: itemId };
+    // const _id = { _id: _id };
     axios
-      .post('/api/contents/addToCart', _id)
+      .post('/api/carts/addToCart', { _id })
       .then((response) => {
         // console.log("장바구니 추가 확인", response.data);
 
@@ -26,13 +29,27 @@ const CartIcon = ({ itemId }: any) => {
       });
   };
 
+  const mutation = cartsApi.useAddToCartMutation();
+  const addToCart = mutation[0];
+
   return (
-    <FontAwesomeIcon
-      icon={faCartShopping}
-      style={{ color: '#511f1f' }} // 카트 아이콘 색상 변경
-      onClick={handleAddToCart}
-    />
+    <div>
+      <FontAwesomeIcon
+        icon={faCartShopping}
+        style={{ color: '#511f1f' }} // 카트 아이콘 색상 변경
+        onClick={handleAddToCart}
+      />
+      22
+      <FontAwesomeIcon
+        icon={faCartShopping}
+        style={{ color: '#511f1f' }} // 카트 아이콘 색상 변경
+        onClick={() => addToCart(_id)}
+      />
+      22
+    </div>
   );
 };
 
 export default CartIcon;
+// 6509b47802b7712df0cd3d53
+// 6509b47802b7712df0cd3d53
