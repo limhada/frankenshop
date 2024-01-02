@@ -5,6 +5,7 @@ export const cartsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api/carts' }),
   tagTypes: ['Carts'],
   endpoints: (builder) => ({
+    // 현재 유저의 장바구니 정보 가져오기
     getCarts: builder.query({
       query: () => `/contents`,
       providesTags: (result, error, arg) => {
@@ -13,6 +14,7 @@ export const cartsApi = createApi({
       },
     }),
 
+    // 장바구니 수량 업데이트
     updateQuantity: builder.mutation({
       // useupdateQuantityMutation에서 인자로 넘겨준 값 name, quantity, _id
       query: ({ name, quantity, _id }) => {
@@ -29,11 +31,12 @@ export const cartsApi = createApi({
       ],
     }),
 
+    // 장바구니에 추가
     addToCart: builder.mutation({
       // useupdateQuantityMutation에서 인자로 넘겨준 값 name, quantity, _id
       query: ({ _id }) => {
         return {
-          url: `/addToCart2`,
+          url: `/addToCart`,
           method: 'POST',
           // 서버로 전송할 body
           body: { _id },
