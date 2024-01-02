@@ -47,5 +47,22 @@ export const cartsApi = createApi({
         { type: 'Carts', id: 'quantity' },
       ],
     }),
+
+    // 장바구니 아이템 삭제
+    deleteCartItem: builder.mutation({
+      // useupdateQuantityMutation에서 인자로 넘겨준 값 name, quantity, _id
+      query: ({ _id }) => {
+        console.log(_id ,' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
+        return {
+          url: `/delete`,
+          method: 'DELETE',
+          // 서버로 전송할 body
+          body: { _id },
+        };
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: 'Carts', id: 'quantity' },
+      ],
+    }),
   }),
 });

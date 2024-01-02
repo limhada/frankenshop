@@ -146,9 +146,30 @@ export default function CartList() {
   //   }
   // };
 
+
+  const [deleteCartItem] = cartsApi.useDeleteCartItemMutation()
+  const handelDeleteCartItem = (_id: ObjectId) => {
+
+      // 1초 후에 투명도를 조절하고 display를 변경합니다.
+    const target = document.getElementById(`carList-${_id}`);
+    if (target) {
+    target.style.opacity = '0';
+    target.style.transition = 'opacity 0.4s';
+
+    setTimeout(() => {
+      target.style.display = 'none';
+      deleteCartItem({_id})
+    }, 400);
+    }
+
+    
+  }
+  
+
+
   const handleDelete = (el: any) => {
     axios
-      .delete(`/api/contents/delete`, { data: el._id.toString() })
+      .delete(`/api/carts/delete`, { data: {_id: el._id.toString()} })
       .then((r) => {
         if (r.status === 200) {
           const updatedCartList = cartList.filter(
@@ -157,7 +178,6 @@ export default function CartList() {
           const target = document.getElementById(`carList-${el._id}`);
           if (target) {
             // 1초 후에 투명도를 조절하고 display를 변경합니다.
-
             target.style.opacity = '0';
             target.style.transition = 'opacity 0.4s';
 
@@ -261,6 +281,10 @@ export default function CartList() {
               </div>
             </div>
             <button onClick={() => handleDelete(el)}>삭제</button>
+            {/* <button onClick={() => deleteCartItem({_id: el._id}) */}
+            <button onClick={() => handelDeleteCartItem(el._id)
+            
+          }>삭제2</button>
           </div>
         ))}
       </div>
