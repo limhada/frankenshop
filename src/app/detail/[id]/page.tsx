@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 import CartIcon from '@/app/components/CartIcon';
 import QuantityInput from '@/app/detail/[id]/quantityInput';
+import OderButton from './oderButton';
 
 // TODO: 결제하기 버튼 클릭 시 결제 api 로 request 하기
 // TODO: 장바구니 재사용 가능하게 별도 컴포넌트로 분리해서 재사용하기
@@ -44,9 +45,6 @@ export default async function Detail(props: DetailProps) {
     // result.email = session.user.email;
   }
 
-
-  
-
   return (
     <div>
       상세페이지
@@ -71,9 +69,13 @@ export default async function Detail(props: DetailProps) {
       <CartIcon _id={result?._id.toString()}></CartIcon>
       {/* <QuantityButton></QuantityButton> */}
       <QuantityInput></QuantityInput>
-      <Link href='/order/detail' className=' bg-slate-600'>
+      <br/>
+      {/* <Link
+        href='/order/detail'
+      >
         결제하기
-      </Link>
+      </Link> */}
+      <OderButton></OderButton>
     </div>
   );
 }
