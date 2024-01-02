@@ -3,9 +3,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import axios, { all } from 'axios';
 import { ObjectId } from 'mongodb';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   asyncContents,
@@ -31,10 +30,10 @@ interface ContentItem {
 
 // TODO: 중요 - 메인페이지와 상세페이지의 좋아요 버튼이 새로고침 해야 서로 상태가 업데이트 되는 문제 해결해야 됨
 
-export default function LikeButton({ result }: any) {
+export default function LikeButton() {
   // const result = {isLiked: true, _id: '123'}
   // console.log(result,"ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~");
-  const [resultData, setResultData] = useState(result);
+  // const [resultData, setResultData] = useState(result);
   // console.log(resultData, 'resultData ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~₩');
   const dispatch = useDispatch();
 

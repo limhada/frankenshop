@@ -13,7 +13,7 @@ import {
 const QuantityInput = () => {
   const quantity = useSelector((state: RootState) => state.cart.quantity);
 
-  console.log(quantity, 'quantity~~~~~~~~~~~~~~~~~~');
+  // console.log(quantity, 'quantity~~~~~~~~~~~~~~~~~~');
   const dispatch = useDispatch();
 
   // 컴포넌트가 처음 렌더링될 때 초기화

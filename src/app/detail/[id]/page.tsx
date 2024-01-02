@@ -6,7 +6,7 @@ import LikeButton from './likeButton';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import Link from 'next/link';
-import QuantityButton from '@/app/components/QuantityButton';
+
 import CartIcon from '@/app/components/CartIcon';
 import QuantityInput from '@/app/detail/[id]/quantityInput';
 
@@ -64,7 +64,7 @@ export default async function Detail(props: DetailProps) {
       <div>내용: {result?.description}</div>
       <div>가격: {result?.price}</div>
       {/* 좋아요 버튼 */}
-      <LikeButton result={result} />
+      <LikeButton />
       {/* 장바구니 버튼 */}
       {/*  TODO: 아이콘으로 변경하기 */}
       <div>장바구니 추가</div>
