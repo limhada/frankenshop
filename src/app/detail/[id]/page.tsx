@@ -8,7 +8,7 @@ import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import Link from 'next/link';
 import QuantityButton from '@/app/components/QuantityButton';
 import CartIcon from '@/app/components/CartIcon';
-import QuantityInput from '@/app/components/QuantityInput';
+import QuantityInput from '@/app/detail/[id]/quantityInput';
 
 // TODO: 결제하기 버튼 클릭 시 결제 api 로 request 하기
 // TODO: 장바구니 재사용 가능하게 별도 컴포넌트로 분리해서 재사용하기
@@ -43,6 +43,9 @@ export default async function Detail(props: DetailProps) {
     result.isLiked = likesResult?.isLiked;
     // result.email = session.user.email;
   }
+
+
+  
 
   return (
     <div>
