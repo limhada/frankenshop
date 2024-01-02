@@ -1,28 +1,30 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { cartsApi } from '../redux/apis/cartsApi';
-import { ObjectId } from 'mongodb';
-
-interface QuantityInputProps {
-  initialValue?: number;
-  _id?: ObjectId;
-}
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/redux/store';
+import {
+  updateQuantity,
+  decrement,
+  increment,
+  resetQuantity,
+} from '@/app/redux/features/cartSlice';
 
 // 1~1000까지 입력할 수 있는 인풋
-const QuantityInput = ({ initialValue = 1, _id }: QuantityInputProps) => {
-  const [value, setValue] = useState(initialValue);
+const QuantityInput = () => {
+  const quantity = useSelector((state: RootState) => state.cart.quantity);
+
+  // console.log(quantity, 'quantity~~~~~~~~~~~~~~~~~~');
+  const dispatch = useDispatch();
+
+  // 컴포넌트가 처음 렌더링될 때 초기화
+  useEffect(() => {
+    dispatch(resetQuantity());
+  }, []);
+
   const max = 1000;
-
-  console.log('ㅎㅇ~~~~~~~~~~~', initialValue, _id);
-
-  // useEffect를 사용하여 initialValue이 변경될 때 value 상태를 업데이트
-  // useEffect(() => {
-  //   setValue(initialValue);
-  // }, [initialValue]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
-
     let newValue = target.value;
 
     // 숫자 이외의 문자 제거
@@ -41,31 +43,18 @@ const QuantityInput = ({ initialValue = 1, _id }: QuantityInputProps) => {
     if (parseInt(newValue, 10) < 1) {
       newValue = '1';
     }
-
-    setValue(parseInt(newValue, 10));
+    // Redux 상태인 quantity를 업데이트(input에 직접 입력한 값으로 화면에 렌더링 됨)
+    dispatch(updateQuantity(parseInt(newValue, 10)));
   };
-
   const handleIncrement = () => {
-    if (value < max) {
-      setValue(value + 1);
+    if (quantity < max) {
+      dispatch(increment());
     }
   };
 
   const handleDecrement = () => {
-    if (value > 1) {
-      setValue(value - 1);
-    }
-  };
-
-  const [updateQuantity] = cartsApi.useUpdateQuantityMutation();
-
-  const handleQuantityUpdate = async (name: string) => {
-    // 서버로 업데이트
-    const result = await updateQuantity({ name, quantity: value, _id });
-    console.log(result, 'result ㅎㅇ~~~~~~~~~');
-    
-    if (result && 'data' in result) {
-      setValue(result.data)
+    if (quantity > 1) {
+      dispatch(decrement());
     }
   };
 
@@ -73,22 +62,22 @@ const QuantityInput = ({ initialValue = 1, _id }: QuantityInputProps) => {
     <div className='flex items-center'>
       <button
         className='flex items-center justify-center w-[3rem] h-[3rem] overflow-visible p-4 border border-gray-200 rounded-l-md text-base font-normal text-gray-900 bg-gray-300'
-        onClick={() => handleQuantityUpdate('decrease')}
+        onClick={() => handleDecrement()}
       >
         -
       </button>
       <input
         type='number'
-        value={value}
+        value={quantity}
         onChange={handleChange}
         min={1}
         max={max}
-        onBlur={() => handleQuantityUpdate('updateInputQuantity')} // 포커스가 해제될 때 서버로 업데이트
+        // onBlur={} // 포커스가 해제될 때
         className='quantity-input w-[5rem] h-[3rem] text-center border border-gray-200 text-base font-semibold text-gray-900'
       />
       <button
         className='flex items-center justify-center w-[3rem] h-[3rem] overflow-visible p-4 border border-gray-200 rounded-r-md text-base font-normal text-gray-900 bg-gray-300'
-        onClick={() => handleQuantityUpdate('increase')}
+        onClick={() => handleIncrement()}
       >
         +
       </button>

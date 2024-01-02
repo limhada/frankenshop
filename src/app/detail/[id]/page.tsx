@@ -6,9 +6,10 @@ import LikeButton from './likeButton';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import Link from 'next/link';
-import QuantityButton from '@/app/components/QuantityButton';
+
 import CartIcon from '@/app/components/CartIcon';
-import QuantityInput from '@/app/components/QuantityInput';
+import QuantityInput from '@/app/detail/[id]/quantityInput';
+import OderButton from './oderButton';
 
 // TODO: 결제하기 버튼 클릭 시 결제 api 로 request 하기
 // TODO: 장바구니 재사용 가능하게 별도 컴포넌트로 분리해서 재사용하기
@@ -61,16 +62,20 @@ export default async function Detail(props: DetailProps) {
       <div>내용: {result?.description}</div>
       <div>가격: {result?.price}</div>
       {/* 좋아요 버튼 */}
-      <LikeButton result={result} />
+      <LikeButton />
       {/* 장바구니 버튼 */}
       {/*  TODO: 아이콘으로 변경하기 */}
       <div>장바구니 추가</div>
-      <CartIcon itemId={result?._id.toString()}></CartIcon>
+      <CartIcon _id={result?._id.toString()}></CartIcon>
       {/* <QuantityButton></QuantityButton> */}
       <QuantityInput></QuantityInput>
-      <Link href='/order/detail' className=' bg-slate-600'>
+      <br/>
+      {/* <Link
+        href='/order/detail'
+      >
         결제하기
-      </Link>
+      </Link> */}
+      <OderButton></OderButton>
     </div>
   );
 }

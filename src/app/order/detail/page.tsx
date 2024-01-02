@@ -2,7 +2,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import SelectWithOptions from '../selectWithOptions';
 
-// TODO: 주소검색 api 적용하기
+import Test from './test'
+// TODO: 완료 - 주소검색 api 적용하기
 // TODO: 고민 - 주소 처음 입력 시 db에 저장 후 마이페이지에 나타내기
 // TODO: 고민 - 1개 미만의 수량 및 재고보다 큰 수량 구매제한
 // TODO: +, - 버튼으로 수량 조절하기
@@ -20,6 +21,7 @@ import SelectWithOptions from '../selectWithOptions';
 export default async function Oder() {
   let session = await getServerSession(authOptions);
   // console.log(session);
+  console.log();
   return (
     <div>
       <h1>상세페이지! - 결제 페이지</h1>
@@ -42,6 +44,9 @@ export default async function Oder() {
         <SelectWithOptions />
       </div>
       <button>결제하기</button>
+      {/* TODO: 결제하기 버튼 클릭 시 가격 * 수량 = 총 가격 화면에 렌더링하기 */}
+      {/* TODO: 삭제할거 */}
+      {/* <Test></Test> */}
     </div>
   );
 }

@@ -11,7 +11,8 @@ export default async function handler(
   if (req.method === 'DELETE') {
     let session = await getServerSession(req, res, authOptions);
 
-    // console.log(req.body, '확인~~~~~~~~~~~~~~~');
+    console.log(req.body, '확인~~~~~~~~~~~~~~~');
+    console.log(req.body._id, '확인~~~~~~~~~~~~~~~');
     // console.log(session.user.email);
     try {
       const db = (await connectDB).db('frankenshop');
@@ -23,7 +24,7 @@ export default async function handler(
       let result = await db
         .collection('carts')
         .deleteOne({
-          contents: new ObjectId(req.body),
+          contents: new ObjectId(req.body._id),
           email: session.user.email,
         });
       // console.log(result); // document의 삭제결과를 알려줌 이런식으로 -> { acknowledged: true, deletedCount: 1 }

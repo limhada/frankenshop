@@ -146,32 +146,52 @@ export default function CartList() {
   //   }
   // };
 
-  const handleDelete = (el: any) => {
-    axios
-      .delete(`/api/contents/delete`, { data: el._id.toString() })
-      .then((r) => {
-        if (r.status === 200) {
-          const updatedCartList = cartList.filter(
-            (item) => item._id !== el._id
-          );
-          const target = document.getElementById(`carList-${el._id}`);
-          if (target) {
-            // 1초 후에 투명도를 조절하고 display를 변경합니다.
 
-            target.style.opacity = '0';
-            target.style.transition = 'opacity 0.4s';
+  const [deleteCartItem] = cartsApi.useDeleteCartItemMutation()
+  const handelDeleteCartItem = (_id: ObjectId) => {
 
-            setTimeout(() => {
-              target.style.display = 'none';
-              setCartList(updatedCartList);
-            }, 400);
-          }
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+      // 1초 후에 투명도를 조절하고 display를 변경합니다.
+    const target = document.getElementById(`carList-${_id}`);
+    if (target) {
+    target.style.opacity = '0';
+    target.style.transition = 'opacity 0.4s';
+
+    setTimeout(() => {
+      target.style.display = 'none';
+      deleteCartItem({_id})
+    }, 400);
+    }
+
+    
+  }
+  
+
+  // FIXME: 기존 삭제버튼 로직
+  // const handleDelete = (el: any) => {
+  //   axios
+  //     .delete(`/api/carts/delete`, { data: {_id: el._id.toString()} })
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         const updatedCartList = cartList.filter(
+  //           (item) => item._id !== el._id
+  //         );
+  //         const target = document.getElementById(`carList-${el._id}`);
+  //         if (target) {
+  //           // 1초 후에 투명도를 조절하고 display를 변경합니다.
+  //           target.style.opacity = '0';
+  //           target.style.transition = 'opacity 0.4s';
+
+  //           setTimeout(() => {
+  //             target.style.display = 'none';
+  //             setCartList(updatedCartList);
+  //           }, 400);
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
 
   const handleDeleteSelected = () => {
     // 체크된 항목만 필터링
@@ -260,7 +280,13 @@ export default function CartList() {
       
               </div>
             </div>
-            <button onClick={() => handleDelete(el)}>삭제</button>
+
+            {/* 기존 삭제버튼 */}
+            {/* <button onClick={() => handleDelete(el)}>삭제</button> */}
+
+            <button onClick={() => handelDeleteCartItem(el._id)
+            
+          }>삭제</button>
           </div>
         ))}
       </div>

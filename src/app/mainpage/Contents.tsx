@@ -158,10 +158,10 @@ export default function Content() {
                       //   });
                     }}
                   />
-
                   {/* 장바구니 아이콘 */}
                   {/* TODO: 장바구니에 몇개 담겨있는지 표시할지 말지?? */}
-                  <CartIcon itemId={allContents[i]._id}></CartIcon>
+                  <CartIcon _id={ allContents[i]?._id.toString()}></CartIcon>
+                  
                 </div>
                 {/* TODO: 평점? 추가할지 말지 */}
                 <div className='font-bold text-xl mb-2'>{el.title}</div>
