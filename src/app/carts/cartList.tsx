@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import QuantityInput from '../components/QuantityInput';
 import { cartsApi } from '../redux/apis/cartsApi';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 // TODO: 할인쿠폰
 // TODO: 결제정보
 // TODO: 포인트
@@ -27,7 +29,6 @@ import { cartsApi } from '../redux/apis/cartsApi';
 
 // TODO: 해결 - 1번유저가 장바구니에 추가한 아이템은  2번 유저의 장바구니에 추가 안되는 문제 해결하기
 
-
 // TODO: 장바구니 총 결제 금액은 네비게이션바 처럼 항상 스롤상관없이 항상 보이게
 export interface CartsProps {
   cartsData: {
@@ -43,9 +44,31 @@ export interface CartsProps {
   }[];
 }
 
+export interface CartItem {
+  _id: string;
+  title: string;
+  img_src: string;
+  author: string;
+  price: string;
+  description: string;
+  quantity: number;
+  checked: boolean;
+}
+
 export default function CartList() {
   const name = 'cartsContents';
   const query = cartsApi.useGetCartsQuery(name);
+
+/*
+  // getCartsQuery가 존재하고 status 속성이 존재할 때 status 값을 사용합니다.
+  const tt = useSelector((state: RootState) => state.cartsApi.queries);
+  const getCartsQuery = tt['getCarts("cartsContents")'];
+  if (getCartsQuery?.data) {
+    // FIXME: 타입 수정하기
+    const data: any = getCartsQuery?.data;
+    console.log('data=', data[0]);
+  }
+*/
 
   console.log('query@@@@@`', query.data);
   // console.log('cartData~~~~', cartData);
@@ -55,16 +78,17 @@ export default function CartList() {
   const [allChecked, setAllChecked] = useState(false); // 전체 선택 체크박스 상태
   const [totalPrice, setTotalPrice] = useState(0);
 
-   useEffect(() => {
+  useEffect(() => {
     if (query.data) {
       // query.data가 변경될 때마다 실행되는 코드
       // cartList 상태를 직접 업데이트하는 로직
       // const updatedCartList = query.data.map((cartItem) => ({
-        const updatedCartList = (query.data as CartsProps['cartsData']).map((cartItem) => ({
-
-        ...cartItem,
-        // checked: false, // 원하는 초기값 설정
-      }));
+      const updatedCartList = (query.data as CartsProps['cartsData']).map(
+        (cartItem) => ({
+          ...cartItem,
+          // checked: false, // 원하는 초기값 설정
+        })
+      );
       setCartList(updatedCartList);
     }
   }, [query.data]); // query.data가 변경될 때마다 useEffect 실행
@@ -129,69 +153,20 @@ export default function CartList() {
     // cartList 상태 변수의 값을 updatedCartList 배열로 변경
   };
 
-  // const handleQuantityChange = async (el: any, action: number) => {
-  //   const actionStr = action > 0 ? 'increase' : 'decrease';
-  //   try {
-  //     const response = await axios.post('/api/contents/quantityUpdate', {
-  //       [actionStr]: action, // TODO: 객체 문법 정리하기
-  //       _id: el._id.toString(),
-  //     });
-  //     const updatedCartList = cartList.map((cartItem) => ({
-  //       ...cartItem,
-  //       quantity: cartItem._id === el._id ? response.data : cartItem.quantity,
-  //     }));
-  //     setCartList(updatedCartList);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-
-  const [deleteCartItem] = cartsApi.useDeleteCartItemMutation()
+  const [deleteCartItem] = cartsApi.useDeleteCartItemMutation();
   const handelDeleteCartItem = (_id: ObjectId) => {
-
-      // 1초 후에 투명도를 조절하고 display를 변경합니다.
+    // 1초 후에 투명도를 조절하고 display를 변경합니다.
     const target = document.getElementById(`carList-${_id}`);
     if (target) {
-    target.style.opacity = '0';
-    target.style.transition = 'opacity 0.4s';
+      target.style.opacity = '0';
+      target.style.transition = 'opacity 0.4s';
 
-    setTimeout(() => {
-      target.style.display = 'none';
-      deleteCartItem({_id})
-    }, 400);
+      setTimeout(() => {
+        target.style.display = 'none';
+        deleteCartItem({ _id });
+      }, 400);
     }
-
-    
-  }
-  
-
-  // FIXME: 기존 삭제버튼 로직
-  // const handleDelete = (el: any) => {
-  //   axios
-  //     .delete(`/api/carts/delete`, { data: {_id: el._id.toString()} })
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         const updatedCartList = cartList.filter(
-  //           (item) => item._id !== el._id
-  //         );
-  //         const target = document.getElementById(`carList-${el._id}`);
-  //         if (target) {
-  //           // 1초 후에 투명도를 조절하고 display를 변경합니다.
-  //           target.style.opacity = '0';
-  //           target.style.transition = 'opacity 0.4s';
-
-  //           setTimeout(() => {
-  //             target.style.display = 'none';
-  //             setCartList(updatedCartList);
-  //           }, 400);
-  //         }
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
+  };
 
   const handleDeleteSelected = () => {
     // 체크된 항목만 필터링
@@ -254,6 +229,7 @@ export default function CartList() {
         <button onClick={handleDeleteSelected}>
           {allChecked ? '전체삭제' : '선택삭제'}
         </button>
+        {/* {query.data && query.data.map((el, i) => ( */}
         {cartList.map((el, i) => (
           <div key={`${el._id}`} className='flex' id={`carList-${el._id}`}>
             <input
@@ -275,18 +251,13 @@ export default function CartList() {
               {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
 
               <div className='flex items-center'>
-   
-                <QuantityInput initialValue={el.quantity} _id={el._id as ObjectId}></QuantityInput>
-      
+                <QuantityInput
+                  initialValue={el.quantity}
+                  _id={el._id as ObjectId}
+                ></QuantityInput>
               </div>
             </div>
-
-            {/* 기존 삭제버튼 */}
-            {/* <button onClick={() => handleDelete(el)}>삭제</button> */}
-
-            <button onClick={() => handelDeleteCartItem(el._id)
-            
-          }>삭제</button>
+            <button onClick={() => handelDeleteCartItem(el._id)}>삭제</button>
           </div>
         ))}
       </div>

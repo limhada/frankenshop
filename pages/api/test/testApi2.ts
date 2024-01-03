@@ -15,7 +15,7 @@ export default async function handler(
   }
 
   if (req.method === 'POST') {
-    console.log('req확인~~~~~~', req.body.value);
+    // console.log('req확인~~~~~~', req.body.value);
     try {
       t = req.body.value
       return res.status(200).json(t);

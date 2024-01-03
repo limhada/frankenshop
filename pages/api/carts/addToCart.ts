@@ -9,7 +9,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    console.log('req.body._id ~~~~~~~~~~~~~~~~', req.body); // req.body -> 현재 제품의 _id
+    // console.log('req.body._id ~~~~~~~~~~~~~~~~', req.body); // req.body -> 현재 제품의 _id
     // console.log('req.body._id ~~~~~~~~~~~~~~~~', req.query, '??'); // req.body -> 현재 제품의 _id
 
     let session = await getServerSession(req, res, authOptions);

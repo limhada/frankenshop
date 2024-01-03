@@ -12,7 +12,7 @@ const CartIcon = ({_id, type}: any) => {
   const quantity = useSelector((state: RootState) => state.cart.quantity);
   console.log(quantity);
 
-  console.log(type, 'type ㅎㅇ~~~~~~~~~~~~~');
+  // console.log(type, 'type ㅎㅇ~~~~~~~~~~~~~');
 
   // const router = useRouter();
   // console.log(_id, 'CartCion/_id~~~~~~~~~~~~~~~~~~~~ ');
