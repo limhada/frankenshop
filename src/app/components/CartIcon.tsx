@@ -1,15 +1,20 @@
 'use client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
+
 import { cartsApi } from '../redux/apis/cartsApi';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 // TODO: 상세페이지 및 메인 페이지의 장바구니 아이콘 함께 사용할 수 있게 코드 수정하기
 
-const CartIcon = ({_id}: any) => {
-  const router = useRouter();
+const CartIcon = ({_id, type}: any) => {
+  const quantity = useSelector((state: RootState) => state.cart.quantity);
+  console.log(quantity);
 
+  // console.log(type, 'type ㅎㅇ~~~~~~~~~~~~~');
+
+  // const router = useRouter();
   // console.log(_id, 'CartCion/_id~~~~~~~~~~~~~~~~~~~~ ');
 
 
@@ -39,12 +44,17 @@ const CartIcon = ({_id}: any) => {
       <FontAwesomeIcon
         icon={faCartShopping}
         style={{ color: '#511f1f' }} // 카트 아이콘 색상 변경
-        onClick={() => addToCart({_id})}
+        onClick={() => {
+          // 상세페이지의 장바구니 버튼일 경우 현재 선택된 수량을 함께 전달
+          if (type === 'detail') {
+            addToCart({_id, quantity})
+          } else {
+            addToCart({_id})
+          }
+        }}
       />
     </div>
   );
 };
 
 export default CartIcon;
-// 6509b47802b7712df0cd3d53
-// 6509b47802b7712df0cd3d53

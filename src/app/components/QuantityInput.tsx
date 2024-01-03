@@ -13,7 +13,7 @@ const QuantityInput = ({ initialValue = 1, _id }: QuantityInputProps) => {
   const [value, setValue] = useState(initialValue);
   const max = 1000;
 
-  console.log('ㅎㅇ~~~~~~~~~~~', initialValue, _id);
+  // console.log('QuantityInput~~~~~~~~~~~', initialValue, _id);
 
   // useEffect를 사용하여 initialValue이 변경될 때 value 상태를 업데이트
   // useEffect(() => {
@@ -45,24 +45,12 @@ const QuantityInput = ({ initialValue = 1, _id }: QuantityInputProps) => {
     setValue(parseInt(newValue, 10));
   };
 
-  const handleIncrement = () => {
-    if (value < max) {
-      setValue(value + 1);
-    }
-  };
-
-  const handleDecrement = () => {
-    if (value > 1) {
-      setValue(value - 1);
-    }
-  };
-
   const [updateQuantity] = cartsApi.useUpdateQuantityMutation();
 
   const handleQuantityUpdate = async (name: string) => {
     // 서버로 업데이트
     const result = await updateQuantity({ name, quantity: value, _id });
-    console.log(result, 'result ㅎㅇ~~~~~~~~~');
+    // console.log(result, 'result ㅎㅇ~~~~~~~~~');
     
     if (result && 'data' in result) {
       setValue(result.data)

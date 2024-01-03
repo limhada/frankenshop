@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import SelectWithOptions from '../selectWithOptions';
 
-import Test from './test'
+import ShippingAddress from '@/app/components/ShippingAddress';
 // TODO: 완료 - 주소검색 api 적용하기
 // TODO: 고민 - 주소 처음 입력 시 db에 저장 후 마이페이지에 나타내기
 // TODO: 고민 - 1개 미만의 수량 및 재고보다 큰 수량 구매제한
@@ -21,7 +21,7 @@ import Test from './test'
 export default async function Oder() {
   let session = await getServerSession(authOptions);
   // console.log(session);
-  console.log();
+
   return (
     <div>
       <h1>상세페이지! - 결제 페이지</h1>
@@ -39,7 +39,7 @@ export default async function Oder() {
           <input placeholder='1234' className='border w-11' />-
           <input placeholder='5678' className='border w-11' />
         </div>
-        <div>주소</div>
+        <ShippingAddress></ShippingAddress>
         {/* <SelectWithOptions session={session}/> */}
         <SelectWithOptions />
       </div>

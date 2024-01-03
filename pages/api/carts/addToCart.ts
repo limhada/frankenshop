@@ -9,16 +9,18 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    console.log('req.body._id ~~~~~~~~~~~~~~~~', req.body._id); // req.body -> 현재 제품의 _id
+    // console.log('req.body._id ~~~~~~~~~~~~~~~~', req.body); // req.body -> 현재 제품의 _id
     // console.log('req.body._id ~~~~~~~~~~~~~~~~', req.query, '??'); // req.body -> 현재 제품의 _id
 
     let session = await getServerSession(req, res, authOptions);
     // console.log('회원정보 확인~~~~~~~~~~~~', session.user.email);
 
+    const bodyQuantity = req.body.quantity || 1
+
     const insertData = {
       contents: new ObjectId(req.body._id),
       email: session.user.email,
-      quantity: 1,
+      quantity: bodyQuantity,
       checked : false,
     };
 
@@ -41,7 +43,7 @@ export default async function handler(
           .collection('carts')
           .updateOne(
             { contents: new ObjectId(req.body._id), email: session.user.email },
-            { $inc: { quantity: 1 } }
+            { $inc: { quantity: bodyQuantity } }
           );
         // console.log("카트값 1증가 성공");
       }

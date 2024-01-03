@@ -34,13 +34,23 @@ export const cartsApi = createApi({
     // 장바구니에 추가
     addToCart: builder.mutation({
       // useupdateQuantityMutation에서 인자로 넘겨준 값 name, quantity, _id
-      query: ({ _id }) => {
-        return {
-          url: `/addToCart`,
-          method: 'POST',
-          // 서버로 전송할 body
-          body: { _id },
-        };
+      query: ({ _id, quantity }) => {
+        // 디테일 페이지일 경우 현재 선택된 quantity를 받아와서 api요청 시 quantity를 함께 보냄
+        if (quantity) {
+          return {
+            url: `/addToCart`,
+            method: 'POST',
+            // 서버로 전송할 body
+            body: { _id, quantity },
+          };
+        } else {
+          return {
+            url: `/addToCart`,
+            method: 'POST',
+            // 서버로 전송할 body
+            body: { _id },
+          };
+        }
       },
       invalidatesTags: (result, error, arg) => [
         // { type: 'Carts', id: arg.name },
