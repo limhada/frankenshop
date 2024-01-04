@@ -66,7 +66,7 @@ export default function LikeButton() {
       <FontAwesomeIcon
         icon={detailContent?.isLiked ? faHeart : regularHeart}
         // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
-        className={`h-2 ${detailContent?.isLiked ? 'text-red-500' : ''}`}
+        className={`mr-1 text-red-500`}
         onClick={() => {
           // 기존 코드
           // axios

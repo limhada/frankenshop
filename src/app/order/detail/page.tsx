@@ -24,25 +24,43 @@ export default async function Oder() {
 
   return (
     <div>
-      <h1>상세페이지! - 결제 페이지</h1>
+      <h1 className='text-center text-[2rem] font-bold'> 결제하기</h1>
+      {/* <hr className='mb-5 w-[50%] mx-auto'></hr> */}
+
+      <h2 className='text-[1.25rem] font-bold mb-5'>배송 정보</h2>
       <div>
-        <h2>배송정보</h2>
-        <div>이름: {session?.user.name}</div>
-        <div>
-          <span>이메일:</span>
-          <span>{session?.user.name}</span>
-          {/* TODO: 선택가능 한 체크박스 & 직접입력으로 만들기 */}
-        </div>
-        <div>
-          <span>휴대폰 번호:</span>
-          <input placeholder='010' className='border w-11' />-
-          <input placeholder='1234' className='border w-11' />-
-          <input placeholder='5678' className='border w-11' />
-        </div>
-        <ShippingAddress></ShippingAddress>
-        {/* <SelectWithOptions session={session}/> */}
-        <SelectWithOptions />
+        <ul>
+          <li className='mb-[1.25rem]'>
+            <div className='font-bold inline-block w-[6rem]'>이메일</div>
+            <input
+              type='text'
+              value={session?.user.email}
+              // id='detailAddress'
+              placeholder='상세주소'
+              readOnly
+              className='w-[15rem] overflow-visible p-4 border mt-0.4rem border-gray-200 rounded-md bg-white text-base font-normal text-gray-900 disabled'
+            />
+          </li>
+          <li className='mb-[1.25rem]'>
+            <div className=' font-bold inline-block w-[6rem]'>이름</div>
+            <input
+              type='text'
+              value={session?.user.name}
+              // id='detailAddress'
+              placeholder='상세주소'
+              readOnly
+              className='w-[15rem] overflow-visible p-4 border mt-0.4rem border-gray-200 rounded-md bg-white text-base font-normal text-gray-900 disabled'
+            />
+          </li>
+        </ul>
+
+        {/* TODO: 선택가능 한 체크박스 & 직접입력으로 만들기 */}
       </div>
+
+      <ShippingAddress></ShippingAddress>
+      {/* <SelectWithOptions session={session}/> */}
+      <SelectWithOptions />
+
       <button>결제하기</button>
       {/* TODO: 결제하기 버튼 클릭 시 가격 * 수량 = 총 가격 화면에 렌더링하기 */}
       {/* TODO: 삭제할거 */}
