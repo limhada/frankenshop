@@ -145,9 +145,8 @@ export default function Address() {
           }
           readOnly
           placeholder='주소'
+          className='w-[15rem] md:w-[50%]'
           style={{
-            width: '100%',
-            maxWidth: '100%',
             overflow: 'visible',
             padding: '1rem',
             marginTop: '1.25rem',
@@ -157,14 +156,13 @@ export default function Address() {
             color: '#1e1e23',
           }}
         />
-        <span id='guide'></span>
+        <br />
         <input
           type='text'
           id='detailAddress'
           placeholder='상세주소'
+          className='w-[15rem] md:w-[50%]'
           style={{
-            width: '100%',
-            maxWidth: '100%',
             overflow: 'visible',
             padding: '1rem',
             marginTop: '1.25rem',

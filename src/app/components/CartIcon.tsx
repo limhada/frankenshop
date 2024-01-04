@@ -10,7 +10,7 @@ import { RootState } from '../redux/store';
 
 const CartIcon = ({_id, type}: any) => {
   const quantity = useSelector((state: RootState) => state.cart.quantity);
-  console.log(quantity);
+  // console.log(quantity);
 
   // console.log(type, 'type ㅎㅇ~~~~~~~~~~~~~');
 
