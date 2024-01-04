@@ -133,35 +133,37 @@ export default function Content() {
                   /> */}
 
                   {/* 좋아요 아아이콘 v3 - 리덕스 툴킷 적용*/}
-                  <FontAwesomeIcon
-                    icon={el.isLiked ? faHeart : regularHeart}
-                    // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
-                    className={`h-2 ${el.isLiked ? 'text-red-500' : ''}`}
-                    onClick={() => {
-                      const _id = { _id: allContents[i]._id };
-                      // likeToggle 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
-                      dispatch(likeToggle(_id));
-
-                      // likeChange 액션을 디스패치하여 서버에 like 상태 변경 요청
-                      dispatch(likeChange(_id));
-                      // axios
-                      //   .post('/api/contents/likeChange', _id)
-                      //   .then((r) => {
-                      //     // console.log("좋아요 데이터 확인", r.data);
-
-                      //     // setContentsData(r.data);
-                      //     // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
-                      //   })
-                      //   .catch((error) => {
-                      //     // 요청이 실패한 경우에 대한 처리
-                      //     console.error(error);
-                      //   });
-                    }}
-                  />
-                  {/* 장바구니 아이콘 */}
-                  {/* TODO: 장바구니에 몇개 담겨있는지 표시할지 말지?? */}
-                  <CartIcon _id={ allContents[i]?._id.toString()}></CartIcon>
-                  
+                  <div className='flex items-center'>
+                    <FontAwesomeIcon
+                      icon={el.isLiked ? faHeart : regularHeart}
+                      // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
+                      className={`mr-1 text-red-500`}
+                      onClick={() => {
+                        const _id = { _id: allContents[i]._id };
+                        // likeToggle 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
+                        dispatch(likeToggle(_id));
+  
+                        // likeChange 액션을 디스패치하여 서버에 like 상태 변경 요청
+                        dispatch(likeChange(_id));
+                        // axios
+                        //   .post('/api/contents/likeChange', _id)
+                        //   .then((r) => {
+                        //     // console.log("좋아요 데이터 확인", r.data);
+  
+                        //     // setContentsData(r.data);
+                        //     // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
+                        //   })
+                        //   .catch((error) => {
+                        //     // 요청이 실패한 경우에 대한 처리
+                        //     console.error(error);
+                        //   });
+                      }}
+                    />
+                    <CartIcon _id={ allContents[i]?._id.toString()}
+                    
+                    ></CartIcon>
+                    
+                  </div>
                 </div>
                 {/* TODO: 평점? 추가할지 말지 */}
                 <div className='font-bold text-xl mb-2'>{el.title}</div>

@@ -43,7 +43,7 @@ const CartIcon = ({_id, type}: any) => {
     <div>
       <FontAwesomeIcon
         icon={faCartShopping}
-        style={{ color: '#511f1f' }} // 카트 아이콘 색상 변경
+        className='text-myColor1'
         onClick={() => {
           // 상세페이지의 장바구니 버튼일 경우 현재 선택된 수량을 함께 전달
           if (type === 'detail') {
