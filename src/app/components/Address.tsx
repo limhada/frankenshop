@@ -122,6 +122,7 @@ export default function Address() {
           onClick={() => popupDaumPostcode()}
           style={{
             height: '100%',
+            marginTop: '1rem',
             color: '#fff',
             cursor: 'pointer',
             overflow: 'visible',

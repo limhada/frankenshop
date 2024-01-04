@@ -10,7 +10,7 @@ export default async function Oder() {
     <div>
       <h1>카트! - 결제 페이지</h1>
       <div>
-        <h2>배송정보</h2>
+        <h2>배송 정보</h2>
         <div>이름: {session?.user.name}</div>
         <div>
           <span>이메일:</span>
