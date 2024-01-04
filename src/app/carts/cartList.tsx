@@ -70,7 +70,7 @@ export default function CartList() {
   }
 */
 
-  console.log('query@@@@@`', query.data);
+  // console.log('query@@@@@`', query.data);
   // console.log('cartData~~~~', cartData);
 
   const [cartList, setCartList] = useState<CartsProps['cartsData']>([]);
