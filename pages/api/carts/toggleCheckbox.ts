@@ -11,7 +11,7 @@ export default async function handler(
   if (req.method === 'POST') {
     let session = await getServerSession(req, res, authOptions);
 
-    console.log(req.body, '확인~~~~~~~~~~~~~~~');
+    // console.log(req.body, '확인~~~~~~~~~~~~~~~');
 
     try {
       const db = (await connectDB).db('frankenshop');

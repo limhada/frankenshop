@@ -58,7 +58,7 @@ export const cartsApi = createApi({
       ],
     }),
 
-    // 장바구니 아이템 삭제
+    // 장바구니의 해당 아이템 삭제
     deleteCartItem: builder.mutation({
       query: ({ _id }) => {
         // console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
@@ -73,12 +73,28 @@ export const cartsApi = createApi({
       ],
     }),
 
+
+    // 장바구니의 선택한 모든 아이템 삭제
+    deleteSelectedCartItem: builder.mutation({
+      query: ( selectedIds ) => {
+        // console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
+        return {
+          url: `/deleteSelected`,
+          method: 'DELETE',
+          body: { selectedIds },
+        };
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: 'Carts', id: 'quantity' },
+      ],
+    }),
+
     // 장바구니의 해당 아이템의 체크박스 상태 전환
-    changeCheckbox: builder.mutation({
+    toggleCheckbox: builder.mutation({
       query: ({ _id }) => {
         // console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
         return {
-          url: `/changeCheckbox`,
+          url: `/toggleCheckbox`,
           method: 'POST',
           body: { _id },
         };
@@ -102,8 +118,5 @@ export const cartsApi = createApi({
         { type: 'Carts', id: 'quantity' },
       ],
     }),
-
-
-
   }),
 });
