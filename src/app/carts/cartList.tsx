@@ -110,48 +110,63 @@ export default function CartList() {
     updateTotalPrice();
   }, [cartList]);
 
+  const [toggleAllCheckbox] = cartsApi.useToggleAllCheckboxMutation()
   const handleAllCheckboxChange = () => {
-    setAllChecked(!allChecked); // 전체 선택 체크박스의 상태를 토글
+    toggleAllCheckbox({})
+
+    // setAllChecked(!allChecked); // 전체 선택 체크박스의 상태를 토글
 
     // 현재 장바구니 데이터를 업데이트합니다.
-    setCartList((prevCartList) => {
-      const updatedCartList = prevCartList.map((cartItem) => ({
-        ...cartItem,
-        checked: !allChecked,
-      }));
+    // setCartList((prevCartList) => {
+    //   const updatedCartList = prevCartList.map((cartItem) => ({
+    //     ...cartItem,
+    //     checked: !allChecked,
+    //   }));
 
-      setTotalPrice(
-        updatedCartList
-          .filter((item) => item.checked)
-          .reduce(
-            (total, item) =>
-              total + parseFloat(item.price.replace(',', '')) * item.quantity,
-            0
-          )
-      );
+    //   setTotalPrice(
+    //     updatedCartList
+    //       .filter((item) => item.checked)
+    //       .reduce(
+    //         (total, item) =>
+    //           total + parseFloat(item.price.replace(',', '')) * item.quantity,
+    //         0
+    //       )
+    //   );
 
-      return updatedCartList;
-    });
+    //   return updatedCartList;
+    // });
   };
 
+  // const handleCheckboxChange = (el: any) => {
+  //   // 체크박스 n번의 체크 상태를 false로 변경
+  //   const updatedCartList = cartList.map((cartItem) => ({
+  //     // cartList 배열에서 체크박스 n번의 상태를 false로 변경한 배열
+  //     ...cartItem,
+  //     checked: cartItem._id === el._id ? !cartItem.checked : cartItem.checked,
+  //   }));
+
+  //   // 체크박스 n번의 체크를 해제하면 전체선택 체크박스의 체크도 해제되는 로직
+  //   // 전체 선택 체크박스의 상태를 업데이트합니다.
+  //   const updatedAllChecked = updatedCartList.every((item) => item.checked);
+  //   // updatedCartList 배열의 모든 항목의 checked 속성의 값이 true인지 여부를 나타냄
+  //   setAllChecked(updatedAllChecked);
+  //   // allChecked 상태 변수의 값을 updatedAllChecked 변수의 값으로 변경
+
+  //   setCartList(updatedCartList);
+  //   // cartList 상태 변수의 값을 updatedCartList 배열로 변경
+  // };
+
+  const [changeCheckbox] = cartsApi.useChangeCheckboxMutation()
   const handleCheckboxChange = (el: any) => {
-    // 체크박스 n번의 체크 상태를 false로 변경
-    const updatedCartList = cartList.map((cartItem) => ({
-      // cartList 배열에서 체크박스 n번의 상태를 false로 변경한 배열
-      ...cartItem,
-      checked: cartItem._id === el._id ? !cartItem.checked : cartItem.checked,
-    }));
+    // console.log(el._id, 'el ㅎㅇ~~~~~~~~~~~');
+    changeCheckbox({_id: el._id})
+  }
 
-    // 체크박스 n번의 체크를 해제하면 전체선택 체크박스의 체크도 해제되는 로직
-    // 전체 선택 체크박스의 상태를 업데이트합니다.
-    const updatedAllChecked = updatedCartList.every((item) => item.checked);
-    // updatedCartList 배열의 모든 항목의 checked 속성의 값이 true인지 여부를 나타냄
-    setAllChecked(updatedAllChecked);
-    // allChecked 상태 변수의 값을 updatedAllChecked 변수의 값으로 변경
 
-    setCartList(updatedCartList);
-    // cartList 상태 변수의 값을 updatedCartList 배열로 변경
-  };
+
+
+
+
 
   const [deleteCartItem] = cartsApi.useDeleteCartItemMutation();
   const handelDeleteCartItem = (_id: ObjectId) => {
@@ -229,7 +244,7 @@ export default function CartList() {
         <button onClick={handleDeleteSelected}>
           {allChecked ? '전체삭제' : '선택삭제'}
         </button>
-        {/* {query.data && query.data.map((el, i) => ( */}
+        {/* {query.data && query.data.map((el: any, i: number) => ( */}
         {cartList.map((el, i) => (
           <div key={`${el._id}`} className='flex' id={`carList-${el._id}`}>
             <input

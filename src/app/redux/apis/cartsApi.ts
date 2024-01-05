@@ -61,7 +61,7 @@ export const cartsApi = createApi({
     // 장바구니 아이템 삭제
     deleteCartItem: builder.mutation({
       query: ({ _id }) => {
-        console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
+        // console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
         return {
           url: `/delete`,
           method: 'DELETE',
@@ -72,5 +72,38 @@ export const cartsApi = createApi({
         { type: 'Carts', id: 'quantity' },
       ],
     }),
+
+    // 장바구니의 해당 아이템의 체크박스 상태 전환
+    changeCheckbox: builder.mutation({
+      query: ({ _id }) => {
+        // console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
+        return {
+          url: `/changeCheckbox`,
+          method: 'POST',
+          body: { _id },
+        };
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: 'Carts', id: 'quantity' },
+      ],
+    }),
+
+    // 장바구니의 해당 아이템의 체크박스 상태 전환
+    toggleAllCheckbox: builder.mutation({
+      query: () => {
+        // console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
+        return {
+          url: `/toggleAllCheckbox`,
+          method: 'POST',
+          // body: {},
+        };
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: 'Carts', id: 'quantity' },
+      ],
+    }),
+
+
+
   }),
 });
