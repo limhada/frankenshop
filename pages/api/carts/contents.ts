@@ -73,7 +73,6 @@ export default async function handler(
       // console.log('ㅎㅇ~~~~~~~~~~', result?.quantity);
       // console.log('ㅎㅇ~~~~~~~~~~', result.);
       
-      const state11 = 2
 
 
         if (result?.quantity > 0 
