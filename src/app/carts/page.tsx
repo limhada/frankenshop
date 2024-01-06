@@ -1,7 +1,3 @@
-import { ObjectId } from 'mongodb';
-import { connectDB } from '../../../util/database';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 
 import CartList from './cartList';
 
@@ -82,7 +78,7 @@ export default async function Carts() {
 
   return (
     <div>
-      <h1>장바구니</h1>
+
       <CartList />
     </div>
   );

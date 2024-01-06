@@ -59,41 +59,15 @@ export default function CartList() {
   const name = 'cartsContents';
   const query = cartsApi.useGetCartsQuery(name);
 
-  /*
-  // getCartsQuery가 존재하고 status 속성이 존재할 때 status 값을 사용합니다.
-  const tt = useSelector((state: RootState) => state.cartsApi.queries);
-  const getCartsQuery = tt['getCarts("cartsContents")'];
-  if (getCartsQuery?.data) {
-    // FIXME: 타입 수정하기
-    const data: any = getCartsQuery?.data;
-    console.log('data=', data[0]);
-  }
-*/
-
-  console.log('query@@@@@`', query.data);
+  // console.log('query@@@@@`', query.data);
   // console.log('cartData~~~~', cartData);
 
   const [cartList, setCartList] = useState<CartsProps['cartsData']>(
     query.data || []
   );
-  // const [cartList, setCartList] = useState<CartsProps['cartsData']>([]);
-  // const [cartList, setCartList] = useState(cartData);
+
   const [allChecked, setAllChecked] = useState(false); // 전체 선택 체크박스 상태
   const [totalPrice, setTotalPrice] = useState(0);
-  // setAllChecked(!updateChecked);
-  // const updateChecked = cartList.every(item => item.checked);
-  // // 모든 데이터의 checked 값이 true라면 setAllChecked(true)를 호출
-  // // 하나라도 false가 있다면 setAllChecked(false)를 호출
-  // setAllChecked(updateChecked);
-
-  // useEffect(() => {
-  //   // query.data가 로딩되면 cartList를 업데이트
-  //   if (query.data) {
-  //     setCartList(query.data);
-  //     // every는 모든 요소의 checked 속성이 true라면 true를 반환 하나라도 false라면 false 반환
-
-  //   }
-  // }, [query.data]);
 
   useEffect(() => {
     // query.data가 로딩되면 cartList를 업데이트
@@ -101,26 +75,14 @@ export default function CartList() {
       setCartList(query.data);
 
       // cartList가 변경되면 전체 선택 체크박스의 상태 업데이트
-      const updateChecked = query.data.length > 0 ? query.data.every((item: CartItem) => item.checked) : false;
+      const updateChecked =
+        query.data.length > 0
+          ? query.data.every((item: CartItem) => item.checked)
+          : false;
       setAllChecked(updateChecked);
-      console.log('updateChecked~~~~~~~~~~~~``', updateChecked);
+      // console.log('updateChecked~~~~~~~~~~~~``', updateChecked);
     }
   }, [query.data]);
-
-  // useEffect(() => {
-  //   if (query.data) {
-  //     // query.data가 변경될 때마다 실행되는 코드
-  //     // cartList 상태를 직접 업데이트하는 로직
-  //     // const updatedCartList = query.data.map((cartItem) => ({
-  //     const updatedCartList = (query.data as CartsProps['cartsData']).map(
-  //       (cartItem) => ({
-  //         ...cartItem,
-  //         // checked: false, // 원하는 초기값 설정
-  //       })
-  //     );
-  //     setCartList(updatedCartList);
-  //   }
-  // }, [query.data]); // query.data가 변경될 때마다 useEffect 실행
 
   useEffect(() => {
     // 총 결제 금액을 업데이트하는 함수
@@ -142,48 +104,8 @@ export default function CartList() {
   const [toggleAllCheckbox] = cartsApi.useToggleAllCheckboxMutation();
   const handleAllCheckboxChange = () => {
     toggleAllCheckbox({});
-
-    // setAllChecked(!allChecked); // 전체 선택 체크박스의 상태를 토글
-
-    // 현재 장바구니 데이터를 업데이트합니다.
-    // setCartList((prevCartList) => {
-    //   const updatedCartList = prevCartList.map((cartItem) => ({
-    //     ...cartItem,
-    //     checked: !allChecked,
-    //   }));
-
-    //   setTotalPrice(
-    //     updatedCartList
-    //       .filter((item) => item.checked)
-    //       .reduce(
-    //         (total, item) =>
-    //           total + parseFloat(item.price.replace(',', '')) * item.quantity,
-    //         0
-    //       )
-    //   );
-
-    //   return updatedCartList;
-    // });
   };
 
-  // const handleCheckboxChange = (el: any) => {
-  //   // 체크박스 n번의 체크 상태를 false로 변경
-  //   const updatedCartList = cartList.map((cartItem) => ({
-  //     // cartList 배열에서 체크박스 n번의 상태를 false로 변경한 배열
-  //     ...cartItem,
-  //     checked: cartItem._id === el._id ? !cartItem.checked : cartItem.checked,
-  //   }));
-
-  //   // 체크박스 n번의 체크를 해제하면 전체선택 체크박스의 체크도 해제되는 로직
-  //   // 전체 선택 체크박스의 상태를 업데이트합니다.
-  //   const updatedAllChecked = updatedCartList.every((item) => item.checked);
-  //   // updatedCartList 배열의 모든 항목의 checked 속성의 값이 true인지 여부를 나타냄
-  //   setAllChecked(updatedAllChecked);
-  //   // allChecked 상태 변수의 값을 updatedAllChecked 변수의 값으로 변경
-
-  //   setCartList(updatedCartList);
-  //   // cartList 상태 변수의 값을 updatedCartList 배열로 변경
-  // };
 
   const [changeCheckbox] = cartsApi.useToggleCheckboxMutation();
   const handleCheckboxChange = (el: any) => {
@@ -206,8 +128,7 @@ export default function CartList() {
     }
   };
 
-  const [deleteSelectedCartItem] = cartsApi.useDeleteSelectedCartItemMutation()
-
+  const [deleteSelectedCartItem] = cartsApi.useDeleteSelectedCartItemMutation();
 
   const handleDeleteSelected = () => {
     // 체크된 항목만 필터링
@@ -220,10 +141,6 @@ export default function CartList() {
 
     // 선택된 항목들의 _id 값을 배열로 추출
     const selectedIds = selectedItems.map((item) => item._id);
-    // console.log('선택한 id값', selectedIds);
-
-    // deleteSelectedCartItem(selectedIds)
-
 
     selectedIds.forEach((_id) => {
       // console.log('ㅎㅇ~~~~~~~~~~~~~~~~~~', _id);
@@ -236,69 +153,11 @@ export default function CartList() {
         // 1초 후에 display를 변경
         setTimeout(() => {
           selectedEl.style.display = 'none';
-          deleteSelectedCartItem(selectedIds)
+          deleteSelectedCartItem(selectedIds);
         }, 400);
       }
     });
 
-
-
-
-
-
-
-    // const target = document.getElementById(`carList-${_id}`);
-    // if (target) {
-    //   target.style.opacity = '0';
-    //   target.style.transition = 'opacity 0.4s';
-
-    //   setTimeout(() => {
-    //     target.style.display = 'none';
-    //     deleteSelectedCartItem(selectedIds)
-
-    //   }, 400);
-    // }
-
-
-    // setAllChecked(false)
-
-
-
-    // 기존코드
-    // // 서버로 선택된 항목들을 삭제하는 요청을 보낸다. (axios 또는 fetch 등을 사용)
-    // axios
-    //   .post('/api/contents/deleteSelected', {
-    //     selectedIds,
-    //   })
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       // 1초마다 선택된 항목을 순환하며 사라지는 효과 적용
-    //       selectedIds.forEach((_id) => {
-    //         // console.log('ㅎㅇ~~~~~~~~~~~~~~~~~~', _id);
-
-    //         const selectedEl = document.getElementById(`carList-${_id}`);
-    //         if (selectedEl) {
-    //           selectedEl.style.transition = 'opacity 1s'; // 투명도에 1초 동안의 트랜지션 적용
-    //           selectedEl.style.opacity = '0'; // 투명하게 만듭니다.
-
-    //           // 1초 후에 display를 변경
-    //           setTimeout(() => {
-    //             selectedEl.style.display = 'none';
-    //             // 선택된 항목들을 삭제한 뒤, 화면에서도 삭제한다.
-    //             // const updatedCartList = cartList.filter(
-    //             //   (item) => !selectedIds.includes(item._id)
-    //             // );
-    //             // setCartList(updatedCartList);
-    //           }, 1000);
-    //         }
-    //       });
-
-    //       setAllChecked(false); // 전체 선택 체크박스 초기화
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
   };
 
   return (
@@ -349,7 +208,7 @@ export default function CartList() {
       </div>
       <div className='flex'>
         <div>총 결제 금액: {totalPrice}</div>
-        <Link href='/order/cart' className=' bg-slate-600'>
+        <Link href='/order/carts' className=' bg-slate-600'>
           결제하기
         </Link>
       </div>

@@ -3,6 +3,7 @@ import contentsReducer from '../redux/features/contentsSlice';
 import { testApi } from '../redux/apis/testApi';
 import cartReducer from '../redux/features/cartSlice';
 import { cartsApi } from './apis/cartsApi';
+import { paymentApi } from './apis/paymentApi';
 
 export const store = configureStore({
   reducer: {
@@ -18,11 +19,18 @@ export const store = configureStore({
 
     // 장바구니 createApi
     [cartsApi.reducerPath]: cartsApi.reducer,
+
+    // 결제
+    [paymentApi.reducerPath]: paymentApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(testApi.middleware, cartsApi.middleware),
+    getDefaultMiddleware().concat(
+      testApi.middleware,
+      cartsApi.middleware,
+      paymentApi.middleware
+    ),
 });
- 
+
 // Redux 스토어의 상태 타입을 정의
 // store.getState 함수는 스토어의 현재 상태를 반환하며, 이 타입은 해당 상태의 구조를 정확하게 반영
 export type RootState = ReturnType<typeof store.getState>;

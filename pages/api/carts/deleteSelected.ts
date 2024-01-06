@@ -8,7 +8,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log('req.body.selectedIds~~~~~~~~~~~~~', req.body.selectedIds);
+  // console.log('req.body.selectedIds~~~~~~~~~~~~~', req.body.selectedIds);
   if (req.method === 'DELETE' && req.body.selectedIds) {
     // POST 요청이며 선택된 항목들의 _id 값이 요청 바디에 있어야 합니다.
     // 세션 가져오기
