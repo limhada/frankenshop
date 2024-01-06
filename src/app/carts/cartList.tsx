@@ -37,7 +37,7 @@ export interface CartsProps {
     description: string;
     img_src: string;
     author: string;
-    price: string;
+    price: number;
     like: boolean;
     quantity: number;
     checked: boolean;
@@ -49,7 +49,7 @@ export interface CartItem {
   title: string;
   img_src: string;
   author: string;
-  price: string;
+  price: number;
   description: string;
   quantity: number;
   checked: boolean;
@@ -89,11 +89,13 @@ export default function CartList() {
     const updateTotalPrice = () => {
       const totalPrice = cartList
         .filter((item) => item.checked)
-        .reduce(
-          (total, item) =>
-            total + parseFloat(item.price.replace(',', '')) * item.quantity,
-          0
-        );
+        .reduce((total, item) => {
+          // total + parseFloat(item.price.replace(',', '')) * item.quantity,
+          const price = item.price;
+          const subtotal = price * item.quantity;
+          // console.log(`Item: ${item.title}, Price: ${price}, Quantity: ${item.quantity}, Subtotal: ${subtotal}`);
+          return total + subtotal;
+        }, 0);
       setTotalPrice(totalPrice);
     };
 
@@ -105,7 +107,6 @@ export default function CartList() {
   const handleAllCheckboxChange = () => {
     toggleAllCheckbox({});
   };
-
 
   const [changeCheckbox] = cartsApi.useToggleCheckboxMutation();
   const handleCheckboxChange = (el: any) => {
@@ -157,7 +158,6 @@ export default function CartList() {
         }, 400);
       }
     });
-
   };
 
   return (

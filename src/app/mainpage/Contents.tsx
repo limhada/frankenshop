@@ -24,7 +24,7 @@ export interface ContentItem {
   description: string;
   img_src: string;
   author: string;
-  price: string;
+  price: number;
   isLiked: boolean;
 }
 
