@@ -168,7 +168,7 @@ export default function Content() {
                 {/* TODO: 평점? 추가할지 말지 */}
                 <div className='font-bold text-xl mb-2'>{el.title}</div>
                 <p className='text-gray-700 text-base'>{el.description}</p>
-                <p className='text-gray-700 text-base'>{el.price}원</p>
+                <p className='text-gray-700 text-base'>{el.price.toLocaleString()}원</p>
               </div>
             </Link>
           </div>

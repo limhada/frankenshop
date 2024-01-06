@@ -61,7 +61,7 @@ export default async function Detail(props: DetailProps) {
         // style={{ height: 100 }} // 이미지 세로 크기 조절
       />
       <div>내용: {result?.description}</div>
-      <div>가격: {result?.price}</div>
+      <div>가격: {result?.price.toLocaleString()}</div>
       {/* 좋아요 버튼 */}
       <LikeButton />
       {/* 장바구니 버튼 */}
