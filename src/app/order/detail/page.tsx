@@ -3,6 +3,8 @@ import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import SelectWithOptions from '../selectWithOptions';
 
 import ShippingAddress from '@/app/components/ShippingAddress';
+import OderItems from './oderItems';
+import { cartsApi } from '@/app/redux/apis/cartsApi';
 // TODO: 완료 - 주소검색 api 적용하기
 // TODO: 고민 - 주소 처음 입력 시 db에 저장 후 마이페이지에 나타내기
 // TODO: 고민 - 1개 미만의 수량 및 재고보다 큰 수량 구매제한
@@ -22,9 +24,32 @@ export default async function Oder() {
   let session = await getServerSession(authOptions);
   // console.log(session);
 
+  // const name = 'cartsContents';
+  // const query = cartsApi.useGetCartsQuery(name);
+
+  // if(query.data)
+  // console.log(query?.data, 'ㅎㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ');
+
+  
+
   return (
     <div>
       <h1 className='text-center text-[2rem] font-bold'> 결제하기</h1>
+
+    
+
+
+      {/* <OderItems ></OderItems> */}
+
+
+
+
+
+
+
+
+
+
       {/* <hr className='mb-5 w-[50%] mx-auto'></hr> */}
 
       <h2 className='text-[1.25rem] font-bold mb-5'>배송 정보</h2>
@@ -53,18 +78,17 @@ export default async function Oder() {
             />
           </li>
         </ul>
-
-        {/* TODO: 선택가능 한 체크박스 & 직접입력으로 만들기 */}
       </div>
 
       <ShippingAddress></ShippingAddress>
       {/* <SelectWithOptions session={session}/> */}
+      {/* TODO: 선택가능 한 체크박스 & 직접입력으로 만들기 */}
       <SelectWithOptions />
 
-      <button>결제하기</button>
+      <button className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'>
+        결제하기
+      </button>
       {/* TODO: 결제하기 버튼 클릭 시 가격 * 수량 = 총 가격 화면에 렌더링하기 */}
-      {/* TODO: 삭제할거 */}
-      {/* <Test></Test> */}
     </div>
   );
 }

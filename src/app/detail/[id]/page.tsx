@@ -45,6 +45,7 @@ export default async function Detail(props: DetailProps) {
     // result.email = session.user.email;
   }
 
+
   return (
     <div>
       상세페이지
@@ -76,7 +77,7 @@ export default async function Detail(props: DetailProps) {
       >
         결제하기
       </Link> */}
-      <OderButton></OderButton>
+      <OderButton _id={result?._id.toString() || ''}></OderButton>
     </div>
   );
 }
