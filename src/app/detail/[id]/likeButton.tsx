@@ -9,15 +9,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // FIXME: 배포에러 수정
 
+// import { RootState } from '../../redux/store';
 import { RootState } from '../../redux/store';
+
 import { useParams } from 'next/navigation';
 // import { asyncContents, likeChange, likeToggle } from '../../redux/features/contentsSlice';
 import {
   asyncContents,
   likeChange,
   likeToggle,
-// } from '../../redux/features/contentsSlice';
-} from '../../../app/redux/featureslice/contentsSlice'
+} from '../../redux/featureslice/contentsSlice';
 interface ContentItem {
   _id: ObjectId;
   title: string;
