@@ -211,6 +211,8 @@ export default function CartList() {
         <Link href='/order/carts' className=' bg-slate-600'>
           결제하기
         </Link>
+      
+        
       </div>
     </div>
   );

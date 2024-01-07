@@ -4,8 +4,7 @@ import SelectWithOptions from '../selectWithOptions';
 
 import ShippingAddress from '@/app/components/ShippingAddress';
 import OderItems from './oderItems';
-
-
+import Link from 'next/link';
 
 // TODO: 완료 - 주소검색 api 적용하기
 // TODO: 고민 - 주소 처음 입력 시 db에 저장 후 마이페이지에 나타내기
@@ -32,12 +31,10 @@ export default async function Oder() {
   // if(query.data)
   // console.log(query?.data, 'ㅎㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ');
 
-
   // const db = (await connectDB).db('frankenshop');
   // let result = await db
   // .collection('contents')
   // .findOne({ _id: new ObjectId(props.params.id) });
-
 
   return (
     <div>
@@ -80,9 +77,18 @@ export default async function Oder() {
       {/* TODO: 선택가능 한 체크박스 & 직접입력으로 만들기 */}
       <SelectWithOptions />
 
-      <button className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'>
-        결제하기
-      </button>
+      <div className='mt-5'>
+        <button className='text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'>
+          결제하기
+        </button>
+
+        {/* TODO: 진짜 취소하겠습니까? alert창 띄우기 */}
+        <Link href='/'>
+          <button className='text-red-400 h-[3rem] cursor-pointer overflow-visible p-2 border-[0.3rem] border-red-400 rounded-md'>
+            취소하기
+          </button>
+        </Link>
+      </div>
       {/* TODO: 결제하기 버튼 클릭 시 가격 * 수량 = 총 가격 화면에 렌더링하기 */}
     </div>
   );
