@@ -1,4 +1,3 @@
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const testApi = createApi({
@@ -23,7 +22,5 @@ export const testApi = createApi({
       },
       invalidatesTags: (result, error, arg) => [{ type: 'Test', id: arg.name }],
     }),
-
-    
   }),
 });

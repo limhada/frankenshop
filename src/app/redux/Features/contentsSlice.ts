@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { ContentItem } from '../../mainpage/Contents';
+import { ContentItem } from '../../mainpage/contents';
 
 // 모든 컨텐츠 정보 비동기 요청
 export const asyncContents: any = createAsyncThunk(

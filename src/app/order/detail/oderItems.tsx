@@ -1,9 +1,11 @@
 'use client';
 
-import { paymentApi } from '@/app/redux/apis/paymentApi';
-import { RootState } from '@/app/redux/store';
+// import { paymentApi } from '@/app/redux/apis/paymentApi';
+import { paymentApi } from '../../redux/apis/paymentApi';
+// import { RootState } from '@/app/redux/store';
+import { RootState } from '../../redux/store';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function OderItems() {
@@ -68,7 +70,9 @@ export default function OderItems() {
 
               <tr>
                 <td className='p-4 text-center'>{payItem.data.title}</td>
-                <td className='p-4 text-center'>{payItem.data.totalQuantity}</td>
+                <td className='p-4 text-center'>
+                  {payItem.data.totalQuantity}
+                </td>
                 <td className='p-4 text-center'>
                   {payItem.data.totalPrice.toLocaleString()}
                 </td>

@@ -1,4 +1,3 @@
-
 import CartList from './cartList';
 
 // TODO: nextjs Middleware 사용해서 로그인 안된 사용자 일때, /carts 페이지 접근 막기
@@ -25,7 +24,7 @@ export default async function Carts() {
   //   .find({ email: session?.user.email })
   //   .toArray();
   // // console.log('result~~~~~~~~~~~~`', result);
-  // /*result = 
+  // /*result =
   //   {
   //   _id: new ObjectId("6550d1cd874519fb68dc308a"),
   //   contents: new ObjectId("6509b47802b7712df0cd3d53"),
@@ -45,7 +44,7 @@ export default async function Carts() {
   //   });
   //   // console.log('contents~~~~~~~', contents);
   //   /*
-  //   contents = 
+  //   contents =
   //   {
   // _id: new ObjectId("65254cdcbbca6b503b707627"),
   // title: '상품2',
@@ -78,7 +77,6 @@ export default async function Carts() {
 
   return (
     <div>
-
       <CartList />
     </div>
   );

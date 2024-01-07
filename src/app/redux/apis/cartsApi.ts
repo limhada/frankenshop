@@ -73,10 +73,9 @@ export const cartsApi = createApi({
       ],
     }),
 
-
     // 장바구니의 선택한 모든 아이템 삭제
     deleteSelectedCartItem: builder.mutation({
-      query: ( selectedIds ) => {
+      query: (selectedIds) => {
         // console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
         return {
           url: `/deleteSelected`,

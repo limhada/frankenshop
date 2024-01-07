@@ -32,25 +32,19 @@ export default function SignUp() {
     if (formState.password !== formState.passwordCheck) {
       alert('비밀번호가 일치하지 않습니다.');
     } else {
-
-      
-   
-
-    try {
-      const response = await axios.post('/api/auth/signup', formState);
-      // console.log(response.status, '확인~~~~~~~~~~~');
-      if (response.status === 200) {
-        alert('회원가입 성공');
-        router.push('/')
+      try {
+        const response = await axios.post('/api/auth/signup', formState);
+        // console.log(response.status, '확인~~~~~~~~~~~');
+        if (response.status === 200) {
+          alert('회원가입 성공');
+          router.push('/');
+        }
+      } catch (error: any) {
+        // FIXME: 왜 이부분만 any를 해줘야 하는지 모르겠다
+        console.log('에러!', error);
+        alert(error.response.data);
       }
-    } catch (error: any) {
-      // FIXME: 왜 이부분만 any를 해줘야 하는지 모르겠다
-      console.log('에러!', error);
-      alert(error.response.data);
     }
-
-  }
-
   };
 
   return (

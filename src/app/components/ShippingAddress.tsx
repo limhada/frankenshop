@@ -19,7 +19,7 @@ const ShippingAddress = () => {
     <div>
       <ul>
         {/* wrap 사용 이유 : 연락처 부분에서는 flex-wrap을 사용하여 입력필드들이 화면의 너비에 따라 나란히 정렬되면서 일정한 간격을 유지하기 때문
-         (wrap을 사용하지 않고 화면 너비가 줄어들 경우 인풋의 간격이 유지되질 않음) 
+        (wrap을 사용하지 않고 화면 너비가 줄어들 경우 인풋의 간격이 유지되질 않음) 
          */}
         <li className='mb-[1.25rem] flex flex-wrap items-center'>
           <div className='font-bold w-[6rem]'>연락처</div>

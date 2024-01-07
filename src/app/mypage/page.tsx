@@ -1,6 +1,5 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
-import ShippingAddress from '../components/ShippingAddress';
 
 export default async function Mypage() {
   let session = await getServerSession(authOptions);

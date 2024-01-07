@@ -3,7 +3,6 @@
 // TODO: 댓글 삭제기능
 
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 interface CommentProps {

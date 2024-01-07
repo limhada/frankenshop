@@ -21,7 +21,7 @@ interface ListItemProps {
       role: string;
     };
   };
-    role: string;
+  role: string;
 }
 
 export default function ListItem({ result, session, role }: ListItemProps) {
@@ -46,7 +46,6 @@ export default function ListItem({ result, session, role }: ListItemProps) {
           {
             // FIXME: 작성자와 로그인된 유저의 정보가 일치하면 수정 버튼 렌더링
 
-            
             el.author === session?.user.email || role === 'admin' ? (
               <Link
                 href={'/edit/' + result[i]._id.toString()}
