@@ -16,7 +16,7 @@ import {
   asyncContents,
   likeChange,
   likeToggle,
-} from '../redux/features/contentsSlice';
+} from '../redux/featureslice/contentsSlice';
 
 export interface ContentItem {
   _id: ObjectId;
@@ -142,14 +142,14 @@ export default function Content() {
                         const _id = { _id: allContents[i]._id };
                         // likeToggle 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
                         dispatch(likeToggle(_id));
-  
+
                         // likeChange 액션을 디스패치하여 서버에 like 상태 변경 요청
                         dispatch(likeChange(_id));
                         // axios
                         //   .post('/api/contents/likeChange', _id)
                         //   .then((r) => {
                         //     // console.log("좋아요 데이터 확인", r.data);
-  
+
                         //     // setContentsData(r.data);
                         //     // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
                         //   })
@@ -159,16 +159,15 @@ export default function Content() {
                         //   });
                       }}
                     />
-                    <CartIcon _id={ allContents[i]?._id.toString()}
-                    
-                    ></CartIcon>
-                    
+                    <CartIcon _id={allContents[i]?._id.toString()}></CartIcon>
                   </div>
                 </div>
                 {/* TODO: 평점? 추가할지 말지 */}
                 <div className='font-bold text-xl mb-2'>{el.title}</div>
                 <p className='text-gray-700 text-base'>{el.description}</p>
-                <p className='text-gray-700 text-base'>{el.price.toLocaleString()}원</p>
+                <p className='text-gray-700 text-base'>
+                  {el.price.toLocaleString()}원
+                </p>
               </div>
             </Link>
           </div>

@@ -2,11 +2,16 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from '@/app/redux/store';
+// FIXME: 배포에러 수정
+// import { RootState } from '@/app/redux/store';
+import { RootState } from '../../redux/store';
 
-import { paymentApi } from '@/app/redux/apis/paymentApi';
+// import { paymentApi } from '@/app/redux/apis/paymentApi';
+import { paymentApi } from '../../redux/apis/paymentApi';
 import { useRouter } from 'next/navigation';
-import { setOrder } from '@/app/redux/features/orderSlice';
+// import { setOrder } from '@/app/redux/features/orderSlice';
+// import { setOrder } from '../../redux/features/orderSlice';
+import { setOrder } from '../../../app/redux/featureslice/orderSlice';
 
 interface OrderButtonProps {
   itemId: string;
@@ -43,7 +48,13 @@ export default function OderButton({ itemId }: OrderButtonProps) {
                 // console.log('~~~~~~~~ 추가된 문서 totalPrice:', r.data.totalPrice);
 
                 // 추가된 문서의 _id와 itemId를 store에 저장 -> /order/detail 페이지에서 꺼내서 각 주문서를 구별할 때 사용!
-                dispatch(setOrder({ _id: r.data._id, itemId, totalPrice: r.data.totalPrice })); // r. data는 추가된 문서 _id, itemId는 현재 상품의 _id값
+                dispatch(
+                  setOrder({
+                    _id: r.data._id,
+                    itemId,
+                    totalPrice: r.data.totalPrice,
+                  })
+                ); // r. data는 추가된 문서 _id, itemId는 현재 상품의 _id값
                 router.push('/order/detail');
 
                 // router.push('/order/detail?q=테스트~');
