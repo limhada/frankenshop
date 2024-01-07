@@ -16,6 +16,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { cartsApi } from '@/app/redux/apis/cartsApi';
 import { paymentApi } from '@/app/redux/apis/paymentApi';
+import { useRouter } from 'next/navigation';
 
 interface OrderButtonProps {
   _id: string;
@@ -26,10 +27,10 @@ export default function OderButton({ _id }: OrderButtonProps) {
   // console.log(quantity, 'quantity');
   // console.log(_id, '_id ㅎㅇ~~~~~~~~~~~~~~~');
 
+  const [payment] = paymentApi.usePaymentMutation();
 
-  const [payment] = paymentApi.usePaymentMutation()
-
-
+  // const router = useRouter();
+  const router = useRouter();
 
   return (
     <div>
@@ -38,18 +39,27 @@ export default function OderButton({ _id }: OrderButtonProps) {
       href={`/order/detail`}
       > */}
       <button
-
         // onClick={()=> {console.log('ㅎㅇ');}}
         className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'
         onClick={() => {
-          payment({_id, quantity})
+          payment({ _id, quantity })
+            .then((r) => {
+              // console.log('결과~~~~~~~~~' , r);
+
+              // 서버처리 성공 시 -> 결제/상세페이지로 이동
+              if ('data' in r && r?.data === '성공') {
+                router.push('/order/detail');
+              }
+            })
+            .catch((error) => {
+              console.error('에러 발생:', error);
+            });
         }}
       >
         결제하기
       </button>
 
-
-{/* form으로 전송 시 서버에서 바로 리다이렉트 가능!
+      {/* form으로 전송 시 서버에서 바로 리다이렉트 가능!
 
       <form action='/api/order/payment' method='GET'>
         <input
