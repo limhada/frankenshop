@@ -2,9 +2,7 @@
 
 import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../../util/database';
-// FIXME: 배포에러 수정2
-// import Comment from './comment';
-import Comment from '../[id]/comment';
+import Comment from './comment';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import { notFound } from 'next/navigation';

@@ -18,7 +18,8 @@ import {
   asyncContents,
   likeChange,
   likeToggle,
-} from '../../redux/featureslice/contentsSlice';
+// } from '../../redux/features/contentsSlice';
+} from '../../app/redux/featureslice/contentsSlice'
 interface ContentItem {
   _id: ObjectId;
   title: string;
