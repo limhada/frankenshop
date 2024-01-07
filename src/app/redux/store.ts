@@ -1,10 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit';
-import contentsReducer from '../redux/features/contentsSlice';
-import { testApi } from '../redux/apis/testApi';
-import cartReducer from '../redux/features/cartSlice';
-import { cartsApi } from './apis/cartsApi';
-import { paymentApi } from './apis/paymentApi';
-import orderSlice from './features/orderSlice';
+
+// FIXME: 배포에러 수정
+
+// import contentsReducer from '../redux/features/contentsSlice';
+import contentsReducer from '../../app/redux/features/contentsSlice';
+// import { testApi } from '../redux/apis/testApi';
+
+// import cartReducer from '../redux/features/cartSlice';
+import cartReducer from '../../app/redux/features/cartSlice';
+
+// import { cartsApi } from './apis/cartsApi';
+import { cartsApi } from '../../app/redux/apis/cartsApi';
+
+// import { paymentApi } from './apis/paymentApi';
+import { paymentApi } from '../../app/redux/apis/paymentApi';
+
+// import orderSlice from './features/orderSlice';
+import orderSlice from '../../app/redux/features/orderSlice';
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +31,7 @@ export const store = configureStore({
     // 결제
     order: orderSlice,
 
-    [testApi.reducerPath]: testApi.reducer,
+    // [testApi.reducerPath]: testApi.reducer,
 
     // 장바구니 createApi
     [cartsApi.reducerPath]: cartsApi.reducer,
@@ -29,7 +41,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
-      testApi.middleware,
+      // testApi.middleware,
       cartsApi.middleware,
       paymentApi.middleware
     ),
