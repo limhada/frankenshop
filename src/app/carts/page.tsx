@@ -8,7 +8,7 @@ import CartList from './cartList';
 //   description: string;
 //   img_src: string;
 //   author: string;
-//   price: string;
+//   price: number;
 //   like: boolean;
 //   quantity: number;
 //   checked: boolean;

@@ -37,7 +37,7 @@ export interface CartsProps {
     description: string;
     img_src: string;
     author: string;
-    price: string;
+    price: number;
     like: boolean;
     quantity: number;
     checked: boolean;
@@ -49,7 +49,7 @@ export interface CartItem {
   title: string;
   img_src: string;
   author: string;
-  price: string;
+  price: number;
   description: string;
   quantity: number;
   checked: boolean;
@@ -89,11 +89,13 @@ export default function CartList() {
     const updateTotalPrice = () => {
       const totalPrice = cartList
         .filter((item) => item.checked)
-        .reduce(
-          (total, item) =>
-            total + parseFloat(item.price.replace(',', '')) * item.quantity,
-          0
-        );
+        .reduce((total, item) => {
+          // total + parseFloat(item.price.replace(',', '')) * item.quantity,
+          const price = item.price;
+          const subtotal = price * item.quantity;
+          // console.log(`Item: ${item.title}, Price: ${price}, Quantity: ${item.quantity}, Subtotal: ${subtotal}`);
+          return total + subtotal;
+        }, 0);
       setTotalPrice(totalPrice);
     };
 
@@ -105,7 +107,6 @@ export default function CartList() {
   const handleAllCheckboxChange = () => {
     toggleAllCheckbox({});
   };
-
 
   const [changeCheckbox] = cartsApi.useToggleCheckboxMutation();
   const handleCheckboxChange = (el: any) => {
@@ -157,7 +158,6 @@ export default function CartList() {
         }, 400);
       }
     });
-
   };
 
   return (
@@ -190,7 +190,7 @@ export default function CartList() {
                 height={100}
                 alt='상품 이미지'
               />
-              <p>가격 {el.price}</p>
+              <p>가격 {el.price.toLocaleString()}</p>
             </div>
             <div className='flex'>
               {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
@@ -211,6 +211,8 @@ export default function CartList() {
         <Link href='/order/carts' className=' bg-slate-600'>
           결제하기
         </Link>
+      
+        
       </div>
     </div>
   );

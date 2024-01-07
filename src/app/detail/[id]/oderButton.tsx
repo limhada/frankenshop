@@ -1,35 +1,27 @@
 'use client';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { ObjectId } from 'mongodb';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  asyncContents,
-  likeChange,
-  likeToggle,
-} from '@/app/redux/features/contentsSlice';
+
 import { RootState } from '@/app/redux/store';
-import Link from 'next/link';
-import axios from 'axios';
-import { cartsApi } from '@/app/redux/apis/cartsApi';
+
 import { paymentApi } from '@/app/redux/apis/paymentApi';
+import { useRouter } from 'next/navigation';
+import { setOrder } from '@/app/redux/features/orderSlice';
 
 interface OrderButtonProps {
-  _id: string;
+  itemId: string;
 }
 
-export default function OderButton({ _id }: OrderButtonProps) {
+export default function OderButton({ itemId }: OrderButtonProps) {
   const quantity = useSelector((state: RootState) => state.cart.quantity);
   // console.log(quantity, 'quantity');
   // console.log(_id, '_id ㅎㅇ~~~~~~~~~~~~~~~');
 
+  const [payment] = paymentApi.usePaymentMutation();
 
-  const [payment] = paymentApi.usePaymentMutation()
+  const router = useRouter();
 
-
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -38,18 +30,34 @@ export default function OderButton({ _id }: OrderButtonProps) {
       href={`/order/detail`}
       > */}
       <button
-
         // onClick={()=> {console.log('ㅎㅇ');}}
         className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'
         onClick={() => {
-          payment({_id, quantity})
+          payment({ itemId, quantity })
+            .then((r) => {
+              // console.log('결과~~~~~~~~~' , r);
+
+              // 서버처리 성공 시 -> 결제/상세페이지로 이동
+              if ('data' in r && r.data) {
+                // console.log('추가된 문서 _id:', r.data._id);
+                // console.log('~~~~~~~~ 추가된 문서 totalPrice:', r.data.totalPrice);
+
+                // 추가된 문서의 _id와 itemId를 store에 저장 -> /order/detail 페이지에서 꺼내서 각 주문서를 구별할 때 사용!
+                dispatch(setOrder({ _id: r.data._id, itemId, totalPrice: r.data.totalPrice })); // r. data는 추가된 문서 _id, itemId는 현재 상품의 _id값
+                router.push('/order/detail');
+
+                // router.push('/order/detail?q=테스트~');
+              }
+            })
+            .catch((error) => {
+              console.error('에러 발생:', error);
+            });
         }}
       >
-        결제하기
+        구매하기
       </button>
 
-
-{/* form으로 전송 시 서버에서 바로 리다이렉트 가능!
+      {/* form으로 전송 시 서버에서 바로 리다이렉트 가능!
 
       <form action='/api/order/payment' method='GET'>
         <input

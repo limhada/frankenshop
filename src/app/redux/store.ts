@@ -4,6 +4,7 @@ import { testApi } from '../redux/apis/testApi';
 import cartReducer from '../redux/features/cartSlice';
 import { cartsApi } from './apis/cartsApi';
 import { paymentApi } from './apis/paymentApi';
+import orderSlice from './features/orderSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,9 @@ export const store = configureStore({
     // testApi: testApi.reducer // 아래 코드와 동치
     // reducerPath: 'testApi' testApi를 직접 입력해도 되지만 좀 더 유연함을 위해 [testApi.reducerPath]
     cart: cartReducer,
+
+    // 결제
+    order: orderSlice,
 
     [testApi.reducerPath]: testApi.reducer,
 
