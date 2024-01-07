@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import contentsReducer from '../redux/features/contentsSlice';
+// import contentsReducer from '../redux/features/contentsSlice';
+import contentsReducer from '../redux/Features/contentsSlice';
 import { testApi } from '../redux/apis/testApi';
-import cartReducer from '../redux/features/cartSlice';
+// import cartReducer from '../redux/features/cartSlice';
+import cartReducer from '../redux/Features/cartSlice';
 import { cartsApi } from './apis/cartsApi';
 import { paymentApi } from './apis/paymentApi';
-import orderSlice from './features/orderSlice';
+// import orderSlice from './features/orderSlice';
+import orderSlice from './Features/orderSlice';
 
 export const store = configureStore({
   reducer: {

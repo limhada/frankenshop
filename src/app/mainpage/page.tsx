@@ -1,5 +1,8 @@
 import Contents from './contents';
 import ImageComponent from './imageComponent';
+import { cartSlice } from '../redux/featureslice/cartSlice';
+
+// import ImageComponent from '../../../src/app/mainpage/imageComponent';
 
 // export interface ListProps {
 //   _id: ObjectId;
