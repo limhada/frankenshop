@@ -2,12 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 
 // FIXME: 배포에러 수정 -4
 
-// import contentsReducer from '../redux/features/contentsSlice';
-import contentsReducer from '../../app/redux/features/contentsSlice';
+// import contentsReducer from '../redux/featureslice/contentsSlice';
+import contentsReducer from '../../app/redux/featureslice/contentsSlice';
 // import { testApi } from '../redux/apis/testApi';
 
-// import cartReducer from '../redux/features/cartSlice';
-import cartReducer from '../../app/redux/features/cartSlice';
+// import cartReducer from '../redux/featureslice/cartSlice';
+import cartReducer from '../../app/redux/featureslice/cartSlice';
 
 // import { cartsApi } from './apis/cartsApi';
 import { cartsApi } from '../../app/redux/apis/cartsApi';
@@ -15,8 +15,8 @@ import { cartsApi } from '../../app/redux/apis/cartsApi';
 // import { paymentApi } from './apis/paymentApi';
 import { paymentApi } from '../../app/redux/apis/paymentApi';
 
-// import orderSlice from './features/orderSlice';
-import orderSlice from '../../app/redux/features/orderSlice';
+// import orderSlice from './featureslice/orderSlice';
+import orderSlice from '../../app/redux/featureslice/orderSlice';
 
 export const store = configureStore({
   reducer: {

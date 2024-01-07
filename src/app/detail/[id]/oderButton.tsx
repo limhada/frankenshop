@@ -11,7 +11,7 @@ import { paymentApi } from '../../redux/apis/paymentApi';
 import { useRouter } from 'next/navigation';
 // import { setOrder } from '@/app/redux/features/orderSlice';
 // import { setOrder } from '../../redux/features/orderSlice';
-import { setOrder } from '../../../app/redux/features/orderSlice';
+import { setOrder } from '../../../app/redux/featureslice/orderSlice';
 
 interface OrderButtonProps {
   itemId: string;

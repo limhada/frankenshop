@@ -12,7 +12,7 @@ import {
   resetQuantity,
   // } from '@/app/redux/features/cartSlice';
 // } from '../../redux/features/cartSlice';
-} from '../../../app/redux/features/cartSlice';
+} from '../../../app/redux/featureslice/cartSlice';
 
 // 1~1000까지 입력할 수 있는 인풋
 const QuantityInput = () => {
