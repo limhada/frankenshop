@@ -6,13 +6,17 @@ import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { ObjectId } from 'mongodb';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  asyncContents,
-  likeChange,
-  likeToggle,
-} from '@/app/redux/features/contentsSlice';
+
+// 배포에러 수정부분
+// import {
+//   asyncContents,
+//   likeChange,
+//   likeToggle,
+// } from '@/app/redux/features/contentsSlice';
+
 import { RootState } from '@/app/redux/store';
 import { useParams } from 'next/navigation';
+import { asyncContents, likeChange, likeToggle } from '@/app/redux/features/contentsSlice';
 
 interface ContentItem {
   _id: ObjectId;
