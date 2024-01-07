@@ -20,7 +20,7 @@ export default async function handler(
       const db = (await connectDB).db('frankenshop');
       let result = await db
         .collection('contents')
-        .findOne({ _id: new ObjectId(req.body._id) });
+        .findOne({ _id: new ObjectId(req.body.itemId) });
         
         // console.log(result, 'result~~~~~~~~~~~');
       /* TODO: 서버에서 찾은 해당 아이템의 정보가 담긴 result에서 
@@ -31,10 +31,11 @@ export default async function handler(
         를 orders라는 컬렉션에 추가한다 그리고         
         */
 
-        console.log('result?.price', result?.price * req.body.quantity);
+        // console.log('result?.price', result?.price * req.body.quantity);
         // console.log(Number(result?.price.replace(/,/g, '')), Number(req.body.quantity), '~~~~~~~~~~~~~~~~~~~~');
 
 
+        // 한국시간 구하기
         const now = new Date();
         const utc = now.getTime(); // UTC 시간은 이미 밀리초를 나타내므로 변환 필요 없음
         const koreaTimeDiff = 9 * 60 * 60 * 1000;
@@ -53,11 +54,22 @@ export default async function handler(
         };
 
 
-        await db.collection('orders').insertOne(insertData);
+        const insert = await db.collection('orders').insertOne(insertData);
+        
+    /*  insert= {
+          acknowledged: true, // 메서드가 성공적으로 완료되었는지 여부를 나타냅니다. true는 성공, false는 실패를 의미
+          insertedId: new ObjectId("659a2c3ec7ec27fa6a002dbf") // 새로 삽입된 문서의 _id 값
+        } */
+
+        // insert가 성공적으로 추가되면 insert.insertedId를 res에 넣어 반환
+        if(insert.acknowledged === true) {
+
+          const insertResult = insert.insertedId.toString()
+          console.log('insert.insertedId~~~~~~~~~~~~~~', insert.insertedId.toString());
+          return res.status(200).json(insertResult);
+        }
 
 
-
-      return res.status(200).json('성공');
 
       // return res.status(200).redirect(302, '/list');
     } catch (error) {

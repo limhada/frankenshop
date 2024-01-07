@@ -14,13 +14,18 @@ export default function OderItems() {
   //   // 여기서 itemId를 사용하여 원하는 작업을 수행합니다.
   //   console.log(itemId);
   // }, [itemId]); 
+  if (itemId) {
 
-  const name = 'payment'
-  const payItem = paymentApi.useGetOderQuery({name})
-
-  if (payItem) {
-    console.log('payItem.data=', payItem.data);
+    // console.log(typeof itemId, itemId);
   }
+
+
+
+  // const payItem = paymentApi.useGetOderQuery({itemId})
+
+  // if (payItem) {
+  //   console.log('payItem.data=', payItem.data);
+  // }
 
 
   return (

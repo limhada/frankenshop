@@ -77,7 +77,7 @@ export default async function Detail(props: DetailProps) {
       >
         결제하기
       </Link> */}
-      <OderButton _id={result?._id.toString() || ''}></OderButton>
+      <OderButton itemId={result?._id.toString() || ''}></OderButton>
     </div>
   );
 }
