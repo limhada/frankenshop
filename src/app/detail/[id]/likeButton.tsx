@@ -7,16 +7,16 @@ import { ObjectId } from 'mongodb';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// 배포에러 수정부분
-// import {
-//   asyncContents,
-//   likeChange,
-//   likeToggle,
-// } from '@/app/redux/features/contentsSlice';
+// FIXME: 배포에러 수정
 
-import { RootState } from '@/app/redux/store';
+import { RootState } from '../../redux/store';
 import { useParams } from 'next/navigation';
-import { asyncContents, likeChange, likeToggle } from '@/app/redux/features/contentsSlice';
+// import { asyncContents, likeChange, likeToggle } from '../../redux/features/contentsSlice';
+import {
+  asyncContents,
+  likeChange,
+  likeToggle,
+} from '../../redux/features/contentsSlice';
 
 interface ContentItem {
   _id: ObjectId;
