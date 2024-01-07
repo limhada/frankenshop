@@ -1,8 +1,8 @@
 // FIXME: 배포에러 수정2
 // import Contents from './contents';
 import Contents from '../../../src/app/mainpage/contents';
-// import ImageComponent from './imageComponent';
-import ImageComponent from '../../../src/app/mainpage/imageComponent';
+import ImageComponent from './imageComponent';
+// import ImageComponent from '../../../src/app/mainpage/imageComponent';
 
 // export interface ListProps {
 //   _id: ObjectId;
