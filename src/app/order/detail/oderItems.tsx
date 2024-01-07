@@ -1,14 +1,31 @@
 'use client';
 
+import { paymentApi } from "@/app/redux/apis/paymentApi";
+import { RootState } from "@/app/redux/store";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function OderItems() {
 
-  const [oderList, setOderList] = useState([])
+  const itemId = useSelector((state: RootState) => state.order.itemId);
+  const [oderList, setOderList] = useState('')
+  
+  // useEffect(() => {
+  //   // 여기서 itemId를 사용하여 원하는 작업을 수행합니다.
+  //   console.log(itemId);
+  // }, [itemId]); 
+
+  const name = 'payment'
+  const payItem = paymentApi.useGetOderQuery({name})
+
+  if (payItem) {
+    console.log('payItem.data=', payItem.data);
+  }
+
 
   return (
     <div>
-      {oderList.map((el, i) => (
+      {/* {oderList.map((el, i) => (
           <div key={`${el._id}`} className='flex' id={`carList-${el._id}`}>
             <input
               type='checkbox'
@@ -26,7 +43,7 @@ export default function OderItems() {
               <p>가격 {el.price.toLocaleString()}</p>
             </div>
             <div className='flex'>
-              {/* FIXME: 해결 - 수량 증가 및 감소 버튼 onClick시 로직 함수화 하기 현재 +와 -에서 두번 중복 사용중임 */}
+
 
               <div className='flex items-center'>
                 <QuantityInput
@@ -37,7 +54,7 @@ export default function OderItems() {
             </div>
             <button onClick={() => handelDeleteCartItem(el._id)}>삭제</button>
           </div>
-        ))}
+        ))} */}
 
     </div>
   );

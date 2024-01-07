@@ -1,22 +1,12 @@
 'use client';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { ObjectId } from 'mongodb';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  asyncContents,
-  likeChange,
-  likeToggle,
-} from '@/app/redux/features/contentsSlice';
+
 import { RootState } from '@/app/redux/store';
-import Link from 'next/link';
-import axios from 'axios';
-import { cartsApi } from '@/app/redux/apis/cartsApi';
+
 import { paymentApi } from '@/app/redux/apis/paymentApi';
 import { useRouter } from 'next/navigation';
+import { setItemId } from '@/app/redux/features/orderSlice';
 
 interface OrderButtonProps {
   _id: string;
@@ -29,8 +19,9 @@ export default function OderButton({ _id }: OrderButtonProps) {
 
   const [payment] = paymentApi.usePaymentMutation();
 
-  // const router = useRouter();
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -48,7 +39,12 @@ export default function OderButton({ _id }: OrderButtonProps) {
 
               // 서버처리 성공 시 -> 결제/상세페이지로 이동
               if ('data' in r && r?.data === '성공') {
+                // store에 현재 상품 _id를 임시 저장 후 /order/detail 페이지에서 꺼내서 사용!
+                dispatch(setItemId(_id));
+
                 router.push('/order/detail');
+
+                // router.push('/order/detail?q=테스트~');
               }
             })
             .catch((error) => {

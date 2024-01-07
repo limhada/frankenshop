@@ -4,7 +4,9 @@ import SelectWithOptions from '../selectWithOptions';
 
 import ShippingAddress from '@/app/components/ShippingAddress';
 import OderItems from './oderItems';
-import { cartsApi } from '@/app/redux/apis/cartsApi';
+
+
+
 // TODO: 완료 - 주소검색 api 적용하기
 // TODO: 고민 - 주소 처음 입력 시 db에 저장 후 마이페이지에 나타내기
 // TODO: 고민 - 1개 미만의 수량 및 재고보다 큰 수량 구매제한
@@ -30,25 +32,18 @@ export default async function Oder() {
   // if(query.data)
   // console.log(query?.data, 'ㅎㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ');
 
-  
+
+  // const db = (await connectDB).db('frankenshop');
+  // let result = await db
+  // .collection('contents')
+  // .findOne({ _id: new ObjectId(props.params.id) });
+
 
   return (
     <div>
       <h1 className='text-center text-[2rem] font-bold'> 결제하기</h1>
 
-    
-
-
-      {/* <OderItems ></OderItems> */}
-
-
-
-
-
-
-
-
-
+      <OderItems></OderItems>
 
       {/* <hr className='mb-5 w-[50%] mx-auto'></hr> */}
 
