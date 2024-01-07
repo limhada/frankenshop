@@ -7,7 +7,7 @@ export const paymentApi = createApi({
   endpoints: (builder) => ({
 
     getOder: builder.query({
-      query: ({itemId}) => `/contents?itemId=${itemId}`,
+      query: ({ _id, itemId, totalPrice }) => `/contents?_id=${_id}&itemId=${itemId}&totalPrice=${totalPrice}`,
       providesTags: (result, error, arg) => {
         // console.log(result, error, arg, 'cartsApi/providesTags ㅎㅇ~~');
         return [{ type: 'Oder', id: 'payment' }];
@@ -15,12 +15,12 @@ export const paymentApi = createApi({
     }),
 
     payment: builder.mutation({
-      query: ({ itemId, quantity }) => {
+      query: ({ itemId, quantity, totalPrice }) => {
         // console.log(_id, ' ㅎㅇ~~~~~~~~~~~~~~~~~~~');
         return {
           url: `/payment`,
           method: 'POST',
-          body: { itemId, quantity },
+          body: { itemId, quantity, totalPrice },
         };
       },
       invalidatesTags: (result, error, arg) => [

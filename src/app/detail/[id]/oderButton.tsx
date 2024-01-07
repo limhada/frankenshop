@@ -12,7 +12,7 @@ interface OrderButtonProps {
   itemId: string;
 }
 
-export default function OderButton({itemId }: OrderButtonProps) {
+export default function OderButton({ itemId }: OrderButtonProps) {
   const quantity = useSelector((state: RootState) => state.cart.quantity);
   // console.log(quantity, 'quantity');
   // console.log(_id, '_id ㅎㅇ~~~~~~~~~~~~~~~');
@@ -39,10 +39,11 @@ export default function OderButton({itemId }: OrderButtonProps) {
 
               // 서버처리 성공 시 -> 결제/상세페이지로 이동
               if ('data' in r && r.data) {
-                // console.log('r.data ㅎㅇ~~~~~~~~ 추가된 문서 _id:', r.data);
-                
+                // console.log('추가된 문서 _id:', r.data._id);
+                // console.log('~~~~~~~~ 추가된 문서 totalPrice:', r.data.totalPrice);
+
                 // 추가된 문서의 _id와 itemId를 store에 저장 -> /order/detail 페이지에서 꺼내서 각 주문서를 구별할 때 사용!
-                dispatch(setOrder({ _id: r.data, itemId })); // r. data는 추가된 문서 _id, itemId는 현재 상품의 _id값
+                dispatch(setOrder({ _id: r.data._id, itemId, totalPrice: r.data.totalPrice })); // r. data는 추가된 문서 _id, itemId는 현재 상품의 _id값
                 router.push('/order/detail');
 
                 // router.push('/order/detail?q=테스트~');

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   _id: '',
   itemId: '',
+  totalPrice: 0,
 };
 
 export const orderSlice = createSlice({
@@ -13,18 +14,20 @@ export const orderSlice = createSlice({
     setOrder: (state, action) => {
       state._id = action.payload._id;
       state.itemId = action.payload.itemId;
+      state.totalPrice = action.payload.totalPrice;
       // console.log(action.payload, "action.payload")
       // console.log('action.payload._id=', action.payload._id, 'action.payload.itemId=', action.payload.itemId);
     },
 
     /** 업데이트 했던 정보 초기화 */
-    resetItemId: (state) => {
+    resetOrder: (state) => {
       state._id = '';
       state.itemId = '';
+      state.totalPrice = 0;
     },
   },
   // extraReducers(builder) {},
 });
 
-export const { setOrder, resetItemId } = orderSlice.actions;
+export const { setOrder, resetOrder } = orderSlice.actions;
 export default orderSlice.reducer;
