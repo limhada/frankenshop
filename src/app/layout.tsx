@@ -8,11 +8,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
 import LogoutBtn from './LogoutBtn';
 import SearchBar from './SearchBar';
-// FIXME: 배포에러 수정2
-
-// import Category from './category';
-import Category from '../../src/app/category';
-
+import Category from './category';
 import ScrollToTop from './ScrollToTop';
 
 const inter = Inter({ subsets: ['latin'] });

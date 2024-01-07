@@ -1,8 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../util/database';
-// FIXME: 배포에러 수정2
-// import ListItem from './listItem';
-import ListItem from '../list/listItem';
+import ListItem from './listItem';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 
