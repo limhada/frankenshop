@@ -11,14 +11,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../../redux/store';
 import { useParams } from 'next/navigation';
-// import { asyncContents, likeChange, likeToggle } from '../../redux/features/contentsSlice';
-import { asyncContents, likeChange, likeToggle } from '../../redux/Features/contentsSlice';
-// import {
-//   asyncContents,
-//   likeChange,
-//   likeToggle,
-//   // } from '../../redux/features/contentsSlice';
-// } from '../../redux/Features/contentsSlice';
+import {
+  asyncContents,
+  likeChange,
+  likeToggle,
+} from '../../redux/features/contentsSlice';
+
 interface ContentItem {
   _id: ObjectId;
   title: string;

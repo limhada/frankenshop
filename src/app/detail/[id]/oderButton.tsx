@@ -2,11 +2,10 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from '@/app/redux/store';
-
-import { paymentApi } from '@/app/redux/apis/paymentApi';
+import { RootState } from '../../redux/store';
+import { paymentApi } from '../../redux/apis/paymentApi';
 import { useRouter } from 'next/navigation';
-import { setOrder } from '@/app/redux/features/orderSlice';
+import { setOrder } from '../../redux/features/orderSlice';
 
 interface OrderButtonProps {
   itemId: string;

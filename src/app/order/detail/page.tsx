@@ -2,7 +2,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import SelectWithOptions from '../selectWithOptions';
 
-import ShippingAddress from '@/app/components/ShippingAddress';
+// import ShippingAddress from '@/app/components/ShippingAddress';
+import ShippingAddress from '../../components/ShippingAddress';
 import OderItems from './oderItems';
 import Link from 'next/link';
 

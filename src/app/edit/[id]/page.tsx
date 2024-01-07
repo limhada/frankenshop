@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { connectDB } from '../../../../util/database';
 
-
 interface EditProps {
   params: { id: string };
 }
@@ -15,7 +14,7 @@ export default async function Edit(props: EditProps) {
   // console.log(props.params.id);
   // console.log(result);
 
-  // FIXME: 클라이언트 컴포넌트로 변환해서 인풋에 빈칸이 있을 시 alert창 띄우기 
+  // FIXME: 클라이언트 컴포넌트로 변환해서 인풋에 빈칸이 있을 시 alert창 띄우기
   // FIXME: 현재 로그인이 되어있지 않다면 로그인 페이지로 이동시키기
   return (
     <div className='p-20'>
@@ -30,9 +29,11 @@ export default async function Edit(props: EditProps) {
           name='content'
           defaultValue={result?.content}
           className='block w-full p-2 mb-2 border rounded-lg'
-          />
-        <input name='_id' defaultValue={result?._id.toString()}
-        className='w-full p-2 mb-2 border rounded-lg hidden'
+        />
+        <input
+          name='_id'
+          defaultValue={result?._id.toString()}
+          className='w-full p-2 mb-2 border rounded-lg hidden'
         />
         <button
           type='submit'

@@ -1,14 +1,12 @@
 'use client';
 
-import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import QuantityInput from '../components/QuantityInput';
 import { cartsApi } from '../redux/apis/cartsApi';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+
 // TODO: 할인쿠폰
 // TODO: 결제정보
 // TODO: 포인트
@@ -211,8 +209,6 @@ export default function CartList() {
         <Link href='/order/carts' className=' bg-slate-600'>
           결제하기
         </Link>
-      
-        
       </div>
     </div>
   );

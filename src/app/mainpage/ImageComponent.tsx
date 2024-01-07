@@ -157,7 +157,6 @@ export default function ImageComponent(): React.ReactElement {
           <Image
             key={index}
             src={src}
-            
             alt={''}
             width={600}
             height={300}

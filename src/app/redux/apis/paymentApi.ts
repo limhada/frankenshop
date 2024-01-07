@@ -5,9 +5,9 @@ export const paymentApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api/order' }),
   tagTypes: ['Oder'],
   endpoints: (builder) => ({
-
     getOder: builder.query({
-      query: ({ _id, itemId, totalPrice }) => `/contents?_id=${_id}&itemId=${itemId}&totalPrice=${totalPrice}`,
+      query: ({ _id, itemId, totalPrice }) =>
+        `/contents?_id=${_id}&itemId=${itemId}&totalPrice=${totalPrice}`,
       providesTags: (result, error, arg) => {
         // console.log(result, error, arg, 'cartsApi/providesTags ㅎㅇ~~');
         return [{ type: 'Oder', id: 'payment' }];
@@ -26,8 +26,6 @@ export const paymentApi = createApi({
       invalidatesTags: (result, error, arg) => [
         { type: 'Oder', id: 'payment' },
       ],
-      
     }),
-
   }),
 });

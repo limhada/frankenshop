@@ -1,13 +1,13 @@
 'use client';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/app/redux/store';
+import { RootState } from '../../redux/store';
 import {
   updateQuantity,
   decrement,
   increment,
   resetQuantity,
-} from '@/app/redux/features/cartSlice';
+} from '../../redux/features/cartSlice';
 
 // 1~1000까지 입력할 수 있는 인풋
 const QuantityInput = () => {

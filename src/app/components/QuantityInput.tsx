@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { cartsApi } from '../redux/apis/cartsApi';
 import { ObjectId } from 'mongodb';
 

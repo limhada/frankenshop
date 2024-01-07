@@ -6,9 +6,11 @@ import LikeButton from './likeButton';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 
+// import CartIcon from '@/app/components/CartIcon';
+import CartIcon from '../../components/CartIcon';
 
-import CartIcon from '@/app/components/CartIcon';
-import QuantityInput from '@/app/detail/[id]/quantityInput';
+// import QuantityInput from '@/app/detail/[id]/quantityInput';
+import QuantityInput from '../../detail/[id]/quantityInput';
 import OderButton from './oderButton';
 
 // TODO: 결제하기 버튼 클릭 시 결제 api 로 request 하기
@@ -45,7 +47,6 @@ export default async function Detail(props: DetailProps) {
     // result.email = session.user.email;
   }
 
-
   return (
     <div>
       상세페이지
@@ -67,11 +68,10 @@ export default async function Detail(props: DetailProps) {
       {/* 장바구니 버튼 */}
       {/*  TODO: 아이콘으로 변경하기 */}
       <div>장바구니 추가</div>
-
       <CartIcon _id={result?._id.toString()} type={'detail'}></CartIcon>
       {/* <QuantityButton></QuantityButton> */}
       <QuantityInput></QuantityInput>
-      <br/>
+      <br />
       {/* <Link
         href='/order/detail'
       >
