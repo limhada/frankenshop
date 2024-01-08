@@ -24,12 +24,12 @@ export default function ImageComponent(): React.ReactElement {
   // TODO: imgArr 서버에서 받아온 값으로 업데이트 하기
   const imgArr: ImageGroup = {
     imgtest: [
-      '/imgtest/1.jpeg',
-      '/imgtest/2.jpeg',
-      '/imgtest/3.jpeg',
-      '/imgtest/4.jpeg',
-      '/imgtest/5.jpeg',
-      '/imgtest/6.jpeg',
+      '/imgTest/1.jpeg',
+      '/imgTest/2.jpeg',
+      '/imgTest/3.jpeg',
+      '/imgTest/4.jpeg',
+      '/imgTest/5.jpeg',
+      '/imgTest/6.jpeg',
     ],
   };
   const imageList = [
