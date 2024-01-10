@@ -64,11 +64,12 @@ export default async function Detail(props: DetailProps) {
       <div>내용: {result?.description}</div>
       <div>가격: {result?.price.toLocaleString()}</div>
       {/* 좋아요 버튼 */}
-      <LikeButton />
-      {/* 장바구니 버튼 */}
-      {/*  TODO: 아이콘으로 변경하기 */}
-      <div>장바구니 추가</div>
-      <CartIcon _id={result?._id.toString()} type={'detail'}></CartIcon>
+      <div className='flex items-center'>
+        <LikeButton />
+        {/* 장바구니 버튼 */}
+        {/*  TODO: 아이콘으로 변경하기 */}
+        <CartIcon _id={result?._id.toString()} type={'detail'}></CartIcon>
+     </div>
       {/* <QuantityButton></QuantityButton> */}
       <QuantityInput></QuantityInput>
       <br />

@@ -206,9 +206,23 @@ export default function CartList() {
       </div>
       <div className='flex'>
         <div>총 결제 금액: {totalPrice}</div>
-        <Link href='/order/carts' className=' bg-slate-600'>
+        {/* <Link href='/order/carts' className=' bg-slate-600'>
           결제하기
-        </Link>
+        </Link> */}
+        <button
+        // onClick={()=> {console.log('ㅎㅇ');}}
+        className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'
+        onClick={() => {
+            // .then((r) => {
+            //   // console.log('결과~~~~~~~~~' , r);
+            // })
+            // .catch((error) => {
+            //   console.error('에러 발생:', error);
+            // });
+        }}
+      >
+        구매하기
+      </button>
       </div>
     </div>
   );
