@@ -6,6 +6,7 @@ import SelectWithOptions from '../selectWithOptions';
 import ShippingAddress from '../../components/ShippingAddress';
 import OderItems from './oderItems';
 import Link from 'next/link';
+import Price from './price';
 
 // TODO: 완료 - 주소검색 api 적용하기
 // TODO: 고민 - 주소 처음 입력 시 db에 저장 후 마이페이지에 나타내기
@@ -77,6 +78,9 @@ export default async function Oder() {
       {/* <SelectWithOptions session={session}/> */}
       {/* TODO: 선택가능 한 체크박스 & 직접입력으로 만들기 */}
       <SelectWithOptions />
+
+        {/* 주문금액 */}
+        <Price></Price>
 
       <div className='mt-5'>
         <button className='text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'>

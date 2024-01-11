@@ -2,10 +2,13 @@
 
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
-import Link from 'next/link';
+
 import { useState, useEffect } from 'react';
 import QuantityInput from '../components/QuantityInput';
 import { cartsApi } from '../redux/apis/cartsApi';
+import Link from 'next/link';
+import OderButton from './orderButton';
+import axios from 'axios';
 
 // TODO: 할인쿠폰
 // TODO: 결제정보
@@ -57,8 +60,7 @@ export default function CartList() {
   const name = 'cartsContents';
   const query = cartsApi.useGetCartsQuery(name);
 
-  // console.log('query@@@@@`', query.data);
-  // console.log('cartData~~~~', cartData);
+  console.log('query@@@@@`', query.data);
 
   const [cartList, setCartList] = useState<CartsProps['cartsData']>(
     query.data || []
@@ -204,25 +206,28 @@ export default function CartList() {
           </div>
         ))}
       </div>
-      <div className='flex'>
-        <div>총 결제 금액: {totalPrice}</div>
+      <div className='flex items-center justify-center m-3'>
+        <div className='font-bold text-[2rem] text-myColor1 mr-[3rem]'>
+          주문금액 {totalPrice.toLocaleString()}원
+        </div>
         {/* <Link href='/order/carts' className=' bg-slate-600'>
           결제하기
         </Link> */}
         <button
-        // onClick={()=> {console.log('ㅎㅇ');}}
-        className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'
-        onClick={() => {
+          className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'
+          onClick={() => {
+            axios.get('/api/order/cartPayment');
             // .then((r) => {
             //   // console.log('결과~~~~~~~~~' , r);
             // })
             // .catch((error) => {
             //   console.error('에러 발생:', error);
             // });
-        }}
-      >
-        구매하기
-      </button>
+          }}
+        >
+          기존 구매하기버튼
+        </button>
+        <OderButton></OderButton>
       </div>
     </div>
   );
