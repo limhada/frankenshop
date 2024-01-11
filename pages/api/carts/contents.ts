@@ -49,7 +49,6 @@ export default async function handler(
   }
   if (req.method === 'POST') {
     try {
-      
       // console.log(req.body, 'ㅎㅇ~~~~~~~~~~~~~~~~~body');
       // req.body = { name: 'updateInputQuantity', quantity: 13, _id: '6509b47802b7712df0cd3d53' }
 
@@ -57,55 +56,44 @@ export default async function handler(
         contents: new ObjectId(req.body._id),
         email: session.user.email,
       });
-      
+
       // TODO: 수량인풋에 직접 입력한 값으로 db에 업데이트 이때 기존값과 같으면 업데이트 하지 않게 수정하기
       if (result && req.body.name === 'updateInputQuantity') {
         const updateResult = await db
-            .collection('carts')
-            .updateOne(
-              { contents: new ObjectId(req.body._id), email: session.user.email },
-              { $set: { quantity: req.body.quantity } }
-            );
+          .collection('carts')
+          .updateOne(
+            { contents: new ObjectId(req.body._id), email: session.user.email },
+            { $set: { quantity: req.body.quantity } }
+          );
       }
 
-      
-      
       // console.log('ㅎㅇ~~~~~~~~~~', result?.quantity);
       // console.log('ㅎㅇ~~~~~~~~~~', result.);
-      
 
+      if (result?.quantity > 0 && req.body.name === 'increase') {
+        const updateResult = await db
+          .collection('carts')
+          .updateOne(
+            { contents: new ObjectId(req.body._id), email: session.user.email },
+            { $inc: { quantity: 1 } }
+          );
+        // console.log(updateResult,"카트값 1증가 성공");
+      } else if (result?.quantity > 1 && req.body.name === 'decrease') {
+        const updateResult = await db
+          .collection('carts')
+          .updateOne(
+            { contents: new ObjectId(req.body._id), email: session.user.email },
+            { $inc: { quantity: -1 } }
+          );
+        // console.log('카트값 1감소 성공');
+      }
 
-        if (result?.quantity > 0 
-          && req.body.name === 'increase'
-          ) {
-          const updateResult = await db
-            .collection('carts')
-            .updateOne(
-              { contents: new ObjectId(req.body._id), email: session.user.email },
-              { $inc: { quantity: 1 } }
-            );
-          // console.log(updateResult,"카트값 1증가 성공");
-        
-        } else if (result?.quantity > 1 
-          && req.body.name === 'decrease'
-          ) {
-          const updateResult = await db
-            .collection('carts')
-            .updateOne(
-              { contents: new ObjectId(req.body._id), email: session.user.email },
-              { $inc: { quantity: -1 } }
-            );
-          // console.log('카트값 1감소 성공');
-        }
-  
-        // quantity(수량) 증가 및 감소 시 증감이 반영된 quantity 값 응답으로 클라이언트에 전해주기
-        let quantityResult = await db.collection('carts').findOne({
-          contents: new ObjectId(req.body._id),
-          email: session.user.email,
-        });
-        return res.status(200).json(quantityResult?.quantity);
-
-
+      // quantity(수량) 증가 및 감소 시 증감이 반영된 quantity 값 응답으로 클라이언트에 전해주기
+      let quantityResult = await db.collection('carts').findOne({
+        contents: new ObjectId(req.body._id),
+        email: session.user.email,
+      });
+      return res.status(200).json(quantityResult?.quantity);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: 'Server error' });

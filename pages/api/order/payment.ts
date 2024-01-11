@@ -16,7 +16,7 @@ export default async function handler(
       'req.body.itemId= ',
       req.body.itemId,
       'req.body.quantity= ',
-      req.body.quantity,
+      req.body.quantity
     );
 
     let session = await getServerSession(req, res, authOptions);
@@ -63,7 +63,9 @@ export default async function handler(
 
         // console.log('itemId ~~~~~~', req.body.itemId);
 
-        return res.status(200).json({_id: insertResult, totalPrice: insertData.totalPrice});
+        return res
+          .status(200)
+          .json({ _id: insertResult, totalPrice: insertData.totalPrice });
       }
 
       // return res.status(200).redirect(302, '/list');

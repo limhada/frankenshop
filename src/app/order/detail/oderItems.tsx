@@ -13,10 +13,12 @@ export default function OderItems() {
   const _id = useSelector((state: RootState) => state.order._id);
   const totalPrice = useSelector((state: RootState) => state.order.totalPrice);
 
-  const payItem = paymentApi.useGetOderQuery({ _id, itemId, totalPrice });
-  const [orderList, setOderList] = useState(payItem.data);
+  const payItem = paymentApi.useGetOrderQuery({ _id, itemId, totalPrice });
+  // const [orderList, setOderList] = useState(payItem.data);
   // const [orderList, setOderList] = useState({});
   // const [cartList, setCartList] = useState(payItem.data || []);
+
+  console.log('payItem=~~~~~~~~~', payItem);
 
   // useEffect(() => {
   //   if (payItem.data) {
@@ -38,8 +40,8 @@ export default function OderItems() {
   //   }
   // }, [payItem.data]);
 
-  console.log(payItem, 'payItem~~~~~~~~~~~~~~~~~~~~~`');
-  console.log(payItem.isSuccess, '~~~~~~~~~~~~~~~~~~~~~`');
+  // console.log(payItem, 'payItem~~~~~~~~~~~~~~~~~~~~~`');
+  // console.log(payItem.isSuccess, '~~~~~~~~~~~~~~~~~~~~~`');
 
   return (
     <div>
@@ -69,10 +71,13 @@ export default function OderItems() {
               </tr>
 
               <tr>
+                {/* 상품명 */}
                 <td className='p-4 text-center'>{payItem.data.title}</td>
+                {/* 수량 */}
                 <td className='p-4 text-center'>
                   {payItem.data.totalQuantity}
                 </td>
+                {/* 가격 */}
                 <td className='p-4 text-center'>
                   {payItem.data.totalPrice.toLocaleString()}
                 </td>
