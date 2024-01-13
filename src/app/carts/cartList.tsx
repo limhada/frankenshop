@@ -7,8 +7,9 @@ import { useState, useEffect } from 'react';
 import QuantityInput from '../components/QuantityInput';
 import { cartsApi } from '../redux/apis/cartsApi';
 import Link from 'next/link';
-import OderButton from './orderButton';
+
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 // TODO: 할인쿠폰
 // TODO: 결제정보
@@ -60,7 +61,9 @@ export default function CartList() {
   const name = 'cartsContents';
   const query = cartsApi.useGetCartsQuery(name);
 
-  console.log('query@@@@@`', query.data);
+  // console.log('query@@@@@`', query.data);
+
+  const router = useRouter();
 
   const [cartList, setCartList] = useState<CartsProps['cartsData']>(
     query.data || []
@@ -216,18 +219,25 @@ export default function CartList() {
         <button
           className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'
           onClick={() => {
-            axios.get('/api/order/cartPayment');
-            // .then((r) => {
-            //   // console.log('결과~~~~~~~~~' , r);
-            // })
-            // .catch((error) => {
-            //   console.error('에러 발생:', error);
-            // });
+            axios
+              .get('/api/order/cartPayment')
+              .then((r) => {
+                console.log('결과~~~~~~~~~', r);
+
+                // TODO:  AES 알고리즘을 사용하여 ObjectId를 암호화하기!!!!!
+                // console.log(r.status);
+                // console.log(r.data);
+                if (r.status === 200) {
+                  router.push(`/order/carts?_id=${r.data}`);
+                }
+              })
+              .catch((error) => {
+                console.error('에러 발생:', error);
+              });
           }}
         >
           기존 구매하기버튼
         </button>
-        <OderButton></OderButton>
       </div>
     </div>
   );

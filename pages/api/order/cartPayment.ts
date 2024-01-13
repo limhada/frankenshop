@@ -4,6 +4,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 import { ObjectId } from 'mongodb';
 
+import CryptoJS from 'crypto-js';
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -96,35 +98,26 @@ export default async function handler(
         email,
         orderPrice: orderPrice,
         createAt,
-        orders : rs,
-      }
+        orders: rs,
+      };
 
       console.log(resultEnd, '3333333333333');
 
       // TODO: cartOrders 컬렉션(장바구니 상품 주문서)에 rs 데이터 추가하기 insertOne으로 추가 시 에러남 배열값을 하나의 문서에 추가하는 방법 알아보기
 
       const insert = await db.collection('ordersCart').insertOne(resultEnd);
-      console.log(insert, '인설트 ㅎㅇ~~~~~~~~~~~~~~~~~');
+      // console.log(insert.insertedId, '인설트 ㅎㅇ~~~~~~~~~~~~~~~~~');
 
-      /*  insert= {
-          acknowledged: true, // 메서드가 성공적으로 완료되었는지 여부를 나타냅니다. true는 성공, false는 실패를 의미
-          insertedId: new ObjectId("659a2c3ec7ec27fa6a002dbf") // 새로 삽입된 문서의 _id 값
-        } */
+      const key = `${process.env.AES_KEY}`;
 
-      // insert가 성공적으로 추가되면 insert.insertedId를 res에 넣어 반환
-      // if (insert.acknowledged === true) {
-      //   const insertResult = insert.insertedId.toString();
-      // console.log(
-      //   'insert.insertedId~~~~~~~~~~~~~~',
-      //   insert.insertedId.toString()
-      // );
+      // AES알고리즘 사용 암호화
+      const encrypted = CryptoJS.AES.encrypt(
+        JSON.stringify(insert.insertedId),
+        key
+      ).toString();
+      // console.log('암호화 된 값=', encrypted);
 
-      // console.log('itemId ~~~~~~', req.body.itemId);
-
-      //   return res.status(200).json({_id: insertResult, totalPrice: insertData.totalPrice});
-      // }
-
-      return res.status(200).json('성공');
+      return res.status(200).json(encrypted);
       // return res.status(200).redirect(302, '/list');
     } catch (error) {
       console.log('에러!', error);
