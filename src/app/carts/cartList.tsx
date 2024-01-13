@@ -238,7 +238,6 @@ export default function CartList() {
         >
           기존 구매하기버튼
         </button>
-        <OderButton></OderButton>
       </div>
     </div>
   );
