@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import QuantityInput from '../components/QuantityInput';
 import { cartsApi } from '../redux/apis/cartsApi';
 import Link from 'next/link';
-import OderButton from './orderButton';
+
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
