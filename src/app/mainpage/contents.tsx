@@ -70,8 +70,6 @@ export default function Content() {
   // console.log(contentsData, "ㅎㅇ contentsData~~~~~~~~~~~~~~~~~~~~");
   return (
     <div>
-      {/* <div>테스트~~~ allContents : {allContents}</div> */}
-      <h1>상품리스트</h1>
       {/* <img src='/imgtest/1.jpeg' /> */}
       <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5'>
         {allContents.map((el, i) => (
