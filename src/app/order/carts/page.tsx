@@ -5,6 +5,8 @@ import SelectWithOptions from '../selectWithOptions';
 // import ShippingAddress from '@/app/components/ShippingAddress';
 import ShippingAddress from '../../components/ShippingAddress';
 import OderItems from './oderItems';
+import { connectDB } from '@/util/database';
+import { ObjectId } from 'mongodb';
 // TODO: 완료 - 주소검색 api 적용하기
 // TODO: 고민 - 주소 처음 입력 시 db에 저장 후 마이페이지에 나타내기
 // TODO: 고민 - 1개 미만의 수량 및 재고보다 큰 수량 구매제한
@@ -20,17 +22,72 @@ import OderItems from './oderItems';
  * https://codingmyoni.tistory.com/entry/React-%EC%83%81%ED%92%88%EC%9E%A5%EB%B0%94%EA%B5%AC%EB%8B%88-%EC%88%98%EB%9F%89-%EC%A1%B0%EC%A0%88-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0#article-2-3--3%EF%B8%8F%E2%83%A3-input%EC%97%90-%EC%A7%81%EC%A0%91-%EA%B0%92%EC%9D%84-%EC%9E%85%EB%A0%A5%ED%95%98%EC%97%AC-%EC%88%98%EB%9F%89-%EC%A1%B0%EC%A0%88%ED%95%98%EA%B8%B0
  */
 
-export default async function Oder() {
+import CryptoJS from 'crypto-js';
+
+interface OderCartProps {
+  searchParams: { _id: string };
+}
+
+interface Order {
+  cartItemId: ObjectId;
+  contents: ObjectId;
+  checked: boolean;
+  title: string;
+  img_src: string;
+  price: number;
+  description: string;
+  totalQuantity: number;
+  totalPrice: number;
+}
+
+export interface OrderData {
+  _id: ObjectId;
+  status: string;
+  email: string;
+  orderPrice: number;
+  createAt: Date;
+  orders: Order[];
+}
+
+
+export default async function OderCart(props: OderCartProps) {
   let session = await getServerSession(authOptions);
   // console.log(session);
 
+  // console.log('props= ~~~~~~~~', props.searchParams._id);
+
+  const decodedId = decodeURIComponent(props.searchParams._id);
+
+  // console.log('props= ~~~22222222', decodedId);
+
+  const key = `${process.env.AES_KEY}`;
+
+  // AES알고리즘 사용 복호화 ( 복구 키 필요 )
+  const bytes = CryptoJS.AES.decrypt(decodedId, key);
+  // console.log('복호화 된 값=', bytes);
+
+  // 인코딩, 문자열로 변환, JSON 변환
+  // const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+  // console.log('인코딩, 문자열로 변환, JSON 변환 된 값=', decrypted);
+
+  // U2FsdGVkX19Bv6298J/78nPd8ET6MMVRvumASdrBPnRGnqenTkhT8XlcIS9ivXP7
+  // U2FsdGVkX19Bv6298J/78nPd8ET6MMVRvumASdrBPnRGnqenTkhT8XlcIS9ivXP7
+  // U2FsdGVkX19Bv6298J%2F78nPd8ET6MMVRvumASdrBPnRGnqenTkhT8XlcIS9ivXP7
+  const db = (await connectDB).db('frankenshop');
+  let result = await db
+    .collection('ordersCart')
+    .findOne({ _id: new ObjectId(decrypted) });
+
+  console.log(result, 'ㅎㅇ~~~~~~~~~~~~~~~~result');
+
   return (
     <div>
+      <div> TODO: 삭제할거 장바구니 결제!!!!!!!!!!!</div>
       <h1 className='text-center text-[2rem] font-bold'> 결제하기</h1>
       {/* <hr className='mb-5 w-[50%] mx-auto'></hr> */}
 
-      <OderItems></OderItems>
-
+      <OderItems result={result as OrderData}></OderItems>
 
       <h2 className='text-[1.25rem] font-bold mb-5'>배송 정보</h2>
       <div>

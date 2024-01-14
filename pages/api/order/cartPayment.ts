@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { connectDB } from '../../../util/database';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
-import { ObjectId } from 'mongodb';
 
 import CryptoJS from 'crypto-js';
 
@@ -84,14 +83,10 @@ export default async function handler(
           rs.push(mergedItem);
         }
       }
-      console.log(
-        '시작~~~~~~~~',
-        rs,
-        '~~~~~~~~~~~~~~~~~222222222222222222222222222222'
-      );
+      console.log('rs= ~~~~~~~~~~~~', rs);
 
       const orderPrice = rs.reduce((acc, item) => acc + item.totalPrice, 0);
-      console.log(orderPrice, '????????????????');
+      // console.log('orderPrice= ', orderPrice);
 
       const resultEnd = {
         status,
@@ -101,23 +96,23 @@ export default async function handler(
         orders: rs,
       };
 
-      console.log(resultEnd, '3333333333333');
-
-      // TODO: cartOrders 컬렉션(장바구니 상품 주문서)에 rs 데이터 추가하기 insertOne으로 추가 시 에러남 배열값을 하나의 문서에 추가하는 방법 알아보기
+      console.log('resultEnd= ', resultEnd);
 
       const insert = await db.collection('ordersCart').insertOne(resultEnd);
       // console.log(insert.insertedId, '인설트 ㅎㅇ~~~~~~~~~~~~~~~~~');
 
+      // const insertId = insert.insertedId.toString().slice(0, 24);
+      // console.log(insertId, 'ㅎㅇ2222222222222222222222222222222');
+
       const key = `${process.env.AES_KEY}`;
 
       // AES알고리즘 사용 암호화
-      const encrypted = CryptoJS.AES.encrypt(
-        JSON.stringify(insert.insertedId),
-        key
-      ).toString();
+      const encrypted = CryptoJS.AES.encrypt(insert.insertedId.toString(), key).toString();
       // console.log('암호화 된 값=', encrypted);
 
-      return res.status(200).json(encrypted);
+      const encodeEncrypted = encodeURIComponent(encrypted);
+
+      return res.status(200).json(encodeEncrypted);
       // return res.status(200).redirect(302, '/list');
     } catch (error) {
       console.log('에러!', error);
