@@ -23,6 +23,7 @@ import { ObjectId } from 'mongodb';
  */
 
 import CryptoJS from 'crypto-js';
+import Link from 'next/link';
 
 interface OderCartProps {
   searchParams: { _id: string };
@@ -83,13 +84,12 @@ export default async function OderCart(props: OderCartProps) {
 
   return (
     <div>
-      <div> TODO: 삭제할거 장바구니 결제!!!!!!!!!!!</div>
-      <h1 className='text-center text-[2rem] font-bold'> 결제하기</h1>
+      <h1 className='text-center text-[2rem] font-bold mb-5'> 결제하기</h1>
       {/* <hr className='mb-5 w-[50%] mx-auto'></hr> */}
 
       <OderItems result={result as OrderData}></OderItems>
 
-      <h2 className='text-[1.25rem] font-bold mb-5'>배송 정보</h2>
+      <h2 className='text-[1.25rem] font-bold mb-5 mt-[3rem]'>배송 정보</h2>
       <div>
         <ul>
           <li className='mb-[1.25rem]'>
@@ -123,7 +123,29 @@ export default async function OderCart(props: OderCartProps) {
       {/* <SelectWithOptions session={session}/> */}
       <SelectWithOptions />
 
-      <button>결제하기</button>
+      <div className='font-bold text-[2rem] text-myColor1 mr-[3rem] mt-5'>
+          주문금액 {result?.orderPrice.toLocaleString()}원
+        </div>
+
+      <div className='mt-5'>
+        <button className='w-[6rem] text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'
+        onClick={() => {
+          alert('중비중인 기능입니다.')
+        }}
+        >
+          결제하기
+        </button>
+
+        {/* TODO: 진짜 취소하겠습니까? alert창 띄우기 */}
+        <Link href='/'>
+          <button className='w-[6rem] text-red-400 h-[3rem] cursor-pointer overflow-visible p-2 border-[0.3rem] border-red-400 rounded-md'>
+            취소하기
+          </button>
+        </Link>
+      </div>
+
+
+
       {/* TODO: 결제하기 버튼 클릭 시 가격 * 수량 = 총 가격 화면에 렌더링하기 */}
     </div>
   );

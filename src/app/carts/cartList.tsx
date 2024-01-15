@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import QuantityInput from '../components/QuantityInput';
 import { cartsApi } from '../redux/apis/cartsApi';
 
-
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
@@ -209,6 +208,8 @@ export default function CartList() {
           </div>
         ))}
       </div>
+
+      {/* TODO: 모바일일 경우 주문금액 아래에 구매하기 버튼 위치 시키기 */}
       <div className='flex items-center justify-center m-3'>
         <div className='font-bold text-[2rem] text-myColor1 mr-[3rem]'>
           주문금액 {totalPrice.toLocaleString()}원
@@ -217,7 +218,7 @@ export default function CartList() {
           결제하기
         </Link> */}
         <button
-          className='text-white h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'
+          className='text-white w-[10rem] h-[3rem] cursor-pointer overflow-visible p-1 border-1 border-gray-300 rounded-md bg-myColor1'
           onClick={() => {
             axios
               .get('/api/order/cartPayment')
@@ -236,7 +237,7 @@ export default function CartList() {
               });
           }}
         >
-          기존 구매하기버튼
+          구매하기
         </button>
       </div>
     </div>

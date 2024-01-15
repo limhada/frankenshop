@@ -83,7 +83,7 @@ export default async function handler(
           rs.push(mergedItem);
         }
       }
-      console.log('rs= ~~~~~~~~~~~~', rs);
+      // console.log('rs= ~~~~~~~~~~~~', rs);
 
       const orderPrice = rs.reduce((acc, item) => acc + item.totalPrice, 0);
       // console.log('orderPrice= ', orderPrice);

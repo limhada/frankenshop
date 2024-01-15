@@ -67,10 +67,10 @@ export default function SelectWithOptions() {
           onChange={handleCustomMessageChange} // 입력 내용을 customMessage로 업데이트
         />
       )}
-      <p>선택된 옵션: {selectedOption}</p>
-      {selectedOption === 'oMessage-input' && (
+      {/* <p>선택된 옵션: {selectedOption}</p> */}
+      {/* {selectedOption === 'oMessage-input' && (
         <p>직접 입력한 내용: {customMessage}</p>
-      )}
+      )} */}
     </div>
   );
 }

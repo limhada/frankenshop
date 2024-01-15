@@ -9,9 +9,9 @@ export default function Price() {
 
   return (
     <div>
-      <div className='font-bold text-[2rem] text-myColor1 mr-[3rem]'>
-          주문금액 {totalPrice.toLocaleString()}원
-        </div>
+      <div className='font-bold text-[2rem] mt-5 text-myColor1 mr-[3rem]'>
+        주문금액 {totalPrice.toLocaleString()}원
+      </div>
     </div>
   );
 }
