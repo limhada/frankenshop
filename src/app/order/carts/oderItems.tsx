@@ -1,4 +1,3 @@
-'use client';
 
 import Image from 'next/image';
 import { OrderData } from './page';
@@ -8,10 +7,6 @@ interface OderItemsProps {
 }
 
 export default function OderItems({ result }: OderItemsProps) {
-  // console.log('ㅎㅇ~~~~~~', result);
-  // console.log('ㅎㅇ~~~~~~', result.orders);
-  // console.log('ㅎㅇ~~~~~~', result.orders[0]);
-  // console.log('ㅎㅇ~~~~~~', result.orderPrice);
 
   return (
     <div>
