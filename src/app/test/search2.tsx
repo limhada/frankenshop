@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useState, ChangeEvent } from 'react';
+
 const list = [
   '사과',
   '수박',
@@ -56,11 +58,33 @@ const list = [
   '헬스',
   '호랑이',
   '화분',
+  'apple',
+  'banana',
+  'cherry',
+  'dog',
+  'elephant',
+  'fish',
+  'grape',
+  'hamburger',
+  'ice cream',
+  'jungle',
+  'kiwi',
+  'lemon',
+  'mouse',
+  'notebook',
+  'orange',
+  'pizza',
+  'quokka',
+  'rabbit',
+  'sunflower',
+  'tiger',
+  'umbrella',
+  'vanilla',
+  'watermelon',
+  'xylophone',
+  'yellow',
+  'zebra',
 ];
-
-// ReactApp.js
-
-import { useState, ChangeEvent } from 'react';
 
 const CHO_HANGUL = [
   'ㄱ',
@@ -85,7 +109,6 @@ const CHO_HANGUL = [
 ];
 
 const HANGUL_START_CHARCODE = '가'.charCodeAt(0);
-
 const CHO_PERIOD = Math.floor('까'.charCodeAt(0) - '가'.charCodeAt(0));
 const JUNG_PERIOD = Math.floor('개'.charCodeAt(0) - '가'.charCodeAt(0));
 
@@ -108,27 +131,37 @@ function makeRegexByCho(search = '') {
   return new RegExp(`(${regex})`, 'g');
 }
 
-/** includeByCho 함수는 초성 검색의 결과를 true 또는 false로 반환 */
-// function includeByCho(search, targetWord) {
-//   return makeRegexByCho(search).test(targetWord);
-// }
-
 const Search2 = () => {
-  const [searchResult, setSearchResult] = useState('');
+  const [searchResult, setSearchResult] = useState<JSX.Element[]>([]);
+  const [inputValue, setInputValue] = useState<string>('');
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value.trim();
     const regex = makeRegexByCho(search);
 
-    let htmlDummy = '';
+    const handleItemClick = (selectedItem: string) => {
+      setInputValue(selectedItem);
+    };
 
-    list.forEach((item) => {
-      if (regex.test(item)) {
-        htmlDummy += item.replace(regex, '<mark>$1</mark>') + ', ';
-      }
-    });
+    const resultItems = list
+      .filter((item) => regex.test(item))
+      .map((item, index) => (
+        <span
+          key={index}
+          className='search-result-item'
+          data-item={item}
+          onClick={() => handleItemClick(item)}
+        >
+          {item
+            .split(regex)
+            .map((part, index) =>
+              index % 2 === 0 ? part : <mark key={index}>{part}</mark>
+            )}
+        </span>
+      ));
 
-    setSearchResult(search ? htmlDummy : '');
+    setSearchResult(search ? resultItems : []);
+    setInputValue(search); // 입력값을 업데이트
   };
 
   return (
@@ -138,13 +171,19 @@ const Search2 = () => {
         <p>(검색어 - 사과, 수박, 멜론, 파인애플, 산딸기, 딸기, 망고)</p>
         <input
           type='text'
-          onInput={handleInputChange}
+          value={inputValue}
+          onChange={handleInputChange}
           placeholder='텍스트를 입력해주세요.'
         />
         <div>
           <p className='docs'>
             결과:{' '}
-            <span dangerouslySetInnerHTML={{ __html: searchResult }}></span>
+            {searchResult.map((element, index) => (
+              <React.Fragment key={index}>
+                {element}
+                {index !== searchResult.length - 1 && ', '}
+              </React.Fragment>
+            ))}
           </p>
         </div>
       </form>
