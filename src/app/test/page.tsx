@@ -1,25 +1,72 @@
-// 'use client';
+'use client';
 
-import CryptoJS from 'crypto-js';
-
-const key = `${process.env.AES_KEY}`;
-const myData = 'Hello, world!';
-console.log('초기값=', myData);
-
-// AES알고리즘 사용 암호화
-const encrypted = CryptoJS.AES.encrypt(JSON.stringify(myData), key).toString();
-console.log('암호화 된 값=', encrypted);
-
-// AES알고리즘 사용 복호화 ( 복구 키 필요 )
-const bytes = CryptoJS.AES.decrypt(encrypted, key);
-console.log('복호화 된 값=', bytes);
-
-// 인코딩, 문자열로 변환, JSON 변환
-// const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-console.log('인코딩, 문자열로 변환, JSON 변환 된 값=', decrypted);
+import Search2 from './search2';
+import SearchBar from './searchBar';
 
 export default function Test() {
+  const data = [
+    '사과',
+    '수박',
+    '멜론',
+    '파인애플',
+    '산딸기',
+    '딸기',
+    '망고',
+    '가위',
+    '고구마',
+    '나비',
+    '다람쥐',
+    '더위',
+    '도넛',
+    '라면',
+    '러브레터',
+    '마우스',
+    '바나나',
+    '버섯',
+    '보드게임',
+    '사자',
+    '새우',
+    '수영장',
+    '아이스크림',
+    '안경',
+    '양파',
+    '자전거',
+    '장미',
+    '저격수',
+    '차',
+    '초코렛',
+    '카메라',
+    '타조',
+    '토마토',
+    '파인애플',
+    '하트',
+    '헬리콥터',
+    '호떡',
+    '기린',
+    '나무',
+    '다이아몬드',
+    '레몬',
+    '마법봉',
+    '배구',
+    '사과',
+    '선글라스',
+    '양말',
+    '재규어',
+    '참치',
+    '컴퓨터',
+    '키위',
+    '텔레비전',
+    '햄버거',
+    '헬스',
+    '호랑이',
+    '화분',
+  ];
 
-  return <div>테스트</div>;
+  return (
+    <div>
+      테스트
+      <SearchBar data={data}></SearchBar>
+      <Search2></Search2>
+    </div>
+  );
 }
