@@ -50,7 +50,6 @@ export interface OrderData {
   orders: Order[];
 }
 
-
 export default async function OderCart(props: OderCartProps) {
   let session = await getServerSession(authOptions);
   // console.log(session);
@@ -124,15 +123,11 @@ export default async function OderCart(props: OderCartProps) {
       <SelectWithOptions />
 
       <div className='font-bold text-[2rem] text-myColor1 mr-[3rem] mt-5'>
-          주문금액 {result?.orderPrice.toLocaleString()}원
-        </div>
+        주문금액 {result?.orderPrice.toLocaleString()}원
+      </div>
 
       <div className='mt-5'>
-        <button className='w-[6rem] text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'
-        onClick={() => {
-          alert('중비중인 기능입니다.')
-        }}
-        >
+        <button className='w-[6rem] text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'>
           결제하기
         </button>
 
@@ -143,8 +138,6 @@ export default async function OderCart(props: OderCartProps) {
           </button>
         </Link>
       </div>
-
-
 
       {/* TODO: 결제하기 버튼 클릭 시 가격 * 수량 = 총 가격 화면에 렌더링하기 */}
     </div>
