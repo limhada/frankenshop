@@ -1,6 +1,6 @@
 'use client';
 
-import T1 from './t1';
+// import T1 from './t1';
 
 import React, { useState } from 'react';
 
@@ -89,13 +89,12 @@ const ChoSearch = () => {
     const resultList = list.map((item, index) => {
       const matches = item.match(regex);
       if (matches) {
-        const replacedItem = item.replace(regex, (match) => `<mark>${match}</mark>`);
-        console.log('~~~~~~~~~~~replacedItem', replacedItem);
-        return (
-          <React.Fragment key={index}>
-            {replacedItem}
-          </React.Fragment>
+        const replacedItem = item.replace(
+          regex,
+          (match) => `<mark>${match}</mark>`
         );
+        console.log('~~~~~~~~~~~replacedItem', replacedItem);
+        return <React.Fragment key={index}>{replacedItem}</React.Fragment>;
       } else {
         return <span key={index}>{item}</span>;
       }
@@ -110,8 +109,7 @@ const ChoSearch = () => {
       입력:
       <input type='text' value={search} onChange={_events} />
       <div className='docs'>결과: {result}</div>
-      
-      <T1></T1>
+      {/* <T1></T1> */}
     </div>
   );
 };
