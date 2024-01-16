@@ -28,6 +28,8 @@ const list = [
   '사과',
   '파인애플',
   '딸기',
+  '딸기와 사과와 딸기'
+  ,
   '상품1',
   '상품2',
   '코코아',
@@ -36,6 +38,7 @@ const list = [
   // '샤인머스켓',
   // '초코송이',
   '고구마',
+  
 ];
 
 const HANGUL_START_CHARCODE = '가'.charCodeAt(0);
@@ -66,8 +69,16 @@ const ChoSearch = () => {
   const [result, setResult] = useState<React.ReactNode[]>([]);
 
   const _events = (event: any) => {
-    const inputValue = event.target.value.trim();
-    const regex = makeRegexByCho(inputValue);
+    const inputValue = event.target.value; // 여기서 trim()사용 시 공백 입력 못함
+
+    const trimmedInputValue = inputValue.trim();  // 필요한 경우에만 trim() 호출
+
+    // 처음 입력값이 공백인 경우 입력 안되도록 처리
+    if (search === '' && trimmedInputValue === '') {
+      return;
+    }
+
+    const regex = makeRegexByCho(trimmedInputValue);
 
     console.log('regex~~~~~~~~~~~`', regex);
 
