@@ -16,6 +16,7 @@ const inter = Inter({ subsets: ['latin'] });
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { Providers } from './redux/provider';
+import Search from './components/Search';
 
 // autoAddCss 속성을 false로 설정하면 Font Awesome 의 CSS 파일을 자동으로 추가하지 않습니다.
 config.autoAddCss = false;
@@ -75,6 +76,7 @@ export default async function RootLayout({
               </Link>
             )}
             <SearchBar />
+            <Search></Search>
             <Category />
           </div>
           {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
