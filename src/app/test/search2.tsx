@@ -3,7 +3,6 @@
 import React, { useState, ChangeEvent } from 'react';
 
 const list = [
-  '사과',
   '수박',
   '멜론',
   '파인애플',
@@ -148,15 +147,21 @@ const Search2 = () => {
       .map((item, index) => (
         <span
           key={index}
-          className='search-result-item'
+          className='search-result-item mr-3'
+          // text-myColor1
           data-item={item}
           onClick={() => handleItemClick(item)}
         >
-          {item
-            .split(regex)
-            .map((part, index) =>
-              index % 2 === 0 ? part : <mark key={index}>{part}</mark>
-            )}
+          {item.split(regex).map((part, index) =>
+            // index % 2 === 0 ? part : <mark key={index}>{part}</mark>
+            index % 2 === 0 ? (
+              part
+            ) : (
+              <span className='bg-myColor2 rounded-md' key={index}>
+                {part}
+              </span>
+            )
+          )}
         </span>
       ));
 
@@ -181,7 +186,7 @@ const Search2 = () => {
             {searchResult.map((element, index) => (
               <React.Fragment key={index}>
                 {element}
-                {index !== searchResult.length - 1 && ', '}
+                {/* {index !== searchResult.length - 1 && ', '} */}
               </React.Fragment>
             ))}
           </p>
