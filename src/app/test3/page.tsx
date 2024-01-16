@@ -1,7 +1,5 @@
 'use client';
 
-// import T1 from './t1';
-
 import React, { useState } from 'react';
 
 const CHO_HANGUL = [
@@ -28,25 +26,16 @@ const CHO_HANGUL = [
 
 const list = [
   '사과',
-  // '수박',
-  // '멜론',
-  // '파인애플',
-  // '산딸기',
-  // '딸기',
-  // '망고',
-  // '상품1',
-  // '상품2',
-  // '상품3',
-  // '상품4',
+  '파인애플',
+  '딸기',
+  '상품1',
+  '상품2',
+  '코코아',
+  'abbbc'
+  ,
   // '샤인머스켓',
   // '초코송이',
-  // '고구마',
-  // '스마트폰',
-  // '가나나다',
-  // 'abbc',
-  // 'dfffd',
-  // '사과과과과아',
-  '코코아',
+  '고구마',
 ];
 
 const HANGUL_START_CHARCODE = '가'.charCodeAt(0);
@@ -84,17 +73,28 @@ const ChoSearch = () => {
 
     const filteredList = list.filter((item) => item.match(regex));
 
-    console.log('~~~~~~~~~~~`', regex);
+    console.log('filteredList~~~~~~~~~~~`', filteredList);
 
-    const resultList = list.map((item, index) => {
+    const resultList = filteredList.map((item, index) => {
       const matches = item.match(regex);
       if (matches) {
-        const replacedItem = item.replace(
-          regex,
-          (match) => `<mark>${match}</mark>`
+        const parts = item.split(regex);
+        console.log('~~~~~~~~~~~matches', matches);
+        console.log('~~~~~~~~~~~parts', parts);
+        return (
+          <span key={index} className='mr-2'>
+            {parts.map((part, partIndex) => (
+              <React.Fragment key={partIndex}>
+                {partIndex === 1 ? (
+                  // 여러 검색어에 대한 강조 처리
+                  <mark key={partIndex}>{matches[partIndex]}</mark>
+                ) : (
+                  <span key={partIndex}>{part}</span>
+                )}
+              </React.Fragment>
+            ))}
+          </span>
         );
-        console.log('~~~~~~~~~~~replacedItem', replacedItem);
-        return <React.Fragment key={index}>{replacedItem}</React.Fragment>;
       } else {
         return <span key={index}>{item}</span>;
       }
@@ -109,7 +109,6 @@ const ChoSearch = () => {
       입력:
       <input type='text' value={search} onChange={_events} />
       <div className='docs'>결과: {result}</div>
-      {/* <T1></T1> */}
     </div>
   );
 };
