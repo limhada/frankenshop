@@ -10,8 +10,8 @@ const Search = async () => {
   let result = await db
     .collection('contentsNames')
     .findOne()
-  console.log('result~~~~~~~~~~~~`', result);
-  console.log('result~~~~~~~~~~~~`', result?.contentsNames);
+  // console.log('result~~~~~~~~~~~~`', result);
+  // console.log('result~~~~~~~~~~~~`', result?.contentsNames);
 
 
   return (

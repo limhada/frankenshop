@@ -28,20 +28,19 @@ const list = [
   '사과',
   '파인애플',
   '딸기',
-  '딸기와 사과와 딸기'
-  ,
+  '딸기와 사과와 딸기',
   '상품1',
   '상품2',
   '코코아',
-  'abbbc'
-  ,
+  'abbbc',
   // '샤인머스켓',
   // '초코송이',
   '고구마',
   '1.2',
   '1..2',
-  '1.2.3'
-  
+  '1.2.3',
+  'abbbbc',
+  'bbbbbaac',
 ];
 
 const HANGUL_START_CHARCODE = '가'.charCodeAt(0);
@@ -61,7 +60,7 @@ const escapeRegExp = (text: string) => {
 };
 
 const makeRegexByCho = (search = '') => {
-// 입력값을 이스케이핑하여 특수문자가 정확히 검색되도록 함
+  // 입력값을 이스케이핑하여 특수문자가 정확히 검색되도록 함
   const escapedSearch = escapeRegExp(search);
   const regex = CHO_HANGUL.reduce(
     (acc, cho, index) =>
@@ -83,7 +82,7 @@ const ChoSearch = () => {
   const _events = (event: any) => {
     const inputValue = event.target.value; // 여기서 trim()사용 시 공백 입력 못함
 
-    const trimmedInputValue = inputValue.trim();  // 필요한 경우에만 trim() 호출
+    const trimmedInputValue = inputValue.trim(); // 필요한 경우에만 trim() 호출
 
     // TODO: 예외처리 블로그에 정리하기
 
@@ -126,7 +125,8 @@ const ChoSearch = () => {
               <React.Fragment key={partIndex}>
                 {partIndex === 1 ? (
                   // 여러 검색어에 대한 강조 처리
-                  <mark key={partIndex}>{matches[partIndex]}</mark>
+                  // <mark key={partIndex}>{matches[partIndex]}</mark>
+                  <span className='bg-red-300' key={partIndex}>{matches[partIndex]}</span>
                 ) : (
                   <span key={partIndex}>{part}</span>
                 )}

@@ -14,7 +14,7 @@ export default async function Test() {
   let result = await db
     .collection('contentsNames')
     .findOne()
-  console.log('result~~~~~~~~~~~~`', result?.contentsNames);
+  // console.log('result~~~~~~~~~~~~`', result?.contentsNames);
 
   // 방법 2: 배열에 새로운 상품 추가
   // await db.collection('contentsNames').updateOne(
@@ -25,7 +25,7 @@ export default async function Test() {
 
    // 업데이트 후 결과 다시 조회
 
-   console.log('Updated result~~~~~~~~~~~~`', result?.contentsNames);
+  //  console.log('Updated result~~~~~~~~~~~~`', result?.contentsNames);
 
 
   return (
