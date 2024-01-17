@@ -25,14 +25,18 @@ export default function Category() {
   ];
 
   return (
-    <div>
+
       <div
         onMouseEnter={Dropdown}
         onMouseLeave={Dropdown}
-        className='w-[10px] h-[10px]'
-        // FIXME: 햄버거 메뉴에서 마우스 오른쪽으로 이동시 공백이여도 드롭다운 메뉴창 안닫힘 * 햄버거메뉴 크기만큼 w와h 설정하기
+        className='mr-5'
+        // FIXME: w와 h로 햄버거메뉴 마우스 out 영역 크기 설정
       >
-        <FontAwesomeIcon icon={faBars} className='cursor-pointer' />
+        <FontAwesomeIcon
+          icon={faBars}
+          className='cursor-pointer text-4xl'
+          // size='2x'
+        />
 
         <div className='relative'>
           {isOpen && (
@@ -60,6 +64,6 @@ export default function Category() {
           )}
         </div>
       </div>
-    </div>
+
   );
 }

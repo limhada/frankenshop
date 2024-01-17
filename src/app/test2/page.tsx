@@ -10,10 +10,10 @@ export default async function Test() {
 
   // let session = await getServerSession(authOptions);
 
-  const db = (await connectDB).db('frankenshop');
-  let result = await db
-    .collection('contentsNames')
-    .findOne()
+  // const db = (await connectDB).db('frankenshop');
+  // let result = await db
+  //   .collection('contentsNames')
+  //   .findOne()
   // console.log('result~~~~~~~~~~~~`', result?.contentsNames);
 
   // 방법 2: 배열에 새로운 상품 추가

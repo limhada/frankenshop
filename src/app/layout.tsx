@@ -7,7 +7,7 @@ import LoginBtn from './LoginBtn';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
 import LogoutBtn from './LogoutBtn';
-import SearchBar from './SearchBar';
+
 import Category from './category';
 import ScrollToTop from './ScrollToTop';
 
@@ -42,24 +42,28 @@ export default async function RootLayout({
           {/* navbar */}
           <div className='text-white bg-myColor1 p-5 fixed top-0 left-0 right-0 z-50 h-[200px] shadow-lg'>
             {/* FIXME: h값 조정하기 */}
-            <Link href='/' className='mr-3 no-underline'>
-              frankenshop
-            </Link>
-            <Link href='/write' className='mr-3 no-underline'>
-              상품추가
-            </Link>
-            <Link href='/write' className='mr-3 no-underline'>
-              글쓰기
-            </Link>
-            <Link href='/list' className='mr-3 no-underline'>
-              상품 리스트
-            </Link>
-            <Link href='/mypage' className='mr-3 no-underline'>
-              마이페이지
-            </Link>
-            <Link href='/carts' className='mr-3 no-underline'>
-              장바구니
-            </Link>
+            <div className='flex'>
+              <Category/>
+              <Link href='/' className='mr-3 no-underline'>
+                frankenshop
+              </Link>
+              <Link href='/write' className='mr-3 no-underline'>
+                상품추가
+              </Link>
+              <Link href='/write' className='mr-3 no-underline'>
+                글쓰기
+              </Link>
+              <Link href='/list' className='mr-3 no-underline'>
+                상품 리스트
+              </Link>
+              <Link href='/mypage' className='mr-3 no-underline'>
+                마이페이지
+              </Link>
+              <Link href='/carts' className='mr-3 no-underline'>
+                장바구니
+              </Link>
+            </div>
+            {/* 로그인 & 로그아웃 버튼 */}
             {session ? (
               <div>
                 {session.user?.name}
@@ -75,9 +79,9 @@ export default async function RootLayout({
                 회원가입
               </Link>
             )}
-            <SearchBar />
+            <div className='flex'>
             <Search></Search>
-            <Category />
+            </div>
           </div>
           {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
           <div className='mt-[250px] pl-[2.75rem] pr-[2.75rem]'>{children}</div>
