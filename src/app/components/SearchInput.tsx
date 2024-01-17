@@ -2,27 +2,6 @@
 
 import React, { useState } from 'react';
 
-// testData
-const list = [
-  '사과',
-  //   '파인애플',
-  //   '딸기',
-  //   '딸기와 사과와 딸기',
-  //   '상품1',
-  //   '상품2',
-  //   '코코아',
-  //   'abbbc',
-  //   // '샤인머스켓',
-  //   // '초코송이',
-  //   '고구마',
-  //   '1.2',
-  //   '1..2',
-  //   '1.2.3',
-  //   'abbbbc',
-  //   'bbbbbaac',
-  //   '!1.23,',
-];
-
 const CHO_HANGUL = [
   'ㄱ',
   'ㄲ',
@@ -77,7 +56,12 @@ const makeRegexByCho = (search = '') => {
   return new RegExp(`(${regex})`);
 };
 
-const ChoSearch = () => {
+interface SearchInputProps {
+  nameList: string[];
+}
+
+
+const SearchInput = ({nameList}: SearchInputProps) => {
   const [search, setSearch] = useState('');
   const [result, setResult] = useState<React.ReactNode[]>([]);
 
@@ -111,9 +95,19 @@ const ChoSearch = () => {
 
     console.log('regex~~~~~~~~~~~`', regex);
 
-    const filteredList = list.filter((item) => item.match(regex));
+    // 테스트 데이터용
+    // const filteredList = list.filter((item) => item.match(regex));
+
+    const filteredList = nameList.filter((item) => item.match(regex));
 
     console.log('filteredList~~~~~~~~~~~`', filteredList);
+
+
+    const handleClick = (value: any) => {
+      setSearch(value);
+      setResult([]);
+    };
+
 
     const resultList = filteredList.map((item, index) => {
       const matches = item.match(regex);
@@ -122,7 +116,7 @@ const ChoSearch = () => {
         console.log('~~~~~~~~~~~matches', matches);
         console.log('~~~~~~~~~~~parts', parts);
         return (
-          <span key={index} className='mr-2'>
+          <div key={index} className='mr-2' onClick={() => handleClick(item)}>
             {parts.map((part, partIndex) => (
               <React.Fragment key={partIndex}>
                 {partIndex === 1 ? (
@@ -136,7 +130,7 @@ const ChoSearch = () => {
                 )}
               </React.Fragment>
             ))}
-          </span>
+          </div>
         );
       } else {
         return <span key={index}>{item}</span>;
@@ -146,14 +140,16 @@ const ChoSearch = () => {
     setSearch(inputValue);
     setResult(inputValue ? resultList : []);
   };
+  
 
   return (
     <div>
-      입력:
-      <input type='text' value={search} onChange={_events} />
-      <div className='docs'>결과: {result}</div>
+      <input type='text' value={search} onChange={_events} className='text-myColor1
+      w-[90%] border rounded-lg focus:ring-2 focus:ring-blue-500
+      '/>
+      <div className='h-[10rem] overflow-y-auto'>결과: {result}</div>
     </div>
   );
 };
 
-export default ChoSearch;
+export default SearchInput;
