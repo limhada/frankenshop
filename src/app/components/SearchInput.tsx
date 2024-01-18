@@ -1,5 +1,7 @@
 'use client';
 
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 
 const CHO_HANGUL = [
@@ -93,14 +95,14 @@ const SearchInput = ({nameList}: SearchInputProps) => {
 
     const regex = makeRegexByCho(trimmedInputValue);
 
-    console.log('regex~~~~~~~~~~~`', regex);
+    // console.log('regex~~~~~~~~~~~`', regex);
 
     // 테스트 데이터용
     // const filteredList = list.filter((item) => item.match(regex));
 
     const filteredList = nameList.filter((item) => item.match(regex));
 
-    console.log('filteredList~~~~~~~~~~~`', filteredList);
+    // console.log('filteredList~~~~~~~~~~~`', filteredList);
 
 
     const handleClick = (value: any) => {
@@ -152,6 +154,8 @@ const SearchInput = ({nameList}: SearchInputProps) => {
           {result}
         </div>
       )}
+              <FontAwesomeIcon icon={faMagnifyingGlass} className='cursor-pointer'/>
+
     </div>
   );
 };
