@@ -78,9 +78,7 @@ export default async function RootLayout({
                 회원가입
               </Link>
             )}
-            <div className='flex'>
             <Search></Search>
-            </div>
             </div>
           </div>
           {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
