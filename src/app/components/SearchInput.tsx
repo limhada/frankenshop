@@ -145,15 +145,19 @@ const SearchInput = ({nameList}: SearchInputProps) => {
   
 
   return (
-    <div>
-      <input type='text' value={search} onChange={_events} className='text-black w-[90%] border rounded-lg focus:ring-2 focus:ring-blue-500
-      '/>
-      {/* <div className='h-[10rem] overflow-y-auto'>{result}</div> */}
-      {search && result.length > 0 && (
-        <div className='h-[10rem] overflow-y-auto bg-white'>
-          {result}
-        </div>
-      )}
+    <div className='flex items-center'>
+      <div>
+        
+        <input type='text' value={search} onChange={_events} className='text-black w-[90%] border rounded-lg focus:ring-2 focus:ring-blue-500
+        '/>
+        {/* <div className='h-[10rem] overflow-y-auto'>{result}</div> */}
+        {search && result.length > 0 && (
+          <div className='h-[10rem] overflow-y-auto bg-white'>
+            {result}
+          </div>
+        )}
+      </div>
+
               <FontAwesomeIcon icon={faMagnifyingGlass} className='cursor-pointer'/>
 
     </div>
