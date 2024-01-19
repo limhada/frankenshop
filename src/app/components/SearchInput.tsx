@@ -1,5 +1,7 @@
 'use client';
 
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 
 const CHO_HANGUL = [
@@ -93,14 +95,14 @@ const SearchInput = ({nameList}: SearchInputProps) => {
 
     const regex = makeRegexByCho(trimmedInputValue);
 
-    console.log('regex~~~~~~~~~~~`', regex);
+    // console.log('regex~~~~~~~~~~~`', regex);
 
     // 테스트 데이터용
     // const filteredList = list.filter((item) => item.match(regex));
 
     const filteredList = nameList.filter((item) => item.match(regex));
 
-    console.log('filteredList~~~~~~~~~~~`', filteredList);
+    // console.log('filteredList~~~~~~~~~~~`', filteredList);
 
 
     const handleClick = (value: any) => {
@@ -113,10 +115,10 @@ const SearchInput = ({nameList}: SearchInputProps) => {
       const matches = item.match(regex);
       if (matches) {
         const parts = item.split(regex);
-        console.log('~~~~~~~~~~~matches', matches);
-        console.log('~~~~~~~~~~~parts', parts);
+        // console.log('~~~~~~~~~~~matches', matches);
+        // console.log('~~~~~~~~~~~parts', parts);
         return (
-          <div key={index} className='mr-2' onClick={() => handleClick(item)}>
+          <div key={index} className='mr-2 text-black' onClick={() => handleClick(item)}>
             {parts.map((part, partIndex) => (
               <React.Fragment key={partIndex}>
                 {partIndex === 1 ? (
@@ -143,11 +145,21 @@ const SearchInput = ({nameList}: SearchInputProps) => {
   
 
   return (
-    <div>
-      <input type='text' value={search} onChange={_events} className='text-myColor1
-      w-[90%] border rounded-lg focus:ring-2 focus:ring-blue-500
-      '/>
-      <div className='h-[10rem] overflow-y-auto'>결과: {result}</div>
+    <div className='flex items-center'>
+      <div>
+        
+        <input type='text' value={search} onChange={_events} className='text-black w-[90%] border rounded-lg focus:ring-2 focus:ring-blue-500
+        '/>
+        {/* <div className='h-[10rem] overflow-y-auto'>{result}</div> */}
+        {search && result.length > 0 && (
+          <div className='h-[10rem] overflow-y-auto bg-white'>
+            {result}
+          </div>
+        )}
+      </div>
+
+              <FontAwesomeIcon icon={faMagnifyingGlass} className='cursor-pointer'/>
+
     </div>
   );
 };

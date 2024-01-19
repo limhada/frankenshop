@@ -62,7 +62,6 @@ export default async function RootLayout({
               <Link href='/carts' className='mr-3 no-underline'>
                 장바구니
               </Link>
-            </div>
             {/* 로그인 & 로그아웃 버튼 */}
             {session ? (
               <div>
@@ -79,7 +78,6 @@ export default async function RootLayout({
                 회원가입
               </Link>
             )}
-            <div className='flex'>
             <Search></Search>
             </div>
           </div>
