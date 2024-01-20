@@ -2,6 +2,7 @@
 
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import React, { useState } from 'react';
 
 const CHO_HANGUL = [
@@ -62,8 +63,7 @@ interface SearchInputProps {
   nameList: string[];
 }
 
-
-const SearchInput = ({nameList}: SearchInputProps) => {
+const SearchInput = ({ nameList }: SearchInputProps) => {
   const [search, setSearch] = useState('');
   const [result, setResult] = useState<React.ReactNode[]>([]);
 
@@ -104,12 +104,10 @@ const SearchInput = ({nameList}: SearchInputProps) => {
 
     // console.log('filteredList~~~~~~~~~~~`', filteredList);
 
-
     const handleClick = (value: any) => {
       setSearch(value);
       setResult([]);
     };
-
 
     const resultList = filteredList.map((item, index) => {
       const matches = item.match(regex);
@@ -118,7 +116,11 @@ const SearchInput = ({nameList}: SearchInputProps) => {
         // console.log('~~~~~~~~~~~matches', matches);
         // console.log('~~~~~~~~~~~parts', parts);
         return (
-          <div key={index} className='mr-2 text-black' onClick={() => handleClick(item)}>
+          <div
+            key={index}
+            className='mr-2 text-black'
+            onClick={() => handleClick(item)}
+          >
             {parts.map((part, partIndex) => (
               <React.Fragment key={partIndex}>
                 {partIndex === 1 ? (
@@ -138,28 +140,30 @@ const SearchInput = ({nameList}: SearchInputProps) => {
         return <span key={index}>{item}</span>;
       }
     });
-
     setSearch(inputValue);
     setResult(inputValue ? resultList : []);
   };
-  
 
   return (
-    <div className='flex items-center'>
-      <div>
-        
-        <input type='text' value={search} onChange={_events} className='text-black w-[90%] border rounded-lg focus:ring-2 focus:ring-blue-500
-        '/>
+    <div className='flex mr-5 items-center'>
+      <div className='mr-3 no-underline w-[30rem]'>
+        <input
+          type='text'
+          value={search}
+          onChange={_events}
+          className='text-black w-[100%] border rounded-lg focus:ring-2 focus:ring-blue-500
+          '
+        />
         {/* <div className='h-[10rem] overflow-y-auto'>{result}</div> */}
         {search && result.length > 0 && (
-          <div className='h-[10rem] overflow-y-auto bg-white'>
-            {result}
-          </div>
+          <div className='h-[10rem] overflow-y-auto bg-white'>{result}</div>
         )}
       </div>
-
-              <FontAwesomeIcon icon={faMagnifyingGlass} className='cursor-pointer'/>
-
+      <FontAwesomeIcon
+        icon={faMagnifyingGlass}
+        // className='cursor-pointer pt-1'
+        className='cursor-pointer'
+      />
     </div>
   );
 };

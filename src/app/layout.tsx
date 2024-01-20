@@ -42,43 +42,46 @@ export default async function RootLayout({
           {/* navbar */}
           <div className='text-white bg-myColor1 p-5 fixed top-0 left-0 right-0 z-50 h-[200px] shadow-lg'>
             {/* FIXME: h값 조정하기 */}
-            <div className='flex'>
-              <Category/>
-              <Link href='/' className='mr-3 no-underline'>
+            <div className='flex items-center'>
+              {/* <div className='flex justify-between'> */}
+              <Category />
+              <Link href='/' className='text-4xl mr-5 no-underline flex items-center'>
                 frankenshop
               </Link>
-              <Link href='/write' className='mr-3 no-underline'>
-                상품추가
-              </Link>
-              <Link href='/write' className='mr-3 no-underline'>
-                글쓰기
-              </Link>
-              <Link href='/list' className='mr-3 no-underline'>
-                상품 리스트
-              </Link>
-              <Link href='/mypage' className='mr-3 no-underline'>
-                마이페이지
-              </Link>
-              <Link href='/carts' className='mr-3 no-underline'>
-                장바구니
-              </Link>
-            {/* 로그인 & 로그아웃 버튼 */}
-            {session ? (
-              <div>
-                {session.user?.name}
-                <LogoutBtn />
+              <div className='flex grow items-center justify-center'>
+                <Link href='/write' className='mr-10 no-underline'>
+                  상품추가
+                </Link>
+                <Link href='/write' className='mr-10 no-underline'>
+                  글쓰기
+                </Link>
+                <Link href='/list' className='mr-10 no-underline'>
+                  상품 리스트
+                </Link>
+                <Link href='/mypage' className='mr-10 no-underline'>
+                  마이페이지
+                </Link>
+                <Link href='/carts' className='mr-10 no-underline'>
+                  장바구니
+                </Link>
               </div>
-            ) : (
-              <div className='mr-3 no-underline'>
-                <LoginBtn></LoginBtn>
-              </div>
-            )}
-            {session ? null : (
-              <Link href='/signup' className='mr-3 no-underline'>
-                회원가입
-              </Link>
-            )}
-            <Search></Search>
+              <Search></Search>
+              {/* 로그인 & 로그아웃 버튼 */}
+              {session ? (
+                <div className='mr-3 no-underline'>
+                  {session.user?.name}
+                  <LogoutBtn />
+                </div>
+              ) : (
+                <div className='mr-5 no-underline'>
+                  <LoginBtn></LoginBtn>
+                </div>
+              )}
+              {session ? null : (
+                <Link href='/signup' className='mr-3 no-underline'>
+                  회원가입
+                </Link>
+              )}
             </div>
           </div>
           {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
