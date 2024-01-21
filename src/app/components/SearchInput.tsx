@@ -144,7 +144,11 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     setResult(inputValue ? resultList : []);
   };
 
-  return (
+  // console.log(result, 'result ㅎㅇ~~~~~~~~~~~~~~~~~~~~');
+
+  // FIXME: 기존코드 (인풋에 값 입력 시 css 틀어짐 문제 발생)
+  /*
+    return (
     <div className='flex mr-5 items-center'>
       <div className='mr-3 no-underline w-[30rem]'>
         <input
@@ -154,7 +158,6 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
           className='text-black w-[100%] border rounded-lg focus:ring-2 focus:ring-blue-500
           '
         />
-        {/* <div className='h-[10rem] overflow-y-auto'>{result}</div> */}
         {search && result.length > 0 && (
           <div className='h-[10rem] overflow-y-auto bg-white'>{result}</div>
         )}
@@ -167,5 +170,44 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     </div>
   );
 };
+  */
+  return (
+    <div className='relative flex mr-5 items-center'>
+      <div className='relative mr-3 no-underline w-[30rem]'>
+        <input
+          type='text'
+          value={search}
+          onChange={_events}
+          className='text-black w-full border rounded-lg focus:ring-2 focus:ring-blue-500'
+        />
+        {search && result.length > 0 && (
+          <div className='absolute left-0 right-0 top-full bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 mt-1 overflow-y-auto'>
+            <div
+              className='py-1'
+              role='menu'
+              aria-orientation='vertical'
+              aria-labelledby='options-menu'
+            >
+              {/* 1번방법 1번 2번 같은 기능*/}
+              {/* {result.map((el, i) => (
+                <a
+                  key={i}
+                  href='#'
+                  className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                  role='menuitem'
+                >
+                  {el}
+                </a>
+              ))} */}
 
+              {/* 2번방법 */}
+              {result}
+            </div>
+          </div>
+        )}
+      </div>
+      <FontAwesomeIcon icon={faMagnifyingGlass} className='cursor-pointer' />
+    </div>
+  );
+};
 export default SearchInput;
