@@ -118,7 +118,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
         return (
           <div
             key={index}
-            className='mr-2 text-black'
+            className='mr-2 text-black hover:bg-[#f3f3f3]'
             onClick={() => handleClick(item)}
           >
             {parts.map((part, partIndex) => (
@@ -181,7 +181,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
           className='text-black w-full border rounded-lg focus:ring-2 focus:ring-blue-500'
         />
         {search && result.length > 0 && (
-          <div className='absolute left-0 right-0 top-full bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 mt-1 overflow-y-auto'>
+          <div className='absolute left-0 right-0 top-full h-[10rem] bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 mt-1 overflow-y-auto'>
             <div
               className='py-1'
               role='menu'
