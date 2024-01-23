@@ -227,7 +227,7 @@ export default function ImageComponent(): React.ReactElement {
           &gt;
         </button>
         {/* 자동 슬라이드 버튼 */}
-        <button className={`w-10 h-10 ml-2`} onClick={handleToggleAutoSlide}>
+        <button className={`w-10 my-10 ml-2`} onClick={handleToggleAutoSlide}>
           {autoSlide ? '일시정지' : '재시작'}
         </button>
       </div>
