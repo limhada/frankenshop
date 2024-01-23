@@ -39,8 +39,8 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={`${inter.className}`}>
         <Providers>
-          {/* navbar */}
-          <div className='text-white bg-myColor1 p-5 fixed top-0 left-0 right-0 z-50 h-[200px] shadow-lg'>
+          {/* 상단 네브바 초록색 영역 */}
+          <div className='text-white bg-myColor1 p-5 fixed top-0 left-0 right-0 z-50 h-[5.5rem] shadow-lg'>
             {/* FIXME: h값 조정하기 */}
             <div className='flex items-center'>
               {/* <div className='flex justify-between'> */}
@@ -49,23 +49,21 @@ export default async function RootLayout({
                 frankenshop
               </Link>
               <div className='flex grow items-center justify-center'>
-                <Link href='/write' className='mr-10 no-underline'>
-                  상품추가
-                </Link>
-                <Link href='/write' className='mr-10 no-underline'>
-                  글쓰기
-                </Link>
-                <Link href='/list' className='mr-10 no-underline'>
+                {/* <Link href='/list' className='mr-10 no-underline'>
                   상품 리스트
-                </Link>
+                </Link> */}
+              </div>
+              <Search></Search>
+              {/* TODO: 관리자 모드에서만 추가 가능하게 수정하기 */}
+                {/* <Link href='/write' className='mr-10 no-underline'>
+                  상품추가
+                </Link> */}
                 <Link href='/mypage' className='mr-10 no-underline'>
                   마이페이지
                 </Link>
                 <Link href='/carts' className='mr-10 no-underline'>
                   장바구니
                 </Link>
-              </div>
-              <Search></Search>
               {/* 로그인 & 로그아웃 버튼 */}
               {session ? (
                 <div className='mr-3 no-underline'>
@@ -85,7 +83,7 @@ export default async function RootLayout({
             </div>
           </div>
           {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
-          <div className='mt-[250px] pl-[2.75rem] pr-[2.75rem]'>{children}</div>
+          <div className='mt-[7rem] pl-[2.75rem] pr-[2.75rem] mx-auto w-[80%]'>{children}</div>
           <ScrollToTop />
           <div className='bg-gray-300 p-4 h-[200px] mt-9'>
             <div>

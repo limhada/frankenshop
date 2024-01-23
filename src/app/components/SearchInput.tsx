@@ -173,7 +173,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
   */
   return (
     <div className='relative flex mr-5 items-center'>
-      <div className='relative mr-3 no-underline w-[30rem]'>
+      <div className='relative mr-3 no-underline w-[10rem]'>
         <input
           type='text'
           value={search}
