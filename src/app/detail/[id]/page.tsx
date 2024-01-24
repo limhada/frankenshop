@@ -49,7 +49,6 @@ export default async function Detail(props: DetailProps) {
 
   return (
     <div>
-      상세페이지
       {/* TODO: 상세페이지 디자인 추가하기 */}
       <h2>제목: {result?.title}</h2>
       <Image
