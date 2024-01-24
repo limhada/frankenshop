@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,22 +20,39 @@ import {
 import { ContentItem } from './page';
 
 interface CategoryContentsProps {
-  result: ContentItem[]
+  result: {
+    _id: string;
+    title: string;
+    img_src: string;
+    author: string;
+    price: number;
+    description: string;
+    category: {
+      name: string;
+    };
+    popular: boolean;
+    discounted: boolean;
+    discountRate: number;
+    stock: number;
+    brand: string;
+    shipping_fee: number;
+    status: string;
+    sales: number;
+    isLiked: boolean;
+  }[];
 }
-
-
-
 
 // interface ContentsProps {
 //   result: ContentItem[];
 // }
 
-export default function CategoryContents({ result}: CategoryContentsProps) {
-// export default function CategoryPage() {
-
+export default function CategoryContents({ result }: CategoryContentsProps) {
+  // export default function CategoryPage() {
   // const router = useRouter();
 
-  // const dispatch = useDispatch();
+  const [localResult, setLocalResult] = useState(result);
+
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   dispatch(asyncContents());
@@ -48,18 +65,16 @@ export default function CategoryContents({ result}: CategoryContentsProps) {
   //   (state: RootState) => state.contents.contentsData as ContentItem[]
   // );
 
-  console.log(result, 'result~ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~~');
+  // console.log(result, 'result~ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~~');
 
   return (
     <div>
-
       <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-5'>
-        {result.map((el, i) => (
+        {localResult.map((el, i) => (
           <div
             key={i}
             className=' w-[18rem] rounded overflow-hidden shadow-lg place-self-center'
           >
-
             <Link href={'/detail/' + el._id.toString()}>
               <Image
                 src={el.img_src}
@@ -76,22 +91,24 @@ export default function CategoryContents({ result}: CategoryContentsProps) {
                   }}
                   className='inline-flex' // 자식 요소의 크기만큼만 자리차지
                 >
-             
-                 
-
-                  
                   <div className='flex items-center'>
-                    {/* <FontAwesomeIcon
+                    <FontAwesomeIcon
                       icon={el.isLiked ? faHeart : regularHeart}
                       // style={{ color: '#511f1f' }} // 카트아이콘 색상 변경하기
                       className={`mr-1 text-red-500`}
                       onClick={() => {
-                        const _id = { _id: allContents[i]._id };
+                        const _id = { _id: el._id };
+                        // console.log(el._id, 'ㅎㅇ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
                         // likeToggle 해당 _id에 해당하는 객체의 isLiked 값을 토글하는 역할을 하는 reducer
                         dispatch(likeToggle(_id));
 
                         // likeChange 액션을 디스패치하여 서버에 like 상태 변경 요청
                         dispatch(likeChange(_id));
+
+                        const updatedResult = [...localResult];
+                        updatedResult[i].isLiked = !updatedResult[i].isLiked;
+                        setLocalResult(updatedResult);
+
                         // axios
                         //   .post('/api/contents/likeChange', _id)
                         //   .then((r) => {
@@ -105,11 +122,10 @@ export default function CategoryContents({ result}: CategoryContentsProps) {
                         //     console.error(error);
                         //   });
                       }}
-                    /> */}
+                    />
                     {/* <CartIcon _id={allContents[i]?._id.toString()}></CartIcon> */}
                   </div>
                 </div>
-                {/* TODO: 평점? 추가할지 말지 */}
                 <div className='font-bold text-xl mb-2'>{el.title}</div>
                 <p className='text-gray-700 text-base'>{el.description}</p>
                 <p className='text-gray-700 text-base'>

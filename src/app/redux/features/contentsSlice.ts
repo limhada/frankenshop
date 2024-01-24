@@ -16,6 +16,7 @@ export const asyncContents: any = createAsyncThunk(
   }
 );
 
+// 좋아요 toggle
 export const likeChange: any = createAsyncThunk(
   'contentsSlice/likeChange',
   async (_id) => {
