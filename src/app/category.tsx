@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { faBars } from '@fortawesome/free-solid-svg-icons'; // 'faBars' 아이콘을 가져옵니다
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Category() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,14 +49,14 @@ export default function Category() {
             >
               {categoryData.map((el, i) => {
                 return (
-                  <a
+                  <Link
                     key={i}
-                    href='#'
+                    href={'/categoryPage/'+el.name}
                     className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     role='menuitem'
                   >
                     {el.name}
-                  </a>
+                  </Link>
                 );
               })}
             </div>
