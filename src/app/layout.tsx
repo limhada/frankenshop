@@ -58,25 +58,25 @@ export default async function RootLayout({
                 {/* <Link href='/write' className='mr-10 no-underline'>
                   상품추가
                 </Link> */}
-                <Link href='/mypage' className='mr-10 no-underline'>
-                  마이페이지
-                </Link>
-                <Link href='/carts' className='mr-10 no-underline'>
+                <Link href='/carts' className='mr-5'>
                   장바구니
+                </Link>
+                <Link href='/mypage' className='mr-5'>
+                  마이페이지
                 </Link>
               {/* 로그인 & 로그아웃 버튼 */}
               {session ? (
-                <div className='mr-3 no-underline'>
+                <div className='mr-5'>
                   {session.user?.name}
                   <LogoutBtn />
                 </div>
               ) : (
-                <div className='mr-5 no-underline'>
+                <div className='mr-5'>
                   <LoginBtn></LoginBtn>
                 </div>
               )}
               {session ? null : (
-                <Link href='/signup' className='mr-3 no-underline'>
+                <Link href='/signup' className='mr-5'>
                   회원가입
                 </Link>
               )}

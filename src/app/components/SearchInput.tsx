@@ -172,13 +172,14 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
 };
   */
   return (
-    <div className='relative flex mr-5 items-center'>
-      <div className='relative mr-3 no-underline w-[10rem]'>
+    <div className='relative flex mr-5 items-center bg-white border rounded-lg'>
+      {/* 검색창 가로 크기 */}
+      <div className='relative no-underline w-[20rem]'>
         <input
           type='text'
           value={search}
           onChange={_events}
-          className='text-black w-full border rounded-lg focus:ring-2 focus:ring-blue-500'
+          className='text-black w-full rounded-lg focus:ring-2 focus:ring-blue-500'
         />
         {search && result.length > 0 && (
           <div className='absolute left-0 right-0 top-full h-[10rem] bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 mt-1 overflow-y-auto'>
@@ -206,7 +207,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
           </div>
         )}
       </div>
-      <FontAwesomeIcon icon={faMagnifyingGlass} className='cursor-pointer' />
+      <FontAwesomeIcon icon={faMagnifyingGlass} className='text-2xl rounded-lg cursor-pointer text-myColor1 font-bold bg-white' />
     </div>
   );
 };
