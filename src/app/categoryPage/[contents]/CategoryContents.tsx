@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import {
   asyncContents,
+  asyncLike,
   likeChange,
   likeToggle,
 } from '../../redux/features/contentsSlice';
@@ -42,9 +43,13 @@ interface CategoryContentsProps {
   }[];
 }
 
-// interface ContentsProps {
-//   result: ContentItem[];
-// }
+interface LikeProps {
+ id: string;
+    contents: string;
+    email: string
+     isLiked: boolean
+    
+}
 
 export default function CategoryContents({ result }: CategoryContentsProps) {
   // export default function CategoryPage() {
@@ -54,12 +59,46 @@ export default function CategoryContents({ result }: CategoryContentsProps) {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    
+    dispatch(asyncLike());
+
+    
+    
+  }, []);
+
+
+  const likeData = useSelector(
+    (state: RootState) => state.contents.likeData as LikeProps[]);
+
+    const updateResult = useCallback(() => {
+      const updatedResult = result.map((item) => {
+        const likeStatus = likeData.find(
+          (like) => like.contents.toString() === item._id.toString()
+        );
+        return {
+          ...item,
+          _id: item._id.toString(),
+          isLiked: likeStatus?.isLiked ?? false,
+        };
+      });
+      setLocalResult(updatedResult);
+    }, [result, likeData]);
+  
+    useEffect(() => {
+      updateResult();
+    }, [updateResult]);
+
+
   // useEffect(() => {
-  //   dispatch(asyncContents());
-  //   // .then(() => {
-  //   // console.log('모든 컨텐츠 데이터 가져옴');
-  //   // });
-  // }, []);
+  //   // dispatch(asyncContents());
+  // //   // .then(() => {
+  // //   // console.log('모든 컨텐츠 데이터 가져옴');
+  // //   // });
+
+  
+  // setLocalResult(result);
+  // }, [result]);
 
   // const allContents = useSelector(
   //   (state: RootState) => state.contents.contentsData as ContentItem[]
@@ -109,21 +148,10 @@ export default function CategoryContents({ result }: CategoryContentsProps) {
                         updatedResult[i].isLiked = !updatedResult[i].isLiked;
                         setLocalResult(updatedResult);
 
-                        // axios
-                        //   .post('/api/contents/likeChange', _id)
-                        //   .then((r) => {
-                        //     // console.log("좋아요 데이터 확인", r.data);
 
-                        //     // setContentsData(r.data);
-                        //     // FIXME: 중요 - 추후 리덕스 or 다른 방법을 해결하기 장바구니에 추가 후 장바구니로 이동 시 새로고침 하지 않으면 추가된 수량이 업데이트 되지 않는 문제 해결하기 위함
-                        //   })
-                        //   .catch((error) => {
-                        //     // 요청이 실패한 경우에 대한 처리
-                        //     console.error(error);
-                        //   });
                       }}
                     />
-                    {/* <CartIcon _id={allContents[i]?._id.toString()}></CartIcon> */}
+                    <CartIcon _id={el?._id.toString()}></CartIcon>
                   </div>
                 </div>
                 <div className='font-bold text-xl mb-2'>{el.title}</div>

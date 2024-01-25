@@ -65,7 +65,6 @@ export default async function CategoryPage(props: CategoryPageProps) {
 
   let session = await getServerSession(authOptions);
   // console.log(session, 'session ㅎㅇ~~~~~~~~~~~~~~~11111');
-  const contentsResult = await db.collection('contents').find().toArray();
   const likesResult = await db
     .collection('likes')
     .find({ email: session?.user.email })
