@@ -14,7 +14,21 @@ export const asyncContents: any = createAsyncThunk(
       throw error;
     }
   }
+  );
+  
+  // 좋아요 정보만 비동기 요청
+  export const asyncLike: any = createAsyncThunk(
+    'contentsSlice/asyncLike',
+    async () => {
+      try {
+        const { data } = await axios.get(`/api/contents/getLike`);
+        return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 );
+
 
 // 좋아요 toggle
 export const likeChange: any = createAsyncThunk(
@@ -32,6 +46,7 @@ export const likeChange: any = createAsyncThunk(
 const initialState = {
   contentsData: [],
   likeState: [],
+  likeData: []
 };
 
 export const contentsSlice = createSlice({
@@ -59,6 +74,9 @@ export const contentsSlice = createSlice({
       builder.addCase(likeChange.fulfilled, (state, action) => {
         state.likeState = action.payload;
       });
+      builder.addCase(asyncLike.fulfilled, (state, action) => {
+        state.likeData = action.payload
+      })
   },
 });
 
