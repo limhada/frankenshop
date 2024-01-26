@@ -2,6 +2,7 @@
 
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from 'next/navigation';
 
 import React, { useState } from 'react';
 
@@ -64,8 +65,11 @@ interface SearchInputProps {
 }
 
 const SearchInput = ({ nameList }: SearchInputProps) => {
+  const router = useRouter();
   const [search, setSearch] = useState('');
   const [result, setResult] = useState<React.ReactNode[]>([]);
+
+  const [searchValue, setSearchValue] = useState('');
 
   const _events = (event: any) => {
     const inputValue = event.target.value; // 여기서 trim()사용 시 공백 입력 못함
@@ -100,8 +104,8 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     // 테스트 데이터용
     // const filteredList = list.filter((item) => item.match(regex));
 
+    // 인풋에 ㅅㅍ 입력시 ㅅㅍ이 들어간 모든 이름이 담겨있는 리스트
     const filteredList = nameList.filter((item) => item.match(regex));
-
     // console.log('filteredList~~~~~~~~~~~`', filteredList);
 
     const handleClick = (value: any) => {
@@ -112,9 +116,13 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     const resultList = filteredList.map((item, index) => {
       const matches = item.match(regex);
       if (matches) {
+        // 검색어가 존재하고, 현재 인덱스가 0일 때만 setSearchValue 실행
+        // ex) 초성만 입력 후 검색 시 예를들어 ㅎㅇ입력 시 첫 번째로 일치하는 활용을 검색하기 위함
+        if (index === 0) {
+          setSearchValue(matches[0]);
+          // console.log('~~~~~~~~~~~matches', matches[0]);
+        }
         const parts = item.split(regex);
-        // console.log('~~~~~~~~~~~matches', matches);
-        // console.log('~~~~~~~~~~~parts', parts);
         return (
           <div
             key={index}
@@ -171,6 +179,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
   );
 };
   */
+
   return (
     <div className='relative flex mr-5 items-center bg-white border rounded-lg'>
       {/* 검색창 가로 크기 */}
@@ -207,7 +216,15 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
           </div>
         )}
       </div>
-      <FontAwesomeIcon icon={faMagnifyingGlass} className='text-2xl rounded-lg cursor-pointer text-myColor1 font-bold bg-white' />
+      {/* 검색 돋보기 아이콘 */}
+      <FontAwesomeIcon
+        icon={faMagnifyingGlass}
+        className='text-2xl rounded-lg cursor-pointer text-myColor1 font-bold bg-white'
+        onClick={() => {
+          console.log('검색클릭', searchValue);
+          router.push('/search?keyword=' + searchValue);
+        }}
+      />
     </div>
   );
 };
