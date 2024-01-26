@@ -28,7 +28,8 @@ export interface ContentItem {
   shipping_fee: number;
   status: string;
   sales: number;
-}[]
+}
+[];
 
 export default async function CategoryPage(props: CategoryPageProps) {
   const db = (await connectDB).db('frankenshop');
@@ -70,7 +71,7 @@ export default async function CategoryPage(props: CategoryPageProps) {
     .find({ email: session?.user.email })
     .toArray();
 
-    // console.log('likesResult~~~~~~~', likesResult);
+  // console.log('likesResult~~~~~~~', likesResult);
   const updateResult = result.map((item) => {
     const likeStatus = likesResult.find(
       (like) => like.contents.toString() === item._id.toString()
@@ -84,10 +85,8 @@ export default async function CategoryPage(props: CategoryPageProps) {
 
   // console.log('updateResult~~~~~~~~', updateResult);
 
-
   return (
     <div>
-      카테고리 페이지~~
       {/* <CategoryContents result={result}></CategoryContents> */}
       <CategoryContents result={updateResult}></CategoryContents>
     </div>
