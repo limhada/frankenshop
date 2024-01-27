@@ -4,7 +4,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/navigation';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const CHO_HANGUL = [
   'ㄱ',
@@ -94,6 +94,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     if (search !== '' && trimmedInputValue === '') {
       setSearch(inputValue);
       setResult([]);
+      setSearchValue(''); // 입력값이 없을 때 검색 값 ''로 초기화
       return;
     }
 
@@ -109,19 +110,23 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     // console.log('filteredList~~~~~~~~~~~`', filteredList);
 
     const handleClick = (value: any) => {
-      setSearch(value);
+      setSearch(value); // 클릭 한 값을 현재 인풋에 업데이트 하기
       setResult([]);
+      setSearchValue(value); // 현재 입력중인 값 업데이트
     };
 
     const resultList = filteredList.map((item, index) => {
       const matches = item.match(regex);
       if (matches) {
+        console.log('matches~~~~~~~~~~~~~', matches);
+        console.log('~~~~~~~~~~result', result);
+
         // 검색어가 존재하고, 현재 인덱스가 0일 때만 setSearchValue 실행
         // ex) 초성만 입력 후 검색 시 예를들어 ㅎㅇ입력 시 첫 번째로 일치하는 활용을 검색하기 위함
         if (index === 0) {
           setSearchValue(matches[0]);
-          // console.log('~~~~~~~~~~~matches', matches[0]);
         }
+
         const parts = item.split(regex);
         return (
           <div
@@ -152,6 +157,13 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     setResult(inputValue ? resultList : []);
   };
 
+  const handleBlur = () => {
+    // 포커스가 사라질 때 검색 결과를 초기화하고 숨김
+    // console.log('전~~~', result);
+    setResult([]);
+    // console.log('후~~~~~~~',result);
+  };
+
   // console.log(result, 'result ㅎㅇ~~~~~~~~~~~~~~~~~~~~');
 
   // FIXME: 기존코드 (인풋에 값 입력 시 css 틀어짐 문제 발생)
@@ -180,6 +192,16 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
 };
   */
 
+  // useEffect(() => {
+  //   // result가 변경될 때마다 실행되는 부분
+  //   console.log('검색 결과가 렌더링되었습니다:', result);
+  // }, [result]); // result가 변경될 때만 useEffect 실행
+
+  // useEffect(() => {
+  //   // searchValue가 변경될 때마다 실행되는 부분
+  //   // console.log('searchValue:', searchValue);
+  // }, [searchValue]);
+
   return (
     <div className='relative flex mr-5 items-center bg-white border rounded-lg'>
       {/* 검색창 가로 크기 */}
@@ -188,6 +210,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
           type='text'
           value={search}
           onChange={_events}
+          onBlur={handleBlur}
           className='text-black w-full rounded-lg focus:ring-2 focus:ring-blue-500'
         />
         {search && result.length > 0 && (
@@ -217,12 +240,23 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
         )}
       </div>
       {/* 검색 돋보기 아이콘 */}
+      {/* FIXME: 추천검색어 중 첫 번째 값이 검색 됨 ㅅㅎ 입력 시 [생활용품, 십한일폭] 일 경우 생활용품 만 검색 됨 생활용품 십한일폭 등 일치하는 모든 추천 검색어를 검색할지 고민해보기 */}
       <FontAwesomeIcon
         icon={faMagnifyingGlass}
         className='text-2xl rounded-lg cursor-pointer text-myColor1 font-bold bg-white'
         onClick={() => {
-          console.log('검색클릭', searchValue);
-          router.push('/search?keyword=' + searchValue);
+          // console.log('검색클릭', searchValue);
+          if (search && result) {
+            // 입력 중 일때
+            // console.log('입력 중 =', searchValue);
+            // console.log('입력 중 =', search);
+            console.log(result, 'result~~~~~~~~~~~');
+            router.push('/search/' + searchValue);
+          } else {
+            // 입력 중 아닐 때
+            // console.log('입력 중 아닐때 = ',search);
+            alert('검색어가 입력되지 않았습니다.');
+          }
         }}
       />
     </div>
