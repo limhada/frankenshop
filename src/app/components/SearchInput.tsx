@@ -4,7 +4,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/navigation';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const CHO_HANGUL = [
   'ㄱ',
@@ -94,6 +94,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     if (search !== '' && trimmedInputValue === '') {
       setSearch(inputValue);
       setResult([]);
+      setSearchValue('') // 입력값이 없을 때 검색 값 ''로 초기화
       return;
     }
 
@@ -109,19 +110,23 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     // console.log('filteredList~~~~~~~~~~~`', filteredList);
 
     const handleClick = (value: any) => {
-      setSearch(value);
+      setSearch(value); // 클릭 한 값을 현재 인풋에 업데이트 하기
       setResult([]);
+      setSearchValue(value) // 현재 입력중인 값 업데이트
     };
 
     const resultList = filteredList.map((item, index) => {
       const matches = item.match(regex);
       if (matches) {
+        // console.log(matches[0], 'ㅎㅇ!!!!!!!!!!!!!');
         // 검색어가 존재하고, 현재 인덱스가 0일 때만 setSearchValue 실행
         // ex) 초성만 입력 후 검색 시 예를들어 ㅎㅇ입력 시 첫 번째로 일치하는 활용을 검색하기 위함
         if (index === 0) {
           setSearchValue(matches[0]);
-          // console.log('~~~~~~~~~~~matches', matches[0]);
+          // console.log('matches[0]~~~~~~~~~~~~~~~~~', matches[0]);
         }
+        // console.log('~~~~~~~~~~~matches', matches[0]);
+        // console.log('~~~~~~~~~~result', result);
         const parts = item.split(regex);
         return (
           <div
@@ -180,6 +185,17 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
 };
   */
 
+
+// useEffect(() => {
+//   // result가 변경될 때마다 실행되는 부분
+//   console.log('검색 결과가 렌더링되었습니다:', result);
+// }, [result]); // result가 변경될 때만 useEffect 실행
+
+useEffect(() => {
+  // searchValue가 변경될 때마다 실행되는 부분
+  console.log('searchValue:', searchValue);
+}, [searchValue]);
+
   return (
     <div className='relative flex mr-5 items-center bg-white border rounded-lg'>
       {/* 검색창 가로 크기 */}
@@ -221,8 +237,14 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
         icon={faMagnifyingGlass}
         className='text-2xl rounded-lg cursor-pointer text-myColor1 font-bold bg-white'
         onClick={() => {
-          console.log('검색클릭', searchValue);
-          router.push('/search?keyword=' + searchValue);
+          // console.log('검색클릭', searchValue);
+          if (search && result) { // 입력 중 일때
+            // console.log('입력 중 =', searchValue);
+            // console.log('입력 중 =', search);
+            router.push('/search?keyword=' + searchValue);
+          } else { // 입력 중 아닐 때
+            // console.log('입력 중 아닐때 = ',search);
+          }
         }}
       />
     </div>
