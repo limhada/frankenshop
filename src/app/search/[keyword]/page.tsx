@@ -62,8 +62,8 @@ let session = await getServerSession(authOptions);
 
 
 
-  console.log(searchName, 'ㅎㅇ111~~~~~~~~~~~~~~');
-  console.log(result, 'ㅎㅇ222~~~~~~~~~~~~~~');
+  // console.log(searchName, 'ㅎㅇ111~~~~~~~~~~~~~~');
+  // console.log(result, 'ㅎㅇ222~~~~~~~~~~~~~~');
 
   return <div>검색페이지
 

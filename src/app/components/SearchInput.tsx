@@ -118,15 +118,15 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     const resultList = filteredList.map((item, index) => {
       const matches = item.match(regex);
       if (matches) {
-        // console.log(matches[0], 'ㅎㅇ!!!!!!!!!!!!!');
+        console.log('matches~~~~~~~~~~~~~', matches);
+        console.log('~~~~~~~~~~result', result);
+
         // 검색어가 존재하고, 현재 인덱스가 0일 때만 setSearchValue 실행
         // ex) 초성만 입력 후 검색 시 예를들어 ㅎㅇ입력 시 첫 번째로 일치하는 활용을 검색하기 위함
         if (index === 0) {
           setSearchValue(matches[0]);
-          // console.log('matches[0]~~~~~~~~~~~~~~~~~', matches[0]);
         }
-        // console.log('~~~~~~~~~~~matches', matches[0]);
-        // console.log('~~~~~~~~~~result', result);
+
         const parts = item.split(regex);
         return (
           <div
@@ -191,10 +191,10 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
 //   console.log('검색 결과가 렌더링되었습니다:', result);
 // }, [result]); // result가 변경될 때만 useEffect 실행
 
-useEffect(() => {
-  // searchValue가 변경될 때마다 실행되는 부분
-  console.log('searchValue:', searchValue);
-}, [searchValue]);
+// useEffect(() => {
+//   // searchValue가 변경될 때마다 실행되는 부분
+//   // console.log('searchValue:', searchValue);
+// }, [searchValue]);
 
   return (
     <div className='relative flex mr-5 items-center bg-white border rounded-lg'>
@@ -233,6 +233,7 @@ useEffect(() => {
         )}
       </div>
       {/* 검색 돋보기 아이콘 */}
+      {/* FIXME: 추천검색어 중 첫 번째 값이 검색 됨 ㅅㅎ 입력 시 [생활용품, 십한일폭] 일 경우 생활용품 만 검색 됨 생활용품 십한일폭 등 일치하는 모든 추천 검색어를 검색할지 고민해보기 */}
       <FontAwesomeIcon
         icon={faMagnifyingGlass}
         className='text-2xl rounded-lg cursor-pointer text-myColor1 font-bold bg-white'
@@ -241,6 +242,7 @@ useEffect(() => {
           if (search && result) { // 입력 중 일때
             // console.log('입력 중 =', searchValue);
             // console.log('입력 중 =', search);
+            console.log(result, 'result~~~~~~~~~~~');
             router.push('/search/' + searchValue);
           } else { // 입력 중 아닐 때
             // console.log('입력 중 아닐때 = ',search);
