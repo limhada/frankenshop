@@ -1,14 +1,11 @@
 import { connectDB } from '@/util/database';
-import CategoryContents from './CategoryContents';
+import CategoryContents from '../../categoryPage/[contents]/CategoryContents';
 import { ObjectId } from 'mongodb';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-interface CategoryPageProps {
-  params: {
-    contents: string;
-  };
-}
+
+
 
 export interface ContentItem {
   _id: ObjectId;
@@ -30,40 +27,21 @@ export interface ContentItem {
   sales: number;
 }[];
 
-export default async function CategoryPage(props: CategoryPageProps) {
+
+
+export default async function Search(props: any) {
   const db = (await connectDB).db('frankenshop');
 
   // 브라우저에서 URL에 한글 또는 특수 문자를 입력하면 자동으로 인코딩됨 따라서 디코딩 해서 사용해야 함
-  const contentsName = decodeURIComponent(props.params.contents);
-  let result = [];
+  const searchName = decodeURIComponent(props.params.keyword);
+  // let result = await db.collection('contents').find({title: searchName}).toArray();
+  
+  const regex = new RegExp(searchName, 'i');
+let result = await db.collection<ContentItem>('contents').find({ title: regex }).toArray();
 
-  if (contentsName === '인기상품') {
-    // 인기상품 정보만 가져오기
-    result = await db
-      .collection<ContentItem>('contents')
-      .find({
-        popular: true,
-      })
-      .toArray();
-  } else if (contentsName === '할인상품') {
-    // 할인상품의 정보만 가져오기
-    result = await db
-      .collection<ContentItem>('contents')
-      .find({
-        discounted: true,
-      })
-      .toArray();
-  } else {
-    // 해당 카테고리의 상품 정보만 가져오기
-    result = await db
-      .collection<ContentItem>('contents')
-      .find({
-        'category.name': contentsName,
-      })
-      .toArray();
-  }
 
-  let session = await getServerSession(authOptions);
+
+let session = await getServerSession(authOptions);
   // console.log(session, 'session ㅎㅇ~~~~~~~~~~~~~~~11111');
   const likesResult = await db
     .collection('likes')
@@ -82,12 +60,15 @@ export default async function CategoryPage(props: CategoryPageProps) {
     };
   });
 
-  // console.log('updateResult~~~~~~~~', updateResult);
 
-  return (
-    <div>
-      {/* <CategoryContents result={result}></CategoryContents> */}
-      <CategoryContents result={updateResult}></CategoryContents>
-    </div>
-  );
+
+  console.log(searchName, 'ㅎㅇ111~~~~~~~~~~~~~~');
+  console.log(result, 'ㅎㅇ222~~~~~~~~~~~~~~');
+
+  return <div>검색페이지
+
+
+<CategoryContents result={updateResult}></CategoryContents>
+
+  </div>;
 }

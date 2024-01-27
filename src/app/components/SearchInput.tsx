@@ -241,9 +241,10 @@ useEffect(() => {
           if (search && result) { // 입력 중 일때
             // console.log('입력 중 =', searchValue);
             // console.log('입력 중 =', search);
-            router.push('/search?keyword=' + searchValue);
+            router.push('/search/' + searchValue);
           } else { // 입력 중 아닐 때
             // console.log('입력 중 아닐때 = ',search);
+            alert('검색어가 입력되지 않았습니다.')
           }
         }}
       />
