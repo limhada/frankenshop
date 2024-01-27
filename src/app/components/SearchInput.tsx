@@ -94,7 +94,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     if (search !== '' && trimmedInputValue === '') {
       setSearch(inputValue);
       setResult([]);
-      setSearchValue('') // 입력값이 없을 때 검색 값 ''로 초기화
+      setSearchValue(''); // 입력값이 없을 때 검색 값 ''로 초기화
       return;
     }
 
@@ -112,7 +112,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     const handleClick = (value: any) => {
       setSearch(value); // 클릭 한 값을 현재 인풋에 업데이트 하기
       setResult([]);
-      setSearchValue(value) // 현재 입력중인 값 업데이트
+      setSearchValue(value); // 현재 입력중인 값 업데이트
     };
 
     const resultList = filteredList.map((item, index) => {
@@ -157,6 +157,13 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     setResult(inputValue ? resultList : []);
   };
 
+  const handleBlur = () => {
+    // 포커스가 사라질 때 검색 결과를 초기화하고 숨김
+    // console.log('전~~~', result);
+    setResult([]);
+    // console.log('후~~~~~~~',result);
+  };
+
   // console.log(result, 'result ㅎㅇ~~~~~~~~~~~~~~~~~~~~');
 
   // FIXME: 기존코드 (인풋에 값 입력 시 css 틀어짐 문제 발생)
@@ -185,16 +192,15 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
 };
   */
 
+  // useEffect(() => {
+  //   // result가 변경될 때마다 실행되는 부분
+  //   console.log('검색 결과가 렌더링되었습니다:', result);
+  // }, [result]); // result가 변경될 때만 useEffect 실행
 
-// useEffect(() => {
-//   // result가 변경될 때마다 실행되는 부분
-//   console.log('검색 결과가 렌더링되었습니다:', result);
-// }, [result]); // result가 변경될 때만 useEffect 실행
-
-// useEffect(() => {
-//   // searchValue가 변경될 때마다 실행되는 부분
-//   // console.log('searchValue:', searchValue);
-// }, [searchValue]);
+  // useEffect(() => {
+  //   // searchValue가 변경될 때마다 실행되는 부분
+  //   // console.log('searchValue:', searchValue);
+  // }, [searchValue]);
 
   return (
     <div className='relative flex mr-5 items-center bg-white border rounded-lg'>
@@ -204,6 +210,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
           type='text'
           value={search}
           onChange={_events}
+          onBlur={handleBlur}
           className='text-black w-full rounded-lg focus:ring-2 focus:ring-blue-500'
         />
         {search && result.length > 0 && (
@@ -239,14 +246,16 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
         className='text-2xl rounded-lg cursor-pointer text-myColor1 font-bold bg-white'
         onClick={() => {
           // console.log('검색클릭', searchValue);
-          if (search && result) { // 입력 중 일때
+          if (search && result) {
+            // 입력 중 일때
             // console.log('입력 중 =', searchValue);
             // console.log('입력 중 =', search);
             console.log(result, 'result~~~~~~~~~~~');
             router.push('/search/' + searchValue);
-          } else { // 입력 중 아닐 때
+          } else {
+            // 입력 중 아닐 때
             // console.log('입력 중 아닐때 = ',search);
-            alert('검색어가 입력되지 않았습니다.')
+            alert('검색어가 입력되지 않았습니다.');
           }
         }}
       />
