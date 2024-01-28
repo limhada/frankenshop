@@ -44,11 +44,10 @@ interface CategoryContentsProps {
 }
 
 interface LikeProps {
- id: string;
-    contents: string;
-    email: string
-     isLiked: boolean
-    
+  id: string;
+  contents: string;
+  email: string;
+  isLiked: boolean;
 }
 
 export default function CategoryContents({ result }: CategoryContentsProps) {
@@ -60,35 +59,30 @@ export default function CategoryContents({ result }: CategoryContentsProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
     dispatch(asyncLike());
-
-    
-    
   }, []);
 
-
   const likeData = useSelector(
-    (state: RootState) => state.contents.likeData as LikeProps[]);
+    (state: RootState) => state.contents.likeData as LikeProps[]
+  );
 
-    const updateResult = useCallback(() => {
-      const updatedResult = result.map((item) => {
-        const likeStatus = likeData.find(
-          (like) => like.contents.toString() === item._id.toString()
-        );
-        return {
-          ...item,
-          _id: item._id.toString(),
-          isLiked: likeStatus?.isLiked ?? false,
-        };
-      });
-      setLocalResult(updatedResult);
-    }, [result, likeData]);
-  
-    useEffect(() => {
-      updateResult();
-    }, [updateResult]);
+  const updateResult = useCallback(() => {
+    const updatedResult = result.map((item) => {
+      const likeStatus = likeData.find(
+        (like) => like.contents.toString() === item._id.toString()
+      );
+      return {
+        ...item,
+        _id: item._id.toString(),
+        isLiked: likeStatus?.isLiked ?? false,
+      };
+    });
+    setLocalResult(updatedResult);
+  }, [result, likeData]);
 
+  useEffect(() => {
+    updateResult();
+  }, [updateResult]);
 
   // useEffect(() => {
   //   // dispatch(asyncContents());
@@ -96,7 +90,6 @@ export default function CategoryContents({ result }: CategoryContentsProps) {
   // //   // console.log('모든 컨텐츠 데이터 가져옴');
   // //   // });
 
-  
   // setLocalResult(result);
   // }, [result]);
 
@@ -147,15 +140,15 @@ export default function CategoryContents({ result }: CategoryContentsProps) {
                         const updatedResult = [...localResult];
                         updatedResult[i].isLiked = !updatedResult[i].isLiked;
                         setLocalResult(updatedResult);
-
-
                       }}
                     />
                     <CartIcon _id={el?._id.toString()}></CartIcon>
                   </div>
                 </div>
-                <div className='font-bold text-xl mb-2'>{el.title}</div>
-                <p className='text-gray-700 text-base'>{el.description}</p>
+                <div className='font-bold text-xl mb-2 truncate'>
+                  {el.title}
+                </div>
+                {/* <p className='text-gray-700 text-base'>{el.description}</p> */}
                 <p className='text-gray-700 text-base'>
                   {el.price.toLocaleString()}원
                 </p>

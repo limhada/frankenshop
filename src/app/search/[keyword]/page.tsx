@@ -4,9 +4,6 @@ import { ObjectId } from 'mongodb';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-
-
-
 export interface ContentItem {
   _id: ObjectId;
   title: string;
@@ -25,9 +22,8 @@ export interface ContentItem {
   shipping_fee: number;
   status: string;
   sales: number;
-}[];
-
-
+}
+[];
 
 export default async function Search(props: any) {
   const db = (await connectDB).db('frankenshop');
@@ -35,13 +31,21 @@ export default async function Search(props: any) {
   // 브라우저에서 URL에 한글 또는 특수 문자를 입력하면 자동으로 인코딩됨 따라서 디코딩 해서 사용해야 함
   const searchName = decodeURIComponent(props.params.keyword);
   // let result = await db.collection('contents').find({title: searchName}).toArray();
-  
+
+  // console.log(searchName, 'searchName~~~~~~~~~~~');
+
+
   const regex = new RegExp(searchName, 'i');
-let result = await db.collection<ContentItem>('contents').find({ title: regex }).toArray();
+  let result = await db
+    .collection<ContentItem>('contents')
+    .find({ title: regex })
+    .toArray();
 
 
+    // console.log(result, 'ㅎㅇ222~~~~~~~~~~~~~~');
 
-let session = await getServerSession(authOptions);
+
+  let session = await getServerSession(authOptions);
   // console.log(session, 'session ㅎㅇ~~~~~~~~~~~~~~~11111');
   const likesResult = await db
     .collection('likes')
@@ -60,15 +64,11 @@ let session = await getServerSession(authOptions);
     };
   });
 
-
-
   // console.log(searchName, 'ㅎㅇ111~~~~~~~~~~~~~~');
-  // console.log(result, 'ㅎㅇ222~~~~~~~~~~~~~~');
 
-  return <div>검색페이지
-
-
-<CategoryContents result={updateResult}></CategoryContents>
-
-  </div>;
+  return (
+    <div>
+      <CategoryContents result={updateResult}></CategoryContents>
+    </div>
+  );
 }

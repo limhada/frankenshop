@@ -4,7 +4,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/navigation';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const CHO_HANGUL = [
   'ㄱ',
@@ -64,12 +64,13 @@ interface SearchInputProps {
   nameList: string[];
 }
 
+// FIXME: 치명 - 있는 상품 검색 후 바로 드래그해서 없는 상품 검색 시 이전 검색 값을 검색함 ex) ㅇㅍ 검색 후 ㅂㅂ 검색 시 ㅇㅍ에 해당하는 용품을 계속 검색함 ㅂㅂ는 검색되지 않음
+
 const SearchInput = ({ nameList }: SearchInputProps) => {
   const router = useRouter();
-  const [search, setSearch] = useState('');
-  const [result, setResult] = useState<React.ReactNode[]>([]);
-
-  const [searchValue, setSearchValue] = useState('');
+  const [search, setSearch] = useState(''); // 현재 검색어
+  const [result, setResult] = useState<React.ReactNode[]>([]); // 검색 결과
+  const [searchValue, setSearchValue] = useState(''); //  현재 입력 중인 검색어
 
   const _events = (event: any) => {
     const inputValue = event.target.value; // 여기서 trim()사용 시 공백 입력 못함
@@ -119,12 +120,13 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
       const matches = item.match(regex);
       if (matches) {
         console.log('matches~~~~~~~~~~~~~', matches);
-        console.log('~~~~~~~~~~result', result);
+        // console.log('~~~~~~~~~~result', result);
 
         // 검색어가 존재하고, 현재 인덱스가 0일 때만 setSearchValue 실행
         // ex) 초성만 입력 후 검색 시 예를들어 ㅎㅇ입력 시 첫 번째로 일치하는 활용을 검색하기 위함
         if (index === 0) {
           setSearchValue(matches[0]);
+          console.log(matches[0], 'matches[0]');
         }
 
         const parts = item.split(regex);
@@ -246,16 +248,18 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
         className='text-2xl rounded-lg cursor-pointer text-myColor1 font-bold bg-white'
         onClick={() => {
           // console.log('검색클릭', searchValue);
-          if (search && result) {
+          if (search && result && searchValue !== '') {
             // 입력 중 일때
             // console.log('입력 중 =', searchValue);
             // console.log('입력 중 =', search);
-            console.log(result, 'result~~~~~~~~~~~');
+            console.log(searchValue, '~~~~~~searchValue');
             router.push('/search/' + searchValue);
+          } else if (search && searchValue === '') {
+            alert('일치하는 상품이 없습니다.');
           } else {
             // 입력 중 아닐 때
             // console.log('입력 중 아닐때 = ',search);
-            alert('검색어가 입력되지 않았습니다.');
+            // alert('검색어가 입력되지 않았습니다.');
           }
         }}
       />
