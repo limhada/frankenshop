@@ -21,7 +21,7 @@ export default async function handler(
           email: session.user.email,
         })
         .toArray();
-        console.log('서버 result ㅎㅇ ~~~~~~~~~~', result);
+        // console.log('서버 result ㅎㅇ ~~~~~~~~~~', result);
 
       return res.status(200).json(result);
     } catch (error) {
