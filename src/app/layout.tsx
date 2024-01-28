@@ -1,4 +1,4 @@
-// 'use client'
+
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -45,7 +45,10 @@ export default async function RootLayout({
             <div className='flex items-center'>
               {/* <div className='flex justify-between'> */}
               <Category />
-              <Link href='/' className='text-4xl mr-5 no-underline flex items-center'>
+              <Link
+                href='/'
+                className='text-4xl mr-5 no-underline flex items-center'
+              >
                 frankenshop
               </Link>
               <div className='flex grow items-center justify-center'>
@@ -55,15 +58,15 @@ export default async function RootLayout({
               </div>
               <Search></Search>
               {/* TODO: 관리자 모드에서만 추가 가능하게 수정하기 */}
-                {/* <Link href='/write' className='mr-10 no-underline'>
+              {/* <Link href='/write' className='mr-10 no-underline'>
                   상품추가
                 </Link> */}
-                <Link href='/carts' className='mr-5'>
-                  장바구니
-                </Link>
-                <Link href='/mypage' className='mr-5'>
-                  마이페이지
-                </Link>
+              <Link href='/carts' className='mr-5'>
+                장바구니
+              </Link>
+              <Link href='/mypage' className='mr-5'>
+                마이페이지
+              </Link>
               {/* 로그인 & 로그아웃 버튼 */}
               {session ? (
                 <div className='mr-5'>
@@ -83,7 +86,9 @@ export default async function RootLayout({
             </div>
           </div>
           {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
-          <div className='mt-[7rem] pl-[2.75rem] pr-[2.75rem] mx-auto w-[80%]'>{children}</div>
+          <div className='mt-[7rem] pl-[2.75rem] pr-[2.75rem] mx-auto w-[80%]'>
+            {children}
+          </div>
           <ScrollToTop />
           <div className='bg-gray-300 p-4 h-[200px] mt-9'>
             <div>
@@ -102,6 +107,9 @@ export default async function RootLayout({
           src='//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
           async
         ></script>
+
+        {/* <!-- 포트원 결제 --> */}
+        <script src='https://cdn.iamport.kr/v1/iamport.js' async></script>
       </body>
     </html>
   );
