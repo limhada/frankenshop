@@ -1,5 +1,7 @@
 'use client';
 
+import axios from 'axios';
+
 // window.IMP 사용하기 위함
 declare const window: typeof globalThis & {
   IMP: any;
@@ -15,24 +17,36 @@ const Payment = () => {
       {
         pg: 'kakaopay.TC0ONETIME', // PG사 코드표에서 선택
         // pg: '{PG사코드}.{PG상점ID}',
-        pay_method: 'card',
-        merchant_uid: new Date().getTime(),
+        pay_method: 'card', // 결제수단
+        merchant_uid:
+          new Date().getTime() + Math.floor(Math.random() * 1000000), // 가맹점에서 생성하는 고유 주문번호
         name: '테스트 상품',
-        amount: 10,
+        amount: 10, // 가격
+        // buyer_ 어쩌고 구매자 정보
         buyer_email: 'test@naver.com',
-        buyer_name: '유저',
+        buyer_name: '구매자 이름',
         buyer_tel: '010-1234-5678',
         buyer_addr: '서울특별시',
         buyer_postcode: '123-456',
-      },
-      async (rsp: any) => {
+      }, // 결제 완료 후 추가 코드를 실행하는 두번째 함수
+      async (res: any) => {
         try {
-          // console.log('ㅎㅇ~~~~~~~', rsp);
-          if (rsp.success) {
-            alert('결제 완료!');
-          } else {
-            alert('결제 실패!');
-          }
+          const { imp_uid, success, error_msg } = res;
+
+          console.log(
+            'imp_uid, res 확인~~~~~~~ ',
+            imp_uid,
+            success,
+            error_msg,
+            res
+          );
+
+          // axios.get(`/api/test/t1?imp_uid=${imp_uid}`).then((r) => {
+          //   console.log('결과 r= ', r);
+          // });
+
+          // verifyPayment(imp_uid)
+          alert('결제 완료!');
         } catch (error) {
           console.error('Error while verifying payment:', error);
           alert('결제 실패');
@@ -45,6 +59,15 @@ const Payment = () => {
     <div>
       <button onClick={requestPay} className='bg-myColor1 text-white'>
         결제하기
+      </button>
+      <button
+        onClick={() => {
+          axios.get(`/api/test/t1?imp_uid=test22`).then((r) => {
+            console.log('결과 r= ', r);
+          });
+        }}
+      >
+        테스트
       </button>
     </div>
   );

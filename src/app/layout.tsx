@@ -1,4 +1,3 @@
-
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -108,7 +107,7 @@ export default async function RootLayout({
           async
         ></script>
 
-        {/* <!-- 포트원 결제 --> */}
+        {/* <!-- 포트원 결제 SDK --> */}
         <script src='https://cdn.iamport.kr/v1/iamport.js' async></script>
       </body>
     </html>
