@@ -259,7 +259,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
           } else {
             // 입력 중 아닐 때
             // console.log('입력 중 아닐때 = ',search);
-            // alert('검색어가 입력되지 않았습니다.');
+            alert('검색어가 입력되지 않았습니다.');
           }
         }}
       />
