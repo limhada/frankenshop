@@ -1,4 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 import axios from 'axios';
 
 export default async function handler(
@@ -7,29 +9,66 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      
       // let session = await getServerSession(req, res, authOptions);
 
-      // 유저가 입력한 댓글과 유저의 정보, 해당 게시물 정보를 db에 저장
-      // const db = (await connectDB).db('frankenshop');
-      // await db.collection('comment').insertOne(saveData);
+      // console.log('session= ', session);
 
-      // 부모 오브젝트id를 검색해서 게시물을 찾고 게시물의 최신 댓글 리스트를 다시 res에 넣어서 보내준다 -> 새로고침 없이 댓글 작성 시 화면 렌더링 하기 위함
-      // let result = await db
-      //   .collection('comment')
-      //   .find({ parent: new ObjectId(req.body._id) })
-      //   .toArray();
+      // const baseURL = 'https://api.iamport.kr';
 
-      console.log(req.body, 'ㅎㅇ~~~~~~');
+      // const {
+      //   data: {
+      //     response: { access_token },
+      //   },
+      // } = await axios({
+      //   url: `${baseURL}/users/getToken`, // 가이드 - https://developers.portone.io/api/rest-v1/auth?v=v1
+      //   method: 'post',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   data: {
+      //     imp_key: process.env.PORTONE_KEY,
+      //     imp_secret: process.env.PORTONE_SECRET,
+      //   },
+      // });
 
-      
+      // 결제 취소 로직
+      // const result = await axios({
+      //   url: `https://api.iamport.kr/payments/cancel`,
+      //   method: 'post',
+      //   headers: {
+      //     Authorization: `Bearer ${access_token}`,
+      //     'Content-Type': 'application/json',
+      //   },
+      //   data: {
+      //     "imp_uid": "imp_104890854256",
+      //     "merchant_uid": "1706614504405",
+      //   }
+      // });
 
+      // 단
+
+      // console.log(result, '취소됐냐???????????????????????????????');
+
+      const imp_uid = 'imp_104890854256';
+
+      // 결제내역 단건조회 API
+      // const result = await axios({
+      //   url: `https://api.iamport.kr/payments/${imp_uid}`,
+      //   method: 'post',
+      //   headers: {
+      //     Authorization: `Bearer ${access_token}`,
+      //     'Content-Type': 'application/json',
+      //   },
+      //   data: {
+      //     imp_uid: `${imp_uid}`,
+      //     // "merchant_uid": "1706614504405",
+      //   },
+      // });
+
+      // console.log(result, '조회됐냐???????????????????????????????');
+
+      console.log('req.body= ', req.body);
       return res.status(200).json('성공');
     } catch (error: any) {
-      // console.log(error, '서버에러');
-      console.log('에러 메시지:', error?.message);
-      console.log('에러 응답:', error?.response.data.message);
+      console.log(error, '서버에러');
     }
   }
 }
-// Endpoint URL: /api/test/t2

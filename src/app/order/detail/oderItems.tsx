@@ -14,40 +14,9 @@ export default function OderItems() {
   const totalPrice = useSelector((state: RootState) => state.order.totalPrice);
 
   const payItem = paymentApi.useGetOrderQuery({ _id, itemId, totalPrice });
-  // const [orderList, setOderList] = useState(payItem.data);
-  // const [orderList, setOderList] = useState({});
-  // const [cartList, setCartList] = useState(payItem.data || []);
-
-  console.log('payItem=~~~~~~~~~', payItem);
-
-  // useEffect(() => {
-  //   if (payItem.data) {
-  //     setOderList(payItem.data);
-  //   }
-  // }, [payItem.data]);
-
-  // console.log('oderList~~~~~~~~~~~~~~~', orderList);
-  // if (orderList) {
-  //   console.log('oderList~~~~~~~~~~~~~~~', orderList?.title);
-  // }
-
-  // const [cartList, setCartList] = useState<CartsProps['cartsData']>(
-
-  // useEffect(() => {
-  //   // payItem.data가 로딩되면 cartList를 업데이트
-  //   if (payItem.data) {
-  //     setOderList(payItem.data);
-  //   }
-  // }, [payItem.data]);
-
-  // console.log(payItem, 'payItem~~~~~~~~~~~~~~~~~~~~~`');
-  // console.log(payItem.isSuccess, '~~~~~~~~~~~~~~~~~~~~~`');
 
   return (
     <div>
-      {/* {cartList.map((el: any, i: number) => ( */}
-      {/* <div key={`${payItem.data._id}`} className='flex' id={`carList-${payItem.data._id}`}> */}
-
       {payItem.isSuccess ? (
         <div className='w-[90%] shadow-md bg-white rounded-md p-5 mb-[5rem] opacity-100 transition-all duration-1000'>
           <table className='w-full border-collapse border border-gray-300'>
