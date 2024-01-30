@@ -18,14 +18,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(
-    'req.query._id= ',
-    req.query._id,
-    'req.query.itemId= ',
-    req.query.itemId,
-    'req.query.totalPrice= ',
-    req.query.totalPrice // String이라 Number로 변경해야 함
-  );
+  // console.log(
+  //   'req.query._id= ',
+  //   req.query._id,
+  //   'req.query.itemId= ',
+  //   req.query.itemId,
+  //   'req.query.totalPrice= ',
+  //   req.query.totalPrice // String이라 Number로 변경해야 함
+  // );
   // console.log('ㅎㅇ~~~~~~~~~~~타입~~', typeof req.query.itemId);
 
   if (req.method === 'GET') {

@@ -5,6 +5,7 @@ import ShippingAddress from '../../components/ShippingAddress';
 import OderItems from './oderItems';
 import Link from 'next/link';
 import Price from './price';
+import Payment from '../../components/Payment';
 
 export default async function OderDetail() {
   let session = await getServerSession(authOptions);
@@ -66,9 +67,15 @@ export default async function OderDetail() {
       <Price></Price>
 
       <div className='mt-5'>
+
+        {/* TODO: 삭제할 거 */}
         <button className='w-[6rem] text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'>
           결제하기
         </button>
+
+        <Payment user={session.user}></Payment>
+
+
 
         {/* TODO: 진짜 취소하겠습니까? alert창 띄우기 */}
         <Link href='/'>

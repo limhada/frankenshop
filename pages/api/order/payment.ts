@@ -11,13 +11,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    console.log('req.body ㅎㅇ~~~~~~~~~', req.body);
-    console.log(
-      'req.body.itemId= ',
-      req.body.itemId,
-      'req.body.quantity= ',
-      req.body.quantity
-    );
+    // console.log('req.body ㅎㅇ~~~~~~~~~', req.body);
+    // console.log(
+    //   'req.body.itemId= ',
+    //   req.body.itemId,
+    //   'req.body.quantity= ',
+    //   req.body.quantity
+    // );
 
     let session = await getServerSession(req, res, authOptions);
     // console.log(session.user.email, "확인~~~~~~~~~~~~~~")
@@ -26,6 +26,8 @@ export default async function handler(
       let result = await db
         .collection('contents')
         .findOne({ _id: new ObjectId(req.body.itemId) });
+
+      // console.log(result, 'ㅎㅇ result~~~~~~~~~~~~~~');
 
       // console.log('result?.price', result?.price * req.body.quantity);
       // console.log(Number(result?.price.replace(/,/g, '')), Number(req.body.quantity), '~~~~~~~~~~~~~~~~~~~~');
@@ -38,7 +40,9 @@ export default async function handler(
 
       const insertData = {
         itemId: new ObjectId(req.body.itemId),
-        email: session.user.email, // 구매자
+        title: result?.title,
+        email: session.user.email, // 구매자 이메일
+        name: session.user.name, // 구매자 이름
         totalQuantity: req.body.quantity,
         // totalPrice: Number(result?.price) * Number(req.body.quantity),
         totalPrice: result?.price * req.body.quantity,
