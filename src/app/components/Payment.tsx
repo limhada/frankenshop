@@ -15,7 +15,7 @@ type UserData = {
 };
 
 const Payment = ({ user }: UserData) => {
-  const merchantId = process.env.MERCHANT_ID;
+  const merchantId = process.env.NEXT_PUBLIC_MERCHANT_ID;
 
   const router = useRouter();
 
