@@ -28,7 +28,7 @@ type UserData = {
 };
 
 const Payment = ({ user, ordersCartData }: UserData) => {
-  const merchantId = process.env.MERCHANT_ID;
+  const merchantId = process.env.NEXT_PUBLIC_MERCHANT_ID;
   // console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData);
   // console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData.createAt);
 
