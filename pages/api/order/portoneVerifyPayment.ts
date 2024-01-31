@@ -14,7 +14,7 @@ export default async function handler(
       // let session = await getServerSession(req, res, authOptions);
       // console.log('session= !!!!!!!!!!!!!!!!!!!!!!', session, session.user, session.user.name, session.user.email);
 
-      console.log('body ㅎㅇ~~~~~~~~~~~~~~~~~~~', req.body);
+      // console.log('body ㅎㅇ~~~~~~~~~~~~~~~~~~~', req.body);
 
       const baseURL = 'https://api.iamport.kr';
 
@@ -56,12 +56,12 @@ export default async function handler(
         headers: { Authorization: access_token },
       });
 
-      console.log('response ㅎㅇ~~~~~~~~', paymentDetail.data.response);
-      console.log('response ㅎㅇ~~~~~~~~', paymentDetail.data.code);
+      // console.log('response ㅎㅇ~~~~~~~~', paymentDetail.data.response);
+      // console.log('response ㅎㅇ~~~~~~~~', paymentDetail.data.code);
 
       // TODO: 결제내역 단건 조회 성공 시 로직 분기처리하기
       if (paymentDetail.data.code === 0) {
-        console.log('성공');
+        // console.log('성공');
       }
 
       const {
@@ -85,17 +85,17 @@ export default async function handler(
         orderSubpath, // order" 경로에서 추출한 부분(subpath) detail or carts
       };
 
-      console.log(
-        'protOneData= 22222222222222222222222222222222222222',
-        protOneData
-      );
+      // console.log(
+      //   'protOneData= 22222222222222222222222222222222222222',
+      //   protOneData
+      // );
 
       // protOneData.orderSubpathdp에('detail' | 'carts')따라 매핑하기
 
-      console.log(
-        protOneData.custom_dataObject.orderSubpath,
-        '######################################'
-      );
+      // console.log(
+      //   protOneData.custom_dataObject.orderSubpath,
+      //   '######################################'
+      // );
       let path: 'detail' | 'carts' = protOneData.custom_dataObject.orderSubpath;
       const variableMap = {
         detail: 'orders',
@@ -109,12 +109,12 @@ export default async function handler(
       };
       let collectionsName = variableMap2[orderPath];
 
-      console.log(
-        'orderPath= ',
-        orderPath,
-        'collectionsName= ',
-        collectionsName
-      );
+      // console.log(
+      //   'orderPath= ',
+      //   orderPath,
+      //   'collectionsName= ',
+      //   collectionsName
+      // );
 
       let decrypted = '';
       // 장바구니 결제 처리 로직
@@ -128,12 +128,12 @@ export default async function handler(
         decrypted = bytes.toString(CryptoJS.enc.Utf8);
 
         // 복호화 성공 -> ordersCart collections에서 _id값으로 사용하기
-        console.log('decrypted= 복호화 값~~~~~~~~~~~~~~~', decrypted);
+        // console.log('decrypted= 복호화 값~~~~~~~~~~~~~~~', decrypted);
       }
 
       const _id = decrypted !== '' ? decrypted : custom_dataObject?._id;
 
-      console.log('_id= ~~~~~~~~~~~~~~~~~~~~', _id);
+      // console.log('_id= ~~~~~~~~~~~~~~~~~~~~', _id);
       /**
        * protOneData = {
           name: '상품7',
@@ -157,10 +157,10 @@ export default async function handler(
         .collection(orderPath)
         .findOne({ _id: new ObjectId(_id) });
 
-      console.log(
-        ordersData,
-        'ordersData~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-      );
+      // console.log(
+      //   ordersData,
+      //   'ordersData~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+      // );
 
       /**
        * 몽고DB의 결제 정보
@@ -294,7 +294,7 @@ export default async function handler(
           _id: new ObjectId(_id),
           status: '결제대기',
         });
-        console.log(ordersVerification, 'Verification11ㅎㅇㅎㅇㅎㅇㅎㅇ');
+        // console.log(ordersVerification, 'Verification11ㅎㅇㅎㅇㅎㅇㅎㅇ');
         // 찾은 문서의 status값을 결제대기 -> 결제완료로 변경
         if (ordersVerification) {
           let update = await db

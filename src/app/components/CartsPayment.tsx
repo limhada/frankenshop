@@ -28,6 +28,7 @@ type UserData = {
 };
 
 const Payment = ({ user, ordersCartData }: UserData) => {
+  const merchantId = process.env.MERCHANT_ID;
   // console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData);
   // console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData.createAt);
 
@@ -51,7 +52,9 @@ const Payment = ({ user, ordersCartData }: UserData) => {
   const requestPay = () => {
     const { IMP } = window;
     // IMP.init('가맹점식별코드');
-    IMP.init(process.env.NEXT_PUBLIC_MERCHANT_ID);
+    console.log('init 전~~');
+    IMP.init(merchantId);
+    console.log('init 후~~');
     IMP.request_pay(
       {
         // pg: '{PG사코드}.{PG상점ID}',
