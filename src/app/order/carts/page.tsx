@@ -72,20 +72,24 @@ export default async function OderCart(props: OderCartProps) {
   const decrypted = bytes.toString(CryptoJS.enc.Utf8);
   // console.log('인코딩, 문자열로 변환, JSON 변환 된 값=', decrypted);
 
-  
   const db = (await connectDB).db('frankenshop');
   let result = await db
     .collection('ordersCart')
     .findOne({ _id: new ObjectId(decrypted) });
 
-  console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result);
+  // console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result);
   // console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result?.name);
   // console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result?.email);
   // console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result?.orderPrice);
-  
-  console.log('result.orders.title ㅎㅇ~~~~~~~= ', result?.orders?.title)
-  const ordersCartData = {name: result?.name, email: result?.email, orderPrice: result?.orderPrice, createAt: result?.createAt}
-  console.log('ordersCartData= ~~~~~~', ordersCartData);
+
+  // console.log('result.orders.title ㅎㅇ~~~~~~~= ', result?.orders?.title)
+  const ordersCartData = {
+    name: result?.name,
+    email: result?.email,
+    orderPrice: result?.orderPrice,
+    createAt: result?.createAt,
+  };
+  // console.log('ordersCartData= ~~~~~~', ordersCartData);
 
   return (
     <div>
@@ -139,7 +143,10 @@ export default async function OderCart(props: OderCartProps) {
 
         {/* 장바구니 결제 */}
         {/* 결제 기능 들어간 버튼 */}
-        <CartsPayment user={session.user} ordersCartData={ordersCartData} ></CartsPayment>
+        <CartsPayment
+          user={session.user}
+          ordersCartData={ordersCartData}
+        ></CartsPayment>
 
         {/* TODO: 진짜 취소하겠습니까? alert창 띄우기 */}
         <Link href='/'>

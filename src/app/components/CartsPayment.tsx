@@ -28,8 +28,8 @@ type UserData = {
 };
 
 const Payment = ({ user, ordersCartData }: UserData) => {
-  console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData);
-  console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData.createAt);
+  // console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData);
+  // console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData.createAt);
 
   const router = useRouter();
 
@@ -38,7 +38,7 @@ const Payment = ({ user, ordersCartData }: UserData) => {
   // url의 쿼리스트링으로 _id값 가져오기
   const searchParams = useSearchParams();
   const _id = searchParams?.get('_id');
-  console.log('searchParams= ', _id);
+  // console.log('searchParams= ', _id);
 
   // 현재 페이지의 경로를 가져오기
   let pathname = usePathname();
@@ -46,7 +46,7 @@ const Payment = ({ user, ordersCartData }: UserData) => {
 
   const match = pathname?.match(/\/order\/(.*)/);
   const orderSubpath = match ? match[1] : null;
-  console.log('orderSubpath= ', orderSubpath); // carts or detail
+  // console.log('orderSubpath= ', orderSubpath); // carts or detail
 
   const requestPay = () => {
     const { IMP } = window;

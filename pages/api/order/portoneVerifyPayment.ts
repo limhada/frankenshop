@@ -287,7 +287,7 @@ export default async function handler(
           same &&
           validateCartPayment(protOneData, ordersData, _id, custom_dataObject))
       ) {
-        console.log('검증성공 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        // console.log('검증성공 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         // 검증 성공 시 몽고db의 orders 컬렉션의 해당 document의 status를 결제대기 -> 결제완료로 변경 -> 그리고 결제완료된 문서는 ordersCompleted로 이동
         // orders에서 해당 문서 찾기
         const ordersVerification = await db.collection(orderPath).findOne({
@@ -310,7 +310,7 @@ export default async function handler(
             _id: new ObjectId(_id),
             status: '결제완료',
           });
-          console.log('findVerification= ', findVerification);
+          // console.log('findVerification= ', findVerification);
           // 기존의 값과
           const updateVerification = { ...findVerification };
           if (updateVerification) {
@@ -327,7 +327,7 @@ export default async function handler(
             await db.collection(orderPath).deleteOne(findVerification);
           }
         }
-        console.log('결제검증 모두 성공!@#!@#!@#');
+        // console.log('결제검증 모두 성공!@#!@#!@#');
         return res.status(200).json('성공');
       }
 
@@ -424,13 +424,13 @@ export default async function handler(
             merchant_uid: `${merchant_uid}`,
           },
         });
-        console.log(cancelPayment, '취소됐나???????????????????????????????');
+        // console.log(cancelPayment, '취소됐나???????????????????????????????');
 
-        console.log('else~~~~~~~~~~~~~~~~~~~~~~~~~');
+        // console.log('else~~~~~~~~~~~~~~~~~~~~~~~~~');
         return res.status(400).json('실패');
       }
 
-      // console.log('마지막 라인~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+      // console.log('마지막 라인 확인용~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       // return res.status(200).json('결제 검증 성공');
     } catch (error: any) {
       // console.log(error, '서버에러');
