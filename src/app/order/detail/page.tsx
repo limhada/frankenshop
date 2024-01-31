@@ -73,6 +73,7 @@ export default async function OderDetail() {
           결제하기
         </button>
 
+        {/* 상세페이지 결제 */}
         <Payment user={session.user}></Payment>
 
 

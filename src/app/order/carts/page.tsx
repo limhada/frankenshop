@@ -24,6 +24,7 @@ import { ObjectId } from 'mongodb';
 
 import CryptoJS from 'crypto-js';
 import Link from 'next/link';
+import CartsPayment from '../../components/CartsPayment';
 
 interface OderCartProps {
   searchParams: { _id: string };
@@ -71,15 +72,20 @@ export default async function OderCart(props: OderCartProps) {
   const decrypted = bytes.toString(CryptoJS.enc.Utf8);
   // console.log('인코딩, 문자열로 변환, JSON 변환 된 값=', decrypted);
 
-  // U2FsdGVkX19Bv6298J/78nPd8ET6MMVRvumASdrBPnRGnqenTkhT8XlcIS9ivXP7
-  // U2FsdGVkX19Bv6298J/78nPd8ET6MMVRvumASdrBPnRGnqenTkhT8XlcIS9ivXP7
-  // U2FsdGVkX19Bv6298J%2F78nPd8ET6MMVRvumASdrBPnRGnqenTkhT8XlcIS9ivXP7
+  
   const db = (await connectDB).db('frankenshop');
   let result = await db
     .collection('ordersCart')
     .findOne({ _id: new ObjectId(decrypted) });
 
-  console.log(result, 'ㅎㅇ~~~~~~~~~~~~~~~~result');
+  console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result);
+  // console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result?.name);
+  // console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result?.email);
+  // console.log('result ㅎㅇ~~~~~~~~~~~~~~~~= ', result?.orderPrice);
+  
+  console.log('result.orders.title ㅎㅇ~~~~~~~= ', result?.orders?.title)
+  const ordersCartData = {name: result?.name, email: result?.email, orderPrice: result?.orderPrice, createAt: result?.createAt}
+  console.log('ordersCartData= ~~~~~~', ordersCartData);
 
   return (
     <div>
@@ -130,6 +136,10 @@ export default async function OderCart(props: OderCartProps) {
         <button className='w-[6rem] text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'>
           결제하기
         </button>
+
+        {/* 장바구니 결제 */}
+        {/* 결제 기능 들어간 버튼 */}
+        <CartsPayment user={session.user} ordersCartData={ordersCartData} ></CartsPayment>
 
         {/* TODO: 진짜 취소하겠습니까? alert창 띄우기 */}
         <Link href='/'>

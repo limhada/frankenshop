@@ -1,72 +1,27 @@
-'use client';
+// 'use client'
 
-import Search2 from './search2';
-import SearchBar from './searchBar';
+// // 테스트용 페이지
+// import axios from 'axios';
 
-export default function Test() {
-  const data = [
-    '사과',
-    '수박',
-    '멜론',
-    '파인애플',
-    '산딸기',
-    '딸기',
-    '망고',
-    '가위',
-    '고구마',
-    '나비',
-    '다람쥐',
-    '더위',
-    '도넛',
-    '라면',
-    '러브레터',
-    '마우스',
-    '바나나',
-    '버섯',
-    '보드게임',
-    '사자',
-    '새우',
-    '수영장',
-    '아이스크림',
-    '안경',
-    '양파',
-    '자전거',
-    '장미',
-    '저격수',
-    '차',
-    '초코렛',
-    '카메라',
-    '타조',
-    '토마토',
-    '파인애플',
-    '하트',
-    '헬리콥터',
-    '호떡',
-    '기린',
-    '나무',
-    '다이아몬드',
-    '레몬',
-    '마법봉',
-    '배구',
-    '사과',
-    '선글라스',
-    '양말',
-    '재규어',
-    '참치',
-    '컴퓨터',
-    '키위',
-    '텔레비전',
-    '햄버거',
-    '헬스',
-    '호랑이',
-    '화분',
-  ];
+// export default function Test() {
 
-  return (
-    <div>
-      테스트
-      <SearchBar data={data}></SearchBar>
-      <Search2></Search2>
-    </div>
-  );
-}
+
+//   return (
+//     <div>
+//       테스트2
+//       <br />
+//       <button
+//       className='bg-red-400'
+//         onClick={() => {
+//           axios.post(`/api/test/t2`).then((r) => {
+//           // axios.post(`/api/order/portoneVerifyPayment`).then((r) => {
+//             console.log(r);
+//             // console.log(data) // -> 데이터가 비어있는 경우 state변경 함수는 약간 늦게 실행되기 때문 따라서 오래걸리는 setData(r.data) 보다 console.log(data)를 먼저 실행하기 때문!
+//           });
+//         }}
+//       >
+//         테스트 버튼
+//       </button>
+//     </div>
+//   );
+// }
