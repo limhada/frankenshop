@@ -3,7 +3,14 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { paymentApi } from '../redux/apis/paymentApi';
-import { usePathname, useRouter } from 'next/navigation';
+// import { usePathname } from 'next/navigation';
+
+import {
+  usePathname,
+  useSearchParams,
+  useParams,
+  useRouter,
+} from 'next/navigation';
 
 // window.IMP 사용하기 위함
 declare const window: typeof globalThis & {
@@ -12,10 +19,26 @@ declare const window: typeof globalThis & {
 
 type UserData = {
   user: { name: string; email: string; role: string };
+  ordersCartData: {
+    name: string;
+    email: string;
+    orderPrice: number;
+    createAt: string;
+  };
 };
 
-const Payment = ({ user }: UserData) => {
+const Payment = ({ user, ordersCartData }: UserData) => {
+  // console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData);
+  // console.log('ordersCartData= ~~~~~~~~~~~~~~', ordersCartData.createAt);
+
   const router = useRouter();
+
+  const createAt = ordersCartData.createAt;
+
+  // url의 쿼리스트링으로 _id값 가져오기
+  const searchParams = useSearchParams();
+  const _id = searchParams?.get('_id');
+  // console.log('searchParams= ', _id);
 
   // 현재 페이지의 경로를 가져오기
   let pathname = usePathname();
@@ -24,28 +47,6 @@ const Payment = ({ user }: UserData) => {
   const match = pathname?.match(/\/order\/(.*)/);
   const orderSubpath = match ? match[1] : null;
   // console.log('orderSubpath= ', orderSubpath); // carts or detail
-
-  // console.log(user.email, 'user~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-  // store에서 구매정보 가져오기
-  const itemId = useSelector((state: RootState) => state.order.itemId);
-  const _id = useSelector((state: RootState) => state.order._id);
-  const totalPrice = useSelector((state: RootState) => state.order.totalPrice);
-  // console.log(totalPrice, 'ㅎㅇ');
-
-  // console.log(
-  //   '_id= ',
-  //   _id,
-  //   'itemId= ',
-  //   itemId,
-  //   'totalPrice= ',
-  //   totalPrice,
-  //   '_id_id_id_id_id_id_id_id_id_id_id_id_id_id'
-  // );
-  /// store에서 가져온 정보로 비동기로 구매아이템 정보 가져오기
-  const payItem = paymentApi.useGetOrderQuery({ _id, itemId, totalPrice });
-
-  // console.log(payItem, '111ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ');
-  // console.log(payItem?.data?.title, '2222ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎ');
 
   const requestPay = () => {
     const { IMP } = window;
@@ -59,12 +60,12 @@ const Payment = ({ user }: UserData) => {
         pay_method: 'card', // 결제수단
         merchant_uid:
           new Date().getTime() + Math.floor(Math.random() * 1000000), // 가맹점에서 생성하는 고유 주문번호
-        name: payItem?.data?.title,
-        amount: totalPrice, // 가격
+        name: '장바구니', // FIXME: 상품이름 장바구니이므로 현재는 장바구니로 통일 차후 장바구니에서 한번에 결제하는 상품 이름 배열에 넣어 추가하기
+        amount: ordersCartData?.orderPrice, // 가격
         // buyer_ 어쩌고 구매자 정보
         buyer_name: user?.name,
         buyer_email: user?.email,
-        custom_data: { _id, itemId, orderSubpath },
+        custom_data: { _id, orderSubpath, createAt },
         // FIXME: 추후 추가하기 현재는 정상 동작을 목표로
         // buyer_tel: '010-1234-5678',
         // buyer_addr: '서울특별시',
@@ -86,9 +87,10 @@ const Payment = ({ user }: UserData) => {
           // });
           // verifyPayment(imp_uid)
           if (success) {
-            alert('상세페이지 상품 결제 완료!');
+            alert('장바구니 상품 결제 완료!');
             // router.push('/');
             router.replace('/');
+
           } else if (!success) {
             alert('결제 실패!');
             router.push('/');

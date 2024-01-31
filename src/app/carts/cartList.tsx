@@ -223,13 +223,14 @@ export default function CartList() {
             axios
               .get('/api/order/cartPayment')
               .then((r) => {
-                console.log('결과~~~~~~~~~', r);
+                // console.log('결과~~~~~~~~~', r);
 
                 // TODO:  AES 알고리즘을 사용하여 ObjectId를 암호화하기!!!!!
                 // console.log(r.status);
-                // console.log(r.data);
+                // console.log('r.data= ~~~~~~', r.data);
                 if (r.status === 200) {
                   router.push(`/order/carts?_id=${r.data}`);
+                  // router.replace(`/order/carts?_id=${r.data}`);
                 }
               })
               .catch((error) => {

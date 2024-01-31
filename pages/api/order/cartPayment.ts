@@ -83,21 +83,24 @@ export default async function handler(
           rs.push(mergedItem);
         }
       }
-      // console.log('rs= ~~~~~~~~~~~~', rs);
+      console.log('rs= ~~~~~~~~~~~~', rs);
 
       const orderPrice = rs.reduce((acc, item) => acc + item.totalPrice, 0);
       // console.log('orderPrice= ', orderPrice);
 
       const resultEnd = {
         status,
+        name: session.user.name,
         email,
         orderPrice: orderPrice,
+        title: '장바구니', // FIXME: 추후 변경하기 현재는 장바구니 상품이름이 담긴 배열 데이터를 만들지 못했음
         createAt,
         orders: rs,
       };
 
       console.log('resultEnd= ', resultEnd);
 
+      // ordersCart에 추가된 문서의 _id는 insert.insertedId에 들어있음 이 값을 암호화 해서 클라이언트로 전송 -> 보안상의 이유로
       const insert = await db.collection('ordersCart').insertOne(resultEnd);
       // console.log(insert.insertedId, '인설트 ㅎㅇ~~~~~~~~~~~~~~~~~');
 
@@ -107,7 +110,10 @@ export default async function handler(
       const key = `${process.env.AES_KEY}`;
 
       // AES알고리즘 사용 암호화
-      const encrypted = CryptoJS.AES.encrypt(insert.insertedId.toString(), key).toString();
+      const encrypted = CryptoJS.AES.encrypt(
+        insert.insertedId.toString(),
+        key
+      ).toString();
       // console.log('암호화 된 값=', encrypted);
 
       const encodeEncrypted = encodeURIComponent(encrypted);
