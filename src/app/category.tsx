@@ -14,6 +14,7 @@ export default function Category() {
 
   // TODO: ex) 인기상품 클릭 시 메인 페이지에서 인기상품만 필터링 되서 보여지고 상단에 인기상품 or 할인상품 같은 제목만 추가하기 로직 구현하기
 
+  // FIXME: 서버에서 받아온 데이터로 넣기
   let categoryData = [
     { name: '인기상품' },
     { name: '할인상품' },
@@ -34,7 +35,7 @@ export default function Category() {
     >
       <FontAwesomeIcon
         icon={faBars}
-        className='cursor-pointer text-4xl'
+        className='cursor-pointer text-5xl'
         // size='2x'
       />
 
@@ -51,7 +52,7 @@ export default function Category() {
                 return (
                   <Link
                     key={i}
-                    href={'/categoryPage/'+el.name}
+                    href={'/categoryPage/' + el.name}
                     className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     role='menuitem'
                   >
