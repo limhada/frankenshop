@@ -35,7 +35,7 @@ export default function Category() {
     >
       <FontAwesomeIcon
         icon={faBars}
-        className='cursor-pointer text-4xl'
+        className='cursor-pointer text-5xl'
         // size='2x'
       />
 

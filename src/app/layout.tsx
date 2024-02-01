@@ -48,20 +48,21 @@ export default async function RootLayout({
                 href='/'
                 className='text-4xl mr-5 no-underline flex items-center'
               >
-                {/* frankenshop */}
-                <Category />
                 <Image
-                  src={'/frankenshopLogo1.png'}
+                  src={'/frankenshop_Logo.gif'}
                   alt='frankenshopLogo'
                   width={100}
                   height={100}
-                  className=' rounded-full'
+                  className=' mr-2 rounded-full'
                 ></Image>
+                <Category />
+                <div className='text-6xl font-bold'>frankenshop</div>
               </Link>{' '}
               <div className='flex grow items-center justify-center'>
                 {/* <Link href='/list' className='mr-10 no-underline'>
                   상품 리스트
                 </Link> */}
+                {/* <div>여기는 가운데</div> */}
               </div>
               <Search></Search>
               {/* TODO: 관리자 모드에서만 추가 가능하게 수정하기 */}
