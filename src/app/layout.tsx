@@ -16,6 +16,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { Providers } from './redux/provider';
 import Search from './components/Search';
+import Image from 'next/image';
 
 // autoAddCss 속성을 false로 설정하면 Font Awesome 의 CSS 파일을 자동으로 추가하지 않습니다.
 config.autoAddCss = false;
@@ -39,17 +40,24 @@ export default async function RootLayout({
       <body className={`${inter.className}`}>
         <Providers>
           {/* 상단 네브바 초록색 영역 */}
-          <div className='text-white bg-myColor1 p-5 fixed top-0 left-0 right-0 z-50 h-[5.5rem] shadow-lg'>
+          <div className='text-white bg-myColor1 p-1.5 fixed top-0 left-0 right-0 z-50 h-auto shadow-lg'>
             {/* FIXME: h값 조정하기 */}
             <div className='flex items-center'>
               {/* <div className='flex justify-between'> */}
-              <Category />
               <Link
                 href='/'
                 className='text-4xl mr-5 no-underline flex items-center'
               >
-                frankenshop
-              </Link>
+                {/* frankenshop */}
+                <Category />
+                <Image
+                  src={'/frankenshopLogo1.png'}
+                  alt='frankenshopLogo'
+                  width={100}
+                  height={100}
+                  className=' rounded-full'
+                ></Image>
+              </Link>{' '}
               <div className='flex grow items-center justify-center'>
                 {/* <Link href='/list' className='mr-10 no-underline'>
                   상품 리스트

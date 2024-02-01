@@ -1,14 +1,8 @@
 'use client';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { paymentApi } from '../redux/apis/paymentApi';
-// import { usePathname } from 'next/navigation';
-
 import {
   usePathname,
   useSearchParams,
-  useParams,
   useRouter,
 } from 'next/navigation';
 
@@ -52,9 +46,8 @@ const Payment = ({ user, ordersCartData }: UserData) => {
   const requestPay = () => {
     const { IMP } = window;
     // IMP.init('가맹점식별코드');
-    console.log('init 전~~');
     IMP.init(merchantId);
-    console.log('init 후~~');
+
     IMP.request_pay(
       {
         // pg: '{PG사코드}.{PG상점ID}',
@@ -96,7 +89,8 @@ const Payment = ({ user, ordersCartData }: UserData) => {
 
           } else if (!success) {
             alert('결제 실패!');
-            router.push('/');
+            // router.push('/');
+            router.replace('/');
           }
         } catch (error) {
           console.error('Error while verifying payment:', error);
@@ -109,7 +103,7 @@ const Payment = ({ user, ordersCartData }: UserData) => {
   return (
     <div>
       {/* TODO: 카카오페이 결제, KG이니시스 결제 버튼 2개로 만들고 안내사항 추가하기 (KG이니시스는 실 결제가 이루어지고 밤에 환불됨) */}
-      <button onClick={requestPay} className='bg-myColor1 text-white'>
+      <button onClick={requestPay} className='w-[6rem] text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'>
         결제하기
       </button>
     </div>

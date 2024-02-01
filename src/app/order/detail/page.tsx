@@ -66,20 +66,12 @@ export default async function OderDetail() {
       {/* 주문금액 */}
       <Price></Price>
 
-      <div className='mt-5'>
-
-        {/* TODO: 삭제할 거 */}
-        <button className='w-[6rem] text-white h-[3rem] mr-[1rem] cursor-pointer overflow-visible p-2  border-5 border-gray-300 rounded-md bg-myColor1'>
-          결제하기
-        </button>
-
+      <div className='mt-5 flex'>
         {/* 상세페이지 결제 */}
         <Payment user={session.user}></Payment>
 
-
-
         {/* TODO: 진짜 취소하겠습니까? alert창 띄우기 */}
-        <Link href='/'>
+        <Link href='/' replace>
           <button className='w-[6rem] text-red-400 h-[3rem] cursor-pointer overflow-visible p-2 border-[0.3rem] border-red-400 rounded-md'>
             취소하기
           </button>
