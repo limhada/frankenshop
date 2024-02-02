@@ -72,6 +72,13 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
   const [result, setResult] = useState<React.ReactNode[]>([]); // 검색 결과
   const [searchValue, setSearchValue] = useState(''); //  현재 입력 중인 검색어
 
+  const handleClick = (value: any) => {
+    // console.log('크ㄹ릭~~~~~~~~~~~~~~~~');
+    setSearch(value); // 클릭 한 값을 현재 인풋에 업데이트 하기
+    setResult([]); //추천 검색어 창 닫기
+    setSearchValue(value); // 현재 입력중인 값 업데이트
+  };
+
   const _events = (event: any) => {
     const inputValue = event.target.value; // 여기서 trim()사용 시 공백 입력 못함
 
@@ -110,23 +117,17 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
     const filteredList = nameList.filter((item) => item.match(regex));
     // console.log('filteredList~~~~~~~~~~~`', filteredList);
 
-    const handleClick = (value: any) => {
-      setSearch(value); // 클릭 한 값을 현재 인풋에 업데이트 하기
-      setResult([]);
-      setSearchValue(value); // 현재 입력중인 값 업데이트
-    };
-
     const resultList = filteredList.map((item, index) => {
       const matches = item.match(regex);
       if (matches) {
-        console.log('matches~~~~~~~~~~~~~', matches);
+        // console.log('matches~~~~~~~~~~~~~', matches);
         // console.log('~~~~~~~~~~result', result);
 
         // 검색어가 존재하고, 현재 인덱스가 0일 때만 setSearchValue 실행
         // ex) 초성만 입력 후 검색 시 예를들어 ㅎㅇ입력 시 첫 번째로 일치하는 활용을 검색하기 위함
         if (index === 0) {
           setSearchValue(matches[0]);
-          console.log(matches[0], 'matches[0]');
+          // console.log(matches[0], 'matches[0]');
         }
 
         const parts = item.split(regex);
@@ -161,9 +162,13 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
 
   const handleBlur = () => {
     // 포커스가 사라질 때 검색 결과를 초기화하고 숨김
-    // console.log('전~~~', result);
-    setResult([]);
-    // console.log('후~~~~~~~',result);
+    // setResult([]);
+
+    // FIXME: setTimeout 추가한 이유: 포커스가 사라질때 result를 []로 초기화 하니까 추천검색어를 선택해도 인풋창에 선택한 추천검색어가 들어가지 않는 이슈 발생
+    // 포커스가 해제될때 선택한 값이 input에 들어가기 전에 result가 []로 먼저 초기화 되는 문제가 발생한것 같음
+    setTimeout(() => {
+      setResult([]);
+    }, 100);
   };
 
   // console.log(result, 'result ㅎㅇ~~~~~~~~~~~~~~~~~~~~');
@@ -252,7 +257,7 @@ const SearchInput = ({ nameList }: SearchInputProps) => {
             // 입력 중 일때
             // console.log('입력 중 =', searchValue);
             // console.log('입력 중 =', search);
-            console.log(searchValue, '~~~~~~searchValue');
+            // console.log(searchValue, '~~~~~~searchValue');
             router.push('/search/' + searchValue);
           } else if (search && searchValue === '') {
             alert('일치하는 상품이 없습니다.');

@@ -94,7 +94,7 @@ export default async function RootLayout({
             </div>
           </div>
           {/* TODO: 상단바 위치 고정으로 인한 mt값 조정하기 */}
-          <div className='mt-[7rem] pl-[2.75rem] pr-[2.75rem] mx-auto w-[80%]'>
+          <div className='mt-[8rem] pl-[2.75rem] pr-[2.75rem] mx-auto w-[90%]'>
             {children}
           </div>
           <ScrollToTop />
