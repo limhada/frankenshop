@@ -50,7 +50,7 @@ export default async function Detail(props: DetailProps) {
   return (
     <div>
       {/* TODO: 상세페이지 디자인 추가하기 */}
-      <h2>제목: {result?.title}</h2>
+      <h2>{result?.title}</h2>
       <Image
         src={result?.img_src}
         alt={result?.title}
@@ -60,7 +60,7 @@ export default async function Detail(props: DetailProps) {
         height={200}
         // style={{ height: 100 }} // 이미지 세로 크기 조절
       />
-      <div>내용: {result?.description}</div>
+      <div>{result?.description}</div>
       <div>가격: {result?.price.toLocaleString()}</div>
       {/* 좋아요 버튼 */}
       <div className='flex items-center'>

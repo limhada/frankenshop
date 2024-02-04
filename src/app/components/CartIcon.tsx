@@ -51,6 +51,7 @@ const CartIcon = ({_id, type}: any) => {
           } else {
             addToCart({_id})
           }
+          alert('장바구니에 추가되었습니다.')
         }}
       />
     </div>
