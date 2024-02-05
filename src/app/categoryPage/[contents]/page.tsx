@@ -86,6 +86,8 @@ export default async function CategoryPage(props: CategoryPageProps) {
 
   return (
     <div>
+      {/* contentsName = 현재 카테고리 이름 */}
+      <div className='mb-5 text-md'>홈 {'>'} {contentsName}</div>
       {/* <CategoryContents result={result}></CategoryContents> */}
       <CategoryContents result={updateResult}></CategoryContents>
     </div>
