@@ -10,17 +10,6 @@ import { cartsApi } from '../redux/apis/cartsApi';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-// TODO: 할인쿠폰
-// TODO: 결제정보
-// TODO: 포인트
-
-// TODO: 장바구니에서 상품 삭제
-// TODO: 수량 증감
-// TODO: 총 결제 금액 // 할인금액 // 배송비 등
-// TODO: 결제하기 버튼
-// TODO: 전체 선택 및 부분 선택을 위한 체크박스
-// TODO: 전체선택( 3 / 3 ) 전체삭제 선택된 상품 삭제 버튼
-
 // TODO: 각 제품에 배송비 여부 추가하기
 
 // TODO: 중요 - 선택삭제 및 전체 삭제 추가하기
