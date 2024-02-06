@@ -1,5 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
+import OrderConfirmation from '../components/OrderConfirmation';
 
 export default async function Mypage() {
   let session = await getServerSession(authOptions);
@@ -17,6 +18,8 @@ export default async function Mypage() {
         </li>
         {/* TODO: 비밀번호 수정 기능 추가하기 */}
       </ul>
+
+      <OrderConfirmation></OrderConfirmation>
 
       {/* TODO: 아래 항목 기능 구현하기 */}
       {/* <div className='w-full overflow-visible p-4 border mt-[0.4rem] border-gray-200 rounded-md bg-white text-base font-normal text-gray-900'>
